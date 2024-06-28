@@ -1,13 +1,18 @@
-import { AppShell, Burger, Flex, Group, Loader, ScrollArea, Skeleton, Text } from "@mantine/core";
+import { AppShell, Burger, Group, Loader, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Firebase/Firebase.config";
+import { auth } from "../../Firebase/Firebase.config";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserAvatar } from "../Components/UserAvatar/UserAvatar.component";
-import { User } from "../Shared/User/User.type";
-import { UserContext } from "../Shared/User/User.context";
-import { fetchUser } from "../Shared/User/User.service";
+import { UserAvatar } from "../../Components/UserAvatar/UserAvatar.component";
+import { User } from "../../Shared/User/User.type";
+import { UserContext } from "../../Shared/User/User.context";
+import { fetchUser } from "../../Shared/User/User.service";
+import { Game } from "../../Components/Game/Game.component";
+import { MyQuests } from "../../Components/Quests/MyQuests/MyQuests.component";
+
+import "./Home.page.css";
+import { AllQuests } from "../../Components/Quests/AllQuests/AllQuests.component";
 
 export function HomePage() {
     const [opened, { toggle }] = useDisclosure();
@@ -64,18 +69,12 @@ export function HomePage() {
                                         <Text>BloomingQuest</Text>
                                     </Group>
                                     <AppShell.Section h="100%" grow>
-                                        <ScrollArea h="100%" type="never">
-                                            <Flex direction="column" px="lg">
-                                                {Array(8)
-                                                    .fill(0)
-                                                    .map((_, index) => (
-                                                        <Skeleton key={index} h={28} mb="sm" animate={true} />
-                                                    ))}
-                                            </Flex>
-                                        </ScrollArea>
+                                        <AllQuests />
                                     </AppShell.Section>
                                 </AppShell.Navbar>
-                                <AppShell.Main>Game</AppShell.Main>
+                                <AppShell.Main>
+                                    <GameLayout />
+                                </AppShell.Main>
                                 <AppShell.Footer p="md">Footer</AppShell.Footer>
                             </AppShell>
                         </UserContext.Provider>
@@ -83,5 +82,18 @@ export function HomePage() {
                 </>
             )}
         </>
+    );
+}
+
+function GameLayout() {
+    return (
+        <div className="game-layout">
+            <div className="game-container">
+                <Game />
+            </div>
+            <div className="my-quests-container">
+                <MyQuests />
+            </div>
+        </div>
     );
 }

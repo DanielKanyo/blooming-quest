@@ -4,9 +4,9 @@ import { auth } from "../../Firebase/Firebase.config";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../Shared/User/User.context";
-
-import "./UserAvatar.css";
 import { User } from "../../Shared/User/User.type";
+
+import "./UserAvatar.component.css";
 
 export function UserAvatar() {
     const user = useContext(UserContext);

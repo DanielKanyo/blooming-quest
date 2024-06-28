@@ -1,0 +1,21 @@
+.game-layout {
+    width: 100%;
+    display: flex;
+    height: calc(100vh - 80px - 60px - 35px);
+}
+
+.game-container {
+    width: 100%;
+    height: 100%;
+}
+
+.my-quests-container {
+    min-width: 500px;
+    margin-left: 15px;
+}
+
+@media (max-width: 1500px) {
+    .my-quests-container {
+        display: none;
+    }
+}
