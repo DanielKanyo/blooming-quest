@@ -1,4 +1,4 @@
-import { AppShell, Burger, Flex, Group, Loader, Skeleton, Text } from "@mantine/core";
+import { AppShell, Burger, Flex, Group, Loader, ScrollArea, Skeleton, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, store } from "../firebase/firebase.config";
@@ -60,19 +60,23 @@ export function HomePage() {
                                 </Group>
                             </AppShell.Header>
                             <AppShell.Navbar>
-                                <Group px="xl" style={{ height: 80 }}>
+                                <Group px="lg" style={{ minHeight: 80 }}>
                                     <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
                                     <Text>BloomingQuest</Text>
                                 </Group>
-                                <Flex direction="column" px="xl">
-                                    {Array(8)
-                                        .fill(0)
-                                        .map((_, index) => (
-                                            <Skeleton key={index} h={28} mb="sm" animate={true} />
-                                        ))}
-                                </Flex>
+                                <AppShell.Section h="100%" grow>
+                                    <ScrollArea h="100%" type="never">
+                                        <Flex direction="column" px="lg">
+                                            {Array(8)
+                                                .fill(0)
+                                                .map((_, index) => (
+                                                    <Skeleton key={index} h={28} mb="sm" animate={true} />
+                                                ))}
+                                        </Flex>
+                                    </ScrollArea>
+                                </AppShell.Section>
                             </AppShell.Navbar>
-                            <AppShell.Main>Alt layout – Navbar and Aside are rendered on top on Header and Footer</AppShell.Main>
+                            <AppShell.Main>Game</AppShell.Main>
                             <AppShell.Footer p="md">Footer</AppShell.Footer>
                         </AppShell>
                     )}
