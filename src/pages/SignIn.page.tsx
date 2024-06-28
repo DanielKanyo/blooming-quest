@@ -1,16 +1,4 @@
-import {
-    Center,
-    Card,
-    Button,
-    TextInput,
-    Text,
-    Divider,
-    rem,
-    Loader,
-    PasswordInput,
-    Group,
-    Alert,
-} from "@mantine/core";
+import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -29,12 +17,8 @@ export function SignInPage() {
         },
 
         validate: {
-            email: (value) =>
-                /^\S+@\S+$/.test(value) ? null : "Invalid email...",
-            password: (value) =>
-                /^.{6,}$/.test(value)
-                    ? null
-                    : "Invalid password... A minimum of 6 characters is required",
+            email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email..."),
+            password: (value) => (/^.{6,}$/.test(value) ? null : "Invalid password... A minimum of 6 characters is required"),
         },
     });
 
@@ -54,18 +38,8 @@ export function SignInPage() {
 
     return (
         <Center style={{ height: "100vh" }}>
-            <Card
-                shadow="xl"
-                padding="xl"
-                radius="md"
-                withBorder
-                style={{ width: rem(500) }}
-            >
-                <form
-                    onSubmit={form.onSubmit(({ email, password }) =>
-                        handleSubmit(email, password)
-                    )}
-                >
+            <Card shadow="xl" padding="xl" radius="md" withBorder style={{ width: rem(500) }}>
+                <form onSubmit={form.onSubmit(({ email, password }) => handleSubmit(email, password))}>
                     <Text size="xl">Login</Text>
                     <Text size="sm" style={{ opacity: "0.4" }}>
                         Please fill the input below
@@ -91,42 +65,21 @@ export function SignInPage() {
                     />
 
                     {signInError && (
-                        <Alert
-                            variant="light"
-                            color="red"
-                            title="Something went wrong!"
-                        >
+                        <Alert variant="light" color="red" title="Something went wrong!">
                             {signInError}
                         </Alert>
                     )}
 
-                    <Button
-                        fullWidth
-                        type="submit"
-                        style={{ marginTop: rem(20) }}
-                        color="teal"
-                    >
-                        {signInLoading ? (
-                            <Loader size={16} color="white" />
-                        ) : (
-                            "Login"
-                        )}
+                    <Button fullWidth type="submit" style={{ marginTop: rem(20) }} color="teal">
+                        {signInLoading ? <Loader size={16} color="white" /> : "Login"}
                     </Button>
 
-                    <Group
-                        justify="flex-end"
-                        gap="xs"
-                        style={{ marginTop: rem(40) }}
-                    >
+                    <Group justify="flex-end" gap="xs" style={{ marginTop: rem(40) }}>
                         <Text size="sm" style={{ opacity: "0.4" }}>
                             Don't hava an account?
                         </Text>
                         <Link to="/sign-up">
-                            <Text
-                                size="sm"
-                                c="teal"
-                                style={{ textDecoration: "underline" }}
-                            >
+                            <Text size="sm" c="teal" style={{ textDecoration: "underline" }}>
                                 Sign up
                             </Text>
                         </Link>

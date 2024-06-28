@@ -18,9 +18,5 @@ export function LandingPage() {
         });
     }, [user, navigate]);
 
-    return (
-        <Center style={{ height: "100vh" }}>
-            {loading ? <Loader size={40} color="white" /> : <SignInPage />}
-        </Center>
-    );
+    return <Center style={{ height: "100vh" }}>{loading ? <Loader size={40} color="white" /> : <SignInPage />}</Center>;
 }
