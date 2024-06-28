@@ -1,16 +1,15 @@
 import { Avatar, Menu, rem } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
-import { auth } from "../../firebase/firebase.config";
+import { auth } from "../../Firebase/Firebase.config";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../shared/user/user";
+import { useContext } from "react";
+import { UserContext } from "../../Shared/User/User.context";
 
 import "./UserAvatar.css";
+import { User } from "../../Shared/User/User.type";
 
-interface Props {
-    user: User;
-}
-
-export function UserAvatar({ user }: Props) {
+export function UserAvatar() {
+    const user = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSignOut = () => {
@@ -19,10 +18,16 @@ export function UserAvatar({ user }: Props) {
         });
     };
 
+    const getInitials = (user: User): string => {
+        const initials = `${user.firstName[0]}${user.lastName[0]}`;
+
+        return initials.toUpperCase();
+    };
+
     return (
         <Menu position="bottom-end" shadow="md" width={200}>
             <Menu.Target>
-                <Avatar className="user-avatar" radius="xl" name={user.firstName + user.lastName} />
+                <Avatar className="user-avatar" radius="xl" name={getInitials(user)} />
             </Menu.Target>
             <Menu.Dropdown>
                 <Menu.Label>{user.email}</Menu.Label>

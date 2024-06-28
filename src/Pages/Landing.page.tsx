@@ -1,5 +1,5 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/firebase.config";
+import { auth } from "../Firebase/Firebase.config";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignInPage } from "./SignIn.page";

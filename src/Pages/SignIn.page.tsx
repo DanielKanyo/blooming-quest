@@ -2,7 +2,7 @@ import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordIn
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase/firebase.config";
+import { auth } from "../Firebase/Firebase.config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export function SignInPage() {

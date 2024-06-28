@@ -1,7 +1,7 @@
-import { HomePage } from "./pages/Home.page";
+import { HomePage } from "./Pages/Home.page";
 import { Routes, Route, Outlet } from "react-router-dom";
-import { LandingPage } from "./pages/Landing.page";
-import { SignUpPage } from "./pages/SignUp.page";
+import { LandingPage } from "./Pages/Landing.page";
+import { SignUpPage } from "./Pages/SignUp.page";
 
 import "@mantine/core/styles.css";
 
