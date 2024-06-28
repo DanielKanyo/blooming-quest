@@ -1,8 +1,8 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/firebase.config";
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { SignInPage } from './SignIn.page';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { SignInPage } from "./SignIn.page";
 import { onAuthStateChanged } from "firebase/auth";
 import { Center, Loader } from "@mantine/core";
 
@@ -13,16 +13,14 @@ export function LandingPage() {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                navigate('/home');
+                navigate("/home");
             }
         });
     }, [user, navigate]);
 
     return (
-        <Center style={{ height: '100vh' }}>
-            {
-                loading ? (<Loader size={40} color="white" />) : (<SignInPage />)
-            }
+        <Center style={{ height: "100vh" }}>
+            {loading ? <Loader size={40} color="white" /> : <SignInPage />}
         </Center>
-    )
+    );
 }
