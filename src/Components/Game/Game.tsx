@@ -2,7 +2,7 @@ import { Card } from "@mantine/core";
 
 export function Game() {
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+        <Card h="100%" shadow="sm" padding="lg" radius="md" withBorder>
             Game
         </Card>
     );

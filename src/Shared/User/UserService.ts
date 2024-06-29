@@ -1,6 +1,6 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { store } from "../../Firebase/Firebase.config";
-import { User } from "./User.type";
+import { store } from "../../Firebase/FirebaseConfig";
+import { User } from "./UserType";
 
 export const createUser = async (userId: string, userDetails: User) => {
     await setDoc(doc(store, "users", userId), userDetails);

@@ -3,8 +3,8 @@ import { useForm } from "@mantine/form";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../Firebase/Firebase.config";
-import { createUser } from "../Shared/User/User.service";
+import { auth } from "../Firebase/FirebaseConfig";
+import { createUser } from "../Shared/User/UserService";
 
 export function SignUpPage() {
     const [signUpLoading, seSignUpLoading] = useState(false);
@@ -40,6 +40,7 @@ export function SignUpPage() {
                         firstName,
                         lastName,
                         email: userCredential.user.email!,
+                        id: userCredential.user.uid,
                     });
 
                     seSignUpLoading(false);

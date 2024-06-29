@@ -1,18 +1,14 @@
 import { AppShell, Burger, Group, Loader, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../Firebase/Firebase.config";
+import { auth } from "../Firebase/FirebaseConfig";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserAvatar } from "../../Components/UserAvatar/UserAvatar.component";
-import { User } from "../../Shared/User/User.type";
-import { UserContext } from "../../Shared/User/User.context";
-import { fetchUser } from "../../Shared/User/User.service";
-import { Game } from "../../Components/Game/Game.component";
-import { MyQuests } from "../../Components/Quests/MyQuests/MyQuests.component";
-
-import "./Home.page.css";
-import { AllQuests } from "../../Components/Quests/AllQuests/AllQuests.component";
+import { Outlet, useNavigate } from "react-router-dom";
+import { UserAvatar } from "../Components/UserAvatar/UserAvatar";
+import { User } from "../Shared/User/UserType";
+import { UserContext } from "../Shared/User/UserContext";
+import { fetchUser } from "../Shared/User/UserService";
+import { AllQuests } from "../Components/Quests/AllQuests/AllQuests";
 
 export function HomePage() {
     const [opened, { toggle }] = useDisclosure();
@@ -73,7 +69,7 @@ export function HomePage() {
                                     </AppShell.Section>
                                 </AppShell.Navbar>
                                 <AppShell.Main>
-                                    <GameLayout />
+                                    <Outlet />
                                 </AppShell.Main>
                                 <AppShell.Footer p="md">Footer</AppShell.Footer>
                             </AppShell>
@@ -82,18 +78,5 @@ export function HomePage() {
                 </>
             )}
         </>
-    );
-}
-
-function GameLayout() {
-    return (
-        <div className="game-layout">
-            <div className="game-container">
-                <Game />
-            </div>
-            <div className="my-quests-container">
-                <MyQuests />
-            </div>
-        </div>
     );
 }

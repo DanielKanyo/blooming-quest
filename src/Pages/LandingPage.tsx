@@ -1,8 +1,8 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Firebase/Firebase.config";
+import { auth } from "../Firebase/FirebaseConfig";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SignInPage } from "./SignIn.page";
+import { SignInPage } from "./SignInPage";
 import { onAuthStateChanged } from "firebase/auth";
 import { Center, Loader } from "@mantine/core";
 

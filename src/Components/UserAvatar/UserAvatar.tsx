@@ -1,12 +1,12 @@
 import { Avatar, Menu, rem } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
-import { auth } from "../../Firebase/Firebase.config";
-import { useNavigate } from "react-router-dom";
+import { auth } from "../../Firebase/FirebaseConfig";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../../Shared/User/User.context";
-import { User } from "../../Shared/User/User.type";
+import { UserContext } from "../../Shared/User/UserContext";
+import { User } from "../../Shared/User/UserType";
 
-import "./UserAvatar.component.css";
+import "./UserAvatar.css";
 
 export function UserAvatar() {
     const user = useContext(UserContext);
@@ -25,7 +25,7 @@ export function UserAvatar() {
     };
 
     return (
-        <Menu position="bottom-end" shadow="md" width={200}>
+        <Menu position="bottom-end" shadow="md" width={200} transitionProps={{ transition: "fade-up", duration: 150 }}>
             <Menu.Target>
                 <Avatar className="user-avatar" radius="xl" name={getInitials(user)} />
             </Menu.Target>
@@ -33,6 +33,8 @@ export function UserAvatar() {
                 <Menu.Label>{user.email}</Menu.Label>
                 <Menu.Divider />
                 <Menu.Item
+                    component={Link}
+                    to="/home/user"
                     leftSection={
                         <IconSettings
                             style={{
