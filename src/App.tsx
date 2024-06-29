@@ -3,7 +3,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import { LandingPage } from "./Pages/LandingPage";
 import { SignUpPage } from "./Pages/SignUpPage";
 import { UserPage } from "./Pages/UserPage";
-import { GameLayout } from "./Pages/GameLayout/GameLayout";
+import { Game } from "./Components/Game/Game";
 
 import "@mantine/core/styles.css";
 
@@ -14,7 +14,7 @@ export default function App() {
                 <Route index element={<LandingPage />} />
                 <Route path="sign-up" element={<SignUpPage />} />
                 <Route path="home" element={<HomePage />}>
-                    <Route index element={<GameLayout />} />
+                    <Route index element={<Game />} />
                     <Route path="user" element={<UserPage />} />
                 </Route>
             </Route>
