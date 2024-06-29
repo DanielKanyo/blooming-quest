@@ -1,4 +1,5 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
+
 import { store } from "../../Firebase/FirebaseConfig";
 import { User } from "./UserType";
 

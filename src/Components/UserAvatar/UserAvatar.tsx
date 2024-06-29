@@ -1,11 +1,12 @@
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import { Avatar, Menu, rem } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
+
 import { auth } from "../../Firebase/FirebaseConfig";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { UserContext } from "../../Shared/User/UserContext";
 import { User } from "../../Shared/User/UserType";
-
 import "./UserAvatar.css";
 
 export function UserAvatar() {

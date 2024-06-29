@@ -1,4 +1,5 @@
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+
 import { store } from "../../Firebase/FirebaseConfig";
 import { Challenge } from "../../Shared/Challenge/ChallengeType";
 
@@ -14,7 +15,7 @@ export enum Months {
     September,
     October,
     November,
-    December
+    December,
 }
 
 export const fetchCurrentChallenge = async (userId: string, year: number, month: Months): Promise<Challenge | null> => {
@@ -29,10 +30,12 @@ export const fetchCurrentChallenge = async (userId: string, year: number, month:
     });
 
     return challenge;
-}
+};
 
 export const joinChallenge = async (userId: string, year: number, month: Months) => {
     await addDoc(collection(store, "challenges"), {
-        userId, year, month,
+        userId,
+        year,
+        month,
     });
-}
+};

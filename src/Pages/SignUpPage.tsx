@@ -1,8 +1,11 @@
-import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
+import { useForm } from "@mantine/form";
+
 import { auth } from "../Firebase/FirebaseConfig";
 import { createUser } from "../Shared/User/UserService";
 

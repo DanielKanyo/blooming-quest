@@ -1,9 +1,12 @@
-import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../Firebase/FirebaseConfig";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
+
+import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
+import { useForm } from "@mantine/form";
+
+import { auth } from "../Firebase/FirebaseConfig";
 
 export function SignInPage() {
     const [signInLoading, setSignInLoading] = useState(false);

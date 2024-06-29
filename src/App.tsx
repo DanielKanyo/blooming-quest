@@ -1,11 +1,12 @@
-import { HomePage } from "./Pages/HomePage";
 import { Routes, Route, Outlet } from "react-router-dom";
+
+import "@mantine/core/styles.css";
+
+import { Game } from "./Components/Game/Game";
+import { HomePage } from "./Pages/HomePage";
 import { LandingPage } from "./Pages/LandingPage";
 import { SignUpPage } from "./Pages/SignUpPage";
 import { UserPage } from "./Pages/UserPage";
-import { Game } from "./Components/Game/Game";
-
-import "@mantine/core/styles.css";
 
 export default function App() {
     return (

@@ -1,10 +1,13 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Firebase/FirebaseConfig";
 import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { SignInPage } from "./SignInPage";
+
 import { onAuthStateChanged } from "firebase/auth";
+
 import { Center, Loader } from "@mantine/core";
+
+import { auth } from "../Firebase/FirebaseConfig";
+import { SignInPage } from "./SignInPage";
 
 export function LandingPage() {
     const [user, loading] = useAuthState(auth);

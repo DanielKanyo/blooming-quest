@@ -1,14 +1,16 @@
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Outlet, useNavigate } from "react-router-dom";
+
 import { AppShell, Burger, Group, Loader, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Firebase/FirebaseConfig";
-import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+
+import { AllQuests } from "../Components/Quests/AllQuests/AllQuests";
 import { UserAvatar } from "../Components/UserAvatar/UserAvatar";
-import { User } from "../Shared/User/UserType";
+import { auth } from "../Firebase/FirebaseConfig";
 import { UserContext } from "../Shared/User/UserContext";
 import { fetchUser } from "../Shared/User/UserService";
-import { AllQuests } from "../Components/Quests/AllQuests/AllQuests";
+import { User } from "../Shared/User/UserType";
 
 export function HomePage() {
     const [opened, { toggle }] = useDisclosure();
