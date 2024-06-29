@@ -37,5 +37,6 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
         userId,
         year,
         month,
+        quests: [],
     });
 };

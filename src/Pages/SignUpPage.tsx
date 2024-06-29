@@ -130,7 +130,13 @@ export function SignUpPage() {
                         </Alert>
                     )}
 
-                    <Button fullWidth type="submit" style={{ marginTop: rem(20) }} color="teal">
+                    <Button
+                        fullWidth
+                        type="submit"
+                        style={{ marginTop: rem(20) }}
+                        variant="gradient"
+                        gradient={{ from: "cyan", to: "teal", deg: 60 }}
+                    >
                         {signUpLoading ? <Loader size={16} color="white" /> : "Sign Up"}
                     </Button>
 

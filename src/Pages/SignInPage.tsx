@@ -73,7 +73,13 @@ export function SignInPage() {
                         </Alert>
                     )}
 
-                    <Button fullWidth type="submit" style={{ marginTop: rem(20) }} color="teal">
+                    <Button
+                        fullWidth
+                        type="submit"
+                        style={{ marginTop: rem(20) }}
+                        variant="gradient"
+                        gradient={{ from: "cyan", to: "teal", deg: 60 }}
+                    >
                         {signInLoading ? <Loader size={16} color="white" /> : "Login"}
                     </Button>
 
