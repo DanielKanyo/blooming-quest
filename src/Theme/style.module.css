@@ -1,0 +1,9 @@
+.input {
+    &:focus {
+        --input-bd: teal;
+    }
+
+    &:focus-within {
+        --input-bd: teal;
+    }
+}
