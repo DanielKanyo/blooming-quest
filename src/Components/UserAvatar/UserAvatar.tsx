@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Menu, rem } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
 
-import { auth } from "../../Firebase/FirebaseConfig";
 import { UserContext } from "../../Shared/User/UserContext";
+import { signOut } from "../../Shared/User/UserService";
 import { User } from "../../Shared/User/UserType";
 import "./UserAvatar.css";
 
@@ -14,7 +14,7 @@ export function UserAvatar() {
     const navigate = useNavigate();
 
     const handleSignOut = () => {
-        auth.signOut().then(() => {
+        signOut().then(() => {
             navigate("/");
         });
     };

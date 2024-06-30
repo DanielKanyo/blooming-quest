@@ -125,7 +125,7 @@ export function SignUpPage() {
                     )}
 
                     {signUpSuccess && (
-                        <Alert variant="light" color="teal" title="Sign up was successfull!">
+                        <Alert variant="light" color="teal" title="Sign up was successful!">
                             Please sign in...
                         </Alert>
                     )}

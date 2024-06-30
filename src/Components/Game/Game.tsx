@@ -28,33 +28,27 @@ export function Game() {
     }, [user, setChallenge, setChallengeLoading]);
 
     return (
-        <div className="game-layout">
-            <div className="challenges-container">
-                <Card h="100%" shadow="sm" padding="lg" radius="md" withBorder>
-                    {challengeLoading ? (
-                        <Center h="100%">
-                            <Loader size={40} color="white" />
-                        </Center>
-                    ) : (
-                        <ChallengeContext.Provider value={challenge}>
+        <ChallengeContext.Provider value={challenge}>
+            <div className="main">
+                <div className="challenges-container">
+                    <Card h="100%" shadow="sm" padding="lg" radius="md" withBorder>
+                        {challengeLoading ? (
+                            <Center h="100%">
+                                <Loader size={40} color="white" />
+                            </Center>
+                        ) : (
                             <Challenges setChallenge={setChallenge} />
-                        </ChallengeContext.Provider>
-                    )}
-                </Card>
+                        )}
+                    </Card>
+                </div>
+                <div className="my-quests-container">
+                    <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+                        MyQuests
+                        <Divider my="md" />
+                        {challengeLoading ? <Skeleton h={50} mb="sm" animate={true} /> : <MyQuests />}
+                    </Card>
+                </div>
             </div>
-            <div className="my-quests-container">
-                <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-                    MyQuests
-                    <Divider my="md" />
-                    {challengeLoading ? (
-                        <Skeleton h={50} mb="sm" animate={true} />
-                    ) : (
-                        <ChallengeContext.Provider value={challenge}>
-                            <MyQuests />
-                        </ChallengeContext.Provider>
-                    )}
-                </Card>
-            </div>
-        </div>
+        </ChallengeContext.Provider>
     );
 }

@@ -7,6 +7,7 @@ import { HomePage } from "./Pages/HomePage";
 import { LandingPage } from "./Pages/LandingPage";
 import { SignUpPage } from "./Pages/SignUpPage";
 import { UserPage } from "./Pages/UserPage";
+import "./global.css";
 
 export default function App() {
     return (
