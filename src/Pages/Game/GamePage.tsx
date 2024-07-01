@@ -4,13 +4,13 @@ import { Card, Center, Divider, Loader, Skeleton } from "@mantine/core";
 
 import { ChallengeContext } from "../../Contexts/ChallengeContext";
 import { UserContext } from "../../Contexts/UserContext";
+import { Challenges } from "../../Layouts/Challenges";
+import { MyQuests } from "../../Layouts/Quests/MyQuests/MyQuests";
 import { fetchCurrentChallenge } from "../../Services/GameService";
 import { Challenge } from "../../Shared/Types/ChallengeType";
-import { MyQuests } from "../Quests/MyQuests/MyQuests";
-import { Challenges } from "./Challenges";
 import "./Game.css";
 
-export function Game() {
+export function GamePage() {
     const user = useContext(UserContext);
     const [challengeLoading, setChallengeLoading] = useState(true);
     const [challenge, setChallenge] = useState<Challenge | null>(null);

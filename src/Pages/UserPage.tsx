@@ -22,6 +22,7 @@ import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { IconAlertTriangle, IconArrowLeft, IconAt, IconInfoCircle, IconKey, IconLetterCase, IconUser } from "@tabler/icons-react";
 
 import { auth } from "../Configs/Firebase/FirebaseConfig";
+import classes from "../Configs/Theme/style.module.css";
 import { UserContext } from "../Contexts/UserContext";
 import { deleteAccount, deleteAccountData, setNewPassword } from "../Services/UserService";
 
@@ -167,9 +168,10 @@ export function UserPage() {
                             fullWidth
                             type="submit"
                             style={{ marginTop: rem(20) }}
+                            className={classes.button}
                             variant="gradient"
                             gradient={{ from: "cyan", to: "teal", deg: 60 }}
-                            disabled={passwordResetLoading ? true : false}
+                            disabled={passwordResetLoading}
                         >
                             {passwordResetLoading ? <Loader size={16} color="white" /> : "Reset Password"}
                         </Button>
@@ -205,12 +207,11 @@ export function UserPage() {
                             )}
                         </Container>
                         <Flex mt={20} gap="xs" justify="flex-end">
-                            <Button color="gray" onClick={close}>
-                                Cancel
-                            </Button>
                             <Button
                                 miw={90}
                                 variant="gradient"
+                                className={classes.button}
+                                disabled={accountRemovalLoading}
                                 gradient={{ from: "red", to: "pink", deg: 60 }}
                                 onClick={() => handleDeleteAccount()}
                             >

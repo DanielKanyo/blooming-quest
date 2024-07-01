@@ -5,10 +5,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { AppShell, Burger, Group, Loader, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
-import { AllQuests } from "../Components/Quests/AllQuests/AllQuests";
 import { UserAvatar } from "../Components/UserAvatar/UserAvatar";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { UserContext } from "../Contexts/UserContext";
+import { AllQuests } from "../Layouts/Quests/AllQuests/AllQuests";
 import { fetchUser } from "../Services/UserService";
 import { User } from "../Shared/Types/UserType";
 
