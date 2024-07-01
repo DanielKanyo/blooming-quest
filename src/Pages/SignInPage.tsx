@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { IconAt, IconKey } from "@tabler/icons-react";
 
 import { auth } from "../Firebase/FirebaseConfig";
 
@@ -53,10 +54,11 @@ export function SignInPage() {
                     <TextInput
                         size="md"
                         radius="md"
-                        style={{ marginBottom: rem(20) }}
+                        style={{ marginBottom: rem(10) }}
                         placeholder="Enter your email address..."
                         key={form.key("email")}
                         {...form.getInputProps("email")}
+                        leftSection={<IconAt size={16} />}
                     />
                     <PasswordInput
                         size="md"
@@ -65,6 +67,7 @@ export function SignInPage() {
                         placeholder="Enter your password..."
                         key={form.key("password")}
                         {...form.getInputProps("password")}
+                        leftSection={<IconKey size={16} />}
                     />
 
                     {signInError && (

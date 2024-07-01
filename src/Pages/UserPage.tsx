@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { Alert, Box, Button, Divider, Loader, PasswordInput, rem } from "@mantine/core";
+import { Alert, Blockquote, Box, Button, Container, Divider, Flex, Loader, Modal, PasswordInput, rem, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { IconAlertTriangle, IconKey } from "@tabler/icons-react";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { IconAlertTriangle, IconAt, IconInfoCircle, IconKey, IconLetterCase, IconUser } from "@tabler/icons-react";
 
 import { auth } from "../Firebase/FirebaseConfig";
 import { UserContext } from "../Shared/User/UserContext";
-import { setNewPassword } from "../Shared/User/UserService";
+import { deleteAccount, deleteAccountData, setNewPassword } from "../Shared/User/UserService";
 
 export function UserPage() {
     const user = useContext(UserContext);
@@ -15,6 +16,10 @@ export function UserPage() {
     const [passwordResetLoading, setPasswordResetLoading] = useState(false);
     const [passwordResetError, setPasswordResetError] = useState("");
     const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
+    const [deleteAccountModalOpened, { open, close }] = useDisclosure(false);
+    const isMobile = useMediaQuery("(max-width: 50em)");
+    const [accountRemovalLoading, setAccountRemovalLoading] = useState(false);
+    const [accountRemovalError, setAccountRemovalError] = useState("");
 
     const form = useForm({
         mode: "uncontrolled",
@@ -35,7 +40,7 @@ export function UserPage() {
         setPasswordResetSuccess(false);
 
         if (authUser) {
-            setNewPassword(authUser, newPassword)
+            setNewPassword(newPassword)
                 .then(() => {
                     setPasswordResetLoading(false);
                     setPasswordResetError("");
@@ -49,22 +54,73 @@ export function UserPage() {
         }
     };
 
+    const handleDeleteAccount = () => {
+        setAccountRemovalLoading(true);
+        setAccountRemovalError("");
+
+        deleteAccountData()
+            .then(() => {
+                deleteAccount()
+                    .then(() => {
+                        setAccountRemovalLoading(false);
+                        setAccountRemovalError("");
+                    })
+                    .catch((err) => {
+                        setAccountRemovalLoading(false);
+                        setAccountRemovalError(err.message);
+                    });
+            })
+            .catch((err) => {
+                setAccountRemovalLoading(false);
+                setAccountRemovalError(err.message);
+            });
+    };
+
     return (
         <div className="main">
-            <div style={{ width: "100%" }}>
-                <form onSubmit={form.onSubmit(({ newPassword }) => handleSubmit(newPassword))}>
-                    Account: {user.email}
-                    <Divider
-                        my="md"
-                        label={
-                            <>
-                                <IconKey size={14} />
-                                <Box ml={10}>Password Reset</Box>
-                            </>
-                        }
-                        labelPosition="left"
+            <div>
+                <Divider
+                    mb="xl"
+                    label={
+                        <>
+                            <IconUser size={14} />
+                            <Box ml={10}>Account</Box>
+                        </>
+                    }
+                    labelPosition="left"
+                />
+                <div style={{ width: 600 }}>
+                    <TextInput
+                        size="md"
+                        label="Email"
+                        radius="md"
+                        value={user.email}
+                        disabled
+                        style={{ marginBottom: rem(10) }}
+                        leftSection={<IconAt size={16} />}
                     />
-                    <div style={{ width: 600 }}>
+                    <TextInput
+                        size="md"
+                        label="Name"
+                        radius="md"
+                        value={`${user.firstName} ${user.lastName}`}
+                        disabled
+                        style={{ marginBottom: rem(10) }}
+                        leftSection={<IconLetterCase size={16} />}
+                    />
+                </div>
+                <Divider
+                    my="xl"
+                    label={
+                        <>
+                            <IconKey size={14} />
+                            <Box ml={10}>Password Reset</Box>
+                        </>
+                    }
+                    labelPosition="left"
+                />
+                <div style={{ width: 600 }}>
+                    <form onSubmit={form.onSubmit(({ newPassword }) => handleSubmit(newPassword))}>
                         <PasswordInput
                             size="md"
                             radius="md"
@@ -72,6 +128,7 @@ export function UserPage() {
                             placeholder="Enter your new password..."
                             key={form.key("newPassword")}
                             {...form.getInputProps("newPassword")}
+                            leftSection={<IconKey size={16} />}
                         />
                         <PasswordInput
                             size="md"
@@ -80,10 +137,11 @@ export function UserPage() {
                             placeholder="Enter your new password again..."
                             key={form.key("confirmPassword")}
                             {...form.getInputProps("confirmPassword")}
+                            leftSection={<IconKey size={16} />}
                         />
 
                         {passwordResetError && (
-                            <Alert variant="light" color="red" title="Something went wrong!">
+                            <Alert variant="light" color="red" title="Something went wrong! Please try again later...">
                                 {passwordResetError}
                             </Alert>
                         )}
@@ -100,19 +158,56 @@ export function UserPage() {
                         >
                             {passwordResetLoading ? <Loader size={16} color="white" /> : "Reset Password"}
                         </Button>
-                    </div>
-                    <Divider
-                        my="md"
-                        label={
-                            <>
-                                <IconAlertTriangle size={14} />
-                                <Box ml={10}>Delete Account</Box>
-                            </>
-                        }
-                        labelPosition="left"
-                    />
-                    TODO: add button
-                </form>
+                    </form>
+                </div>
+                <Divider
+                    my="xl"
+                    label={
+                        <>
+                            <IconAlertTriangle size={14} />
+                            <Box ml={10}>Delete Account</Box>
+                        </>
+                    }
+                    labelPosition="left"
+                />
+                <div style={{ width: 600 }}>
+                    <Modal
+                        opened={deleteAccountModalOpened}
+                        onClose={close}
+                        title="Delete Account"
+                        centered
+                        fullScreen={isMobile}
+                        transitionProps={{ transition: "fade-up" }}
+                    >
+                        <Container px={15}>
+                            <Blockquote color="red" icon={<IconInfoCircle />} my="sm">
+                                Your account will be removed along with all your data... Are you sure you want to delete your account?
+                            </Blockquote>
+                            {accountRemovalError && (
+                                <Alert variant="light" color="red" title="Something went wrong! Please try again later...">
+                                    {accountRemovalError}
+                                </Alert>
+                            )}
+                        </Container>
+                        <Flex mt={20} gap="xs" justify="flex-end">
+                            <Button color="gray" onClick={close}>
+                                Cancel
+                            </Button>
+                            <Button
+                                miw={90}
+                                variant="gradient"
+                                gradient={{ from: "red", to: "pink", deg: 60 }}
+                                onClick={() => handleDeleteAccount()}
+                            >
+                                {accountRemovalLoading ? <Loader size={16} color="white" /> : "Confirm"}
+                            </Button>
+                        </Flex>
+                    </Modal>
+
+                    <Button fullWidth variant="gradient" gradient={{ from: "red", to: "pink", deg: 60 }} onClick={open}>
+                        Delete Account
+                    </Button>
+                </div>
             </div>
         </div>
     );
