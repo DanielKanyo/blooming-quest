@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { IconAt, IconKey, IconLetterCase } from "@tabler/icons-react";
 
 import { auth } from "../Firebase/FirebaseConfig";
 import { createUser } from "../Shared/User/UserService";
@@ -80,34 +81,38 @@ export function SignUpPage() {
                     <TextInput
                         size="md"
                         radius="md"
-                        style={{ marginBottom: rem(20) }}
+                        style={{ marginBottom: rem(10) }}
                         placeholder="Enter your first name..."
                         key={form.key("firstName")}
                         {...form.getInputProps("firstName")}
+                        leftSection={<IconLetterCase size={16} />}
                     />
                     <TextInput
                         size="md"
                         radius="md"
-                        style={{ marginBottom: rem(20) }}
+                        style={{ marginBottom: rem(10) }}
                         placeholder="Enter your last name..."
                         key={form.key("lastName")}
                         {...form.getInputProps("lastName")}
+                        leftSection={<IconLetterCase size={16} />}
                     />
                     <TextInput
                         size="md"
                         radius="md"
-                        style={{ marginBottom: rem(20) }}
+                        style={{ marginBottom: rem(10) }}
                         placeholder="Enter your email address..."
                         key={form.key("email")}
                         {...form.getInputProps("email")}
+                        leftSection={<IconAt size={16} />}
                     />
                     <PasswordInput
                         size="md"
                         radius="md"
-                        style={{ marginBottom: rem(20) }}
+                        style={{ marginBottom: rem(10) }}
                         placeholder="Enter your password..."
                         key={form.key("password")}
                         {...form.getInputProps("password")}
+                        leftSection={<IconKey size={16} />}
                     />
                     <PasswordInput
                         size="md"
@@ -116,6 +121,7 @@ export function SignUpPage() {
                         placeholder="Enter your password again..."
                         key={form.key("confirmPassword")}
                         {...form.getInputProps("confirmPassword")}
+                        leftSection={<IconKey size={16} />}
                     />
 
                     {signUpError && (
