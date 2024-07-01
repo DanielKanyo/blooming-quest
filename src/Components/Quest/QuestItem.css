@@ -1,22 +1,12 @@
-.quest-item-container {
-    margin-right: 15px;
-    background: teal;
-    padding: 0 8px;
-    border-radius: var(--mantine-radius-default);
+.quest-card {
+    position: relative;
+}
+
+.icon-and-title-container {
     display: flex;
     align-items: center;
 }
 
-.details-container {
-    width: 100%;
-}
-
-.badge-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 18px;
-}
-
-.badge-container > div {
-    margin-left: 6px;
+.category-and-description-container {
+    margin-left: 15px;
 }
