@@ -1,4 +1,4 @@
-import { Months } from "../../Components/Game/GameService";
+import { Months } from "../../Services/GameService";
 
 export type Challenge = {
     userId: string;

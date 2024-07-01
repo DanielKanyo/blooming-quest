@@ -1,7 +1,7 @@
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
-import { store } from "../../Firebase/FirebaseConfig";
-import { Challenge } from "../../Shared/Challenge/ChallengeType";
+import { store } from "../Configs/Firebase/FirebaseConfig";
+import { Challenge } from "../Shared/Types/ChallengeType";
 
 export enum Months {
     January,

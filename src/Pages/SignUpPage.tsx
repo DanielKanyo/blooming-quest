@@ -7,8 +7,8 @@ import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordIn
 import { useForm } from "@mantine/form";
 import { IconAt, IconKey, IconLetterCase } from "@tabler/icons-react";
 
-import { auth } from "../Firebase/FirebaseConfig";
-import { createUser } from "../Shared/User/UserService";
+import { auth } from "../Configs/Firebase/FirebaseConfig";
+import { createUser } from "../Services/UserService";
 
 export function SignUpPage() {
     const [signUpLoading, seSignUpLoading] = useState(false);

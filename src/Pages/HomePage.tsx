@@ -7,10 +7,10 @@ import { useDisclosure } from "@mantine/hooks";
 
 import { AllQuests } from "../Components/Quests/AllQuests/AllQuests";
 import { UserAvatar } from "../Components/UserAvatar/UserAvatar";
-import { auth } from "../Firebase/FirebaseConfig";
-import { UserContext } from "../Shared/User/UserContext";
-import { fetchUser } from "../Shared/User/UserService";
-import { User } from "../Shared/User/UserType";
+import { auth } from "../Configs/Firebase/FirebaseConfig";
+import { UserContext } from "../Contexts/UserContext";
+import { fetchUser } from "../Services/UserService";
+import { User } from "../Shared/Types/UserType";
 
 export function HomePage() {
     const [opened, { toggle }] = useDisclosure();

@@ -21,9 +21,9 @@ import { useForm } from "@mantine/form";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { IconAlertTriangle, IconArrowLeft, IconAt, IconInfoCircle, IconKey, IconLetterCase, IconUser } from "@tabler/icons-react";
 
-import { auth } from "../Firebase/FirebaseConfig";
-import { UserContext } from "../Shared/User/UserContext";
-import { deleteAccount, deleteAccountData, setNewPassword } from "../Shared/User/UserService";
+import { auth } from "../Configs/Firebase/FirebaseConfig";
+import { UserContext } from "../Contexts/UserContext";
+import { deleteAccount, deleteAccountData, setNewPassword } from "../Services/UserService";
 
 export function UserPage() {
     const user = useContext(UserContext);

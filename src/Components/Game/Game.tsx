@@ -2,13 +2,13 @@ import { useContext, useEffect, useState } from "react";
 
 import { Card, Center, Divider, Loader, Skeleton } from "@mantine/core";
 
-import { ChallengeContext } from "../../Shared/Challenge/ChallengeContext";
-import { Challenge } from "../../Shared/Challenge/ChallengeType";
-import { UserContext } from "../../Shared/User/UserContext";
+import { ChallengeContext } from "../../Contexts/ChallengeContext";
+import { UserContext } from "../../Contexts/UserContext";
+import { fetchCurrentChallenge } from "../../Services/GameService";
+import { Challenge } from "../../Shared/Types/ChallengeType";
 import { MyQuests } from "../Quests/MyQuests/MyQuests";
 import { Challenges } from "./Challenges";
 import "./Game.css";
-import { fetchCurrentChallenge } from "./GameService";
 
 export function Game() {
     const user = useContext(UserContext);

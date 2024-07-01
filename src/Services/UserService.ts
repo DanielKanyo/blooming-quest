@@ -1,7 +1,7 @@
 import { deleteUser, updatePassword } from "firebase/auth";
 import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 
-import { auth, store } from "../../Firebase/FirebaseConfig";
+import { auth, store } from "../../Configs/Firebase/FirebaseConfig";
 import { User } from "./UserType";
 
 export const createUser = async (userId: string, userDetails: User) => {

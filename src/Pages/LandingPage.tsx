@@ -6,7 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { Center, Loader } from "@mantine/core";
 
-import { auth } from "../Firebase/FirebaseConfig";
+import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { SignInPage } from "./SignInPage";
 
 export function LandingPage() {

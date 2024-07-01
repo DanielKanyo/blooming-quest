@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Menu, rem } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
 
-import { UserContext } from "../../Shared/User/UserContext";
-import { signOut } from "../../Shared/User/UserService";
-import { User } from "../../Shared/User/UserType";
+import { UserContext } from "../../Contexts/UserContext";
+import { signOut } from "../../Services/UserService";
+import { User } from "../../Shared/Types/UserType";
 import "./UserAvatar.css";
 
 export function UserAvatar() {

@@ -3,10 +3,10 @@ import { useContext, useState } from "react";
 import { Button, Center, Loader } from "@mantine/core";
 import { IconCalendarPlus } from "@tabler/icons-react";
 
-import { ChallengeContext } from "../../Shared/Challenge/ChallengeContext";
-import { Challenge } from "../../Shared/Challenge/ChallengeType";
-import { UserContext } from "../../Shared/User/UserContext";
-import { fetchCurrentChallenge, joinChallenge } from "./GameService";
+import { ChallengeContext } from "../../Contexts/ChallengeContext";
+import { UserContext } from "../../Contexts/UserContext";
+import { fetchCurrentChallenge, joinChallenge } from "../../Services/GameService";
+import { Challenge } from "../../Shared/Types/ChallengeType";
 
 type ChallengesProps = {
     setChallenge: (challenge: Challenge | null) => void;
