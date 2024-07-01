@@ -31,7 +31,7 @@ export function GamePage() {
         <ChallengeContext.Provider value={challenge}>
             <div className="main">
                 <div className="challenges-container">
-                    <Card h="100%" shadow="sm" padding="lg" radius="md" withBorder>
+                    <Card h="100%" shadow="sm" padding="lg" radius="md">
                         {challengeLoading ? (
                             <Center h="100%">
                                 <Loader size={40} color="white" />
@@ -42,7 +42,7 @@ export function GamePage() {
                     </Card>
                 </div>
                 <div className="my-quests-container">
-                    <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+                    <Card shadow="sm" padding="lg" radius="md" h="100%">
                         MyQuests
                         <Divider my="md" />
                         {challengeLoading ? <Skeleton h={50} mb="sm" animate={true} /> : <MyQuests />}

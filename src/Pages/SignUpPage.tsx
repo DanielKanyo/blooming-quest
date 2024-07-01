@@ -66,7 +66,7 @@ export function SignUpPage() {
 
     return (
         <Center style={{ height: "100vh" }}>
-            <Card shadow="xl" padding="xl" radius="md" withBorder style={{ width: rem(500) }}>
+            <Card shadow="sm" padding="xl" radius="md" style={{ width: rem(500) }}>
                 <form
                     onSubmit={form.onSubmit(({ firstName, lastName, email, password }) =>
                         handleSubmit(firstName, lastName, email, password)
