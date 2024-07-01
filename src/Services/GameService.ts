@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 
 import { store } from "../Configs/Firebase/FirebaseConfig";
 import { Challenge } from "../Shared/Types/ChallengeType";
@@ -34,11 +34,13 @@ export const fetchCurrentChallenge = async (userId: string, year: number, month:
 };
 
 export const joinChallenge = async (userId: string, year: number, month: Months): Promise<void> => {
-    await addDoc(collection(store, "challenges"), {
+    const docRef = doc(collection(store, "challenges"));
+
+    await setDoc(docRef, {
         userId,
         year,
         month,
-        quests: [],
+        id: docRef.id
     });
 };
 
@@ -54,3 +56,16 @@ export const fetchQuests = async (): Promise<Quest[]> => {
 
     return result;
 };
+
+export const acceptQuest = async (questId: string) => {
+    const docRef = doc(store, "quests", questId);
+    const docSnap = await getDoc(docRef);
+
+    const data = docSnap.data() as Quest;
+
+    if (data.acceptedByChallenges && data.acceptedByChallenges.length) {
+        await setDoc(docRef, { acceptedByChallenges: [questId, ...data.acceptedByChallenges] }, { merge: true });
+    } else {
+        await setDoc(docRef, { acceptedByChallenges: [questId] }, { merge: true });
+    }
+}

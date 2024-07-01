@@ -10,3 +10,9 @@
 .category-and-description-container {
     margin-left: 15px;
 }
+
+.add-quest-btn {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}

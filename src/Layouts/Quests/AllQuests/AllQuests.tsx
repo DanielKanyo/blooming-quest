@@ -29,8 +29,8 @@ export function AllQuests() {
                 {questsLoding ? (
                     <Skeleton h={50} mb="sm" animate={true} />
                 ) : (
-                    quests.map((q) => {
-                        return <QuestItem key={q.id} description={q.description} />;
+                    quests.map((quest) => {
+                        return <QuestItem key={quest.id} quest={quest} />;
                     })
                 )}
             </Flex>

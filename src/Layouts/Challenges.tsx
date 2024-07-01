@@ -7,6 +7,7 @@ import { ChallengeContext } from "../Contexts/ChallengeContext";
 import { UserContext } from "../Contexts/UserContext";
 import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { Challenge } from "../Shared/Types/ChallengeType";
+import classes from "../Configs/Theme/style.module.css";
 
 type ChallengesProps = {
     setChallenge: (challenge: Challenge | null) => void;
@@ -52,9 +53,11 @@ export function Challenges({ setChallenge }: ChallengesProps) {
             ) : (
                 <Center h="100%">
                     <Button
+                        className={classes.button}
                         variant="gradient"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
-                        leftSection={joining ? <Loader size={16} color="white" /> : <IconCalendarPlus size={16} />}
+                        leftSection={joining ? <Loader color="var(--mantine-color-dark-3)" size={16} /> : <IconCalendarPlus size={16} />}
+                        disabled={joining}
                         onClick={() => joinMonthlyChallenge()}
                     >
                         Join {month} Challenge
