@@ -1,10 +1,25 @@
 import { useContext, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Link } from "react-router-dom";
 
-import { Alert, Blockquote, Box, Button, Container, Divider, Flex, Loader, Modal, PasswordInput, rem, TextInput } from "@mantine/core";
+import {
+    Affix,
+    Alert,
+    Blockquote,
+    Box,
+    Button,
+    Container,
+    Divider,
+    Flex,
+    Loader,
+    Modal,
+    PasswordInput,
+    rem,
+    TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { IconAlertTriangle, IconAt, IconInfoCircle, IconKey, IconLetterCase, IconUser } from "@tabler/icons-react";
+import { IconAlertTriangle, IconArrowLeft, IconAt, IconInfoCircle, IconKey, IconLetterCase, IconUser } from "@tabler/icons-react";
 
 import { auth } from "../Firebase/FirebaseConfig";
 import { UserContext } from "../Shared/User/UserContext";
@@ -209,6 +224,18 @@ export function UserPage() {
                     </Button>
                 </div>
             </div>
+
+            <Affix position={{ bottom: 75, right: 15 }}>
+                <Button
+                    component={Link}
+                    to="/home"
+                    variant="gradient"
+                    gradient={{ from: "cyan", to: "teal", deg: 60 }}
+                    leftSection={<IconArrowLeft style={{ width: rem(16), height: rem(16) }} />}
+                >
+                    Back To The Game
+                </Button>
+            </Affix>
         </div>
     );
 }
