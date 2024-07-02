@@ -3,11 +3,11 @@ import { useContext, useState } from "react";
 import { Button, Center, Loader } from "@mantine/core";
 import { IconCalendarPlus } from "@tabler/icons-react";
 
+import classes from "../Configs/Theme/style.module.css";
 import { ChallengeContext } from "../Contexts/ChallengeContext";
 import { UserContext } from "../Contexts/UserContext";
 import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { Challenge } from "../Shared/Types/ChallengeType";
-import classes from "../Configs/Theme/style.module.css";
 
 type ChallengesProps = {
     setChallenge: (challenge: Challenge | null) => void;

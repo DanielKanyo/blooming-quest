@@ -1,21 +1,20 @@
 import { ActionIcon, Avatar, Card, Text, Tooltip } from "@mantine/core";
 import { IconHeart, IconPlus } from "@tabler/icons-react";
 
-import "./QuestItem.css";
-import { Quest } from "../../Shared/Types/QuestType";
 import { acceptQuest } from "../../Services/GameService";
+import { Quest } from "../../Shared/Types/QuestType";
+import "./QuestItem.css";
 
 type QuestItemProps = {
-    quest: Quest
+    quest: Quest;
 };
 
 export function QuestItem({ quest }: QuestItemProps) {
-
     const accept = (questId: string) => {
         // TODO
         console.log(questId);
-        acceptQuest(questId)
-    }
+        acceptQuest(questId);
+    };
 
     return (
         <Card shadow="sm" padding="md" radius="md" className="quest-card">
@@ -31,9 +30,8 @@ export function QuestItem({ quest }: QuestItemProps) {
                 </div>
             </div>
             <Tooltip label="Accept quest" position="left">
-                <ActionIcon variant="transparent" color="gray" aria-label="plus" className="add-quest-btn"
-                    onClick={() => accept(quest.id)}>
-                    <IconPlus style={{ width: '80%', height: '80%' }} stroke={2} />
+                <ActionIcon variant="transparent" color="gray" aria-label="plus" className="add-quest-btn" onClick={() => accept(quest.id)}>
+                    <IconPlus style={{ width: "80%", height: "80%" }} stroke={2} />
                 </ActionIcon>
             </Tooltip>
         </Card>

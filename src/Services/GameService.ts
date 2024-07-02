@@ -40,7 +40,7 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
         userId,
         year,
         month,
-        id: docRef.id
+        id: docRef.id,
     });
 };
 
@@ -68,4 +68,4 @@ export const acceptQuest = async (questId: string) => {
     } else {
         await setDoc(docRef, { acceptedByChallenges: [questId] }, { merge: true });
     }
-}
+};
