@@ -3,6 +3,6 @@
 }
 
 .user-avatar:hover {
-    outline: 2px solid var(--mantine-color-gray-light);
+    outline: 2px solid var(--mantine-color-teal-7);
     outline-offset: 2px;
 }

@@ -31,7 +31,7 @@ export function UserAvatar() {
     return (
         <Menu position="bottom-end" shadow="md" width={200} transitionProps={{ transition: "fade-up", duration: 150 }}>
             <Menu.Target>
-                <Avatar className="user-avatar" radius="xl" name={getInitials(user)} />
+                <Avatar variant="filled" color="teal" className="user-avatar" radius="xl" name={getInitials(user)} />
             </Menu.Target>
             <Menu.Dropdown>
                 <Menu.Label>{user.email}</Menu.Label>

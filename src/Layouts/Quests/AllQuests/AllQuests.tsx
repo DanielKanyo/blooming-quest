@@ -6,16 +6,15 @@ import { Flex, ScrollArea, Skeleton } from "@mantine/core";
 import { QuestItem } from "../../../Components/Quest/QuestItem";
 import { fetchQuests } from "../../../Services/GameService";
 import { Quest } from "../../../Shared/Types/QuestType";
+import { ChallengeStore } from "../../../Store/Features/ChallengeSlice";
 import store from "../../../Store/Store";
 
 export function AllQuests() {
     const [quests, setQuests] = useState<Quest[]>([]);
-    const [questsLoding, setQuestsLoding] = useState(false);
-    const challenge = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
+    const [questsLoding, setQuestsLoding] = useState(true);
+    const challengeStore: ChallengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
 
     useEffect(() => {
-        setQuestsLoding(true);
-
         fetchQuests()
             .then((quests) => {
                 setQuestsLoding(false);
@@ -26,19 +25,26 @@ export function AllQuests() {
                 console.error(`Something went wrong... ${err.message}`);
             });
     }, [setQuestsLoding, setQuests]);
+
     return (
         <ScrollArea h="100%" type="never">
             <Flex direction="column" px="lg">
-                {questsLoding ? (
+                {challengeStore.loading ? (
                     <Skeleton h={50} mb="sm" animate={true} />
                 ) : (
                     <>
-                        {Object.entries(challenge).length ? (
-                            quests.map((quest) => {
-                                return <QuestItem key={quest.id} quest={quest} />;
-                            })
-                        ) : (
+                        {!challengeStore.challenge ? (
                             <div>Join a challenge to be able to accept quests...</div>
+                        ) : (
+                            <>
+                                {questsLoding ? (
+                                    <Skeleton h={50} mb="sm" animate={true} />
+                                ) : (
+                                    quests.map((quest) => {
+                                        return <QuestItem key={quest.id} quest={quest} />;
+                                    })
+                                )}
+                            </>
                         )}
                     </>
                 )}
