@@ -1,4 +1,4 @@
-import { Accordion, Text, Group, Avatar, Button } from "@mantine/core";
+import { Accordion, Text, Group, Avatar, Button, Badge, Blockquote } from "@mantine/core";
 import { IconHeart } from "@tabler/icons-react";
 
 import { acceptQuest } from "../../Services/GameService";
@@ -16,12 +16,14 @@ interface AccordionLabelProps {
 function AccordionLabel({ label, description }: AccordionLabelProps) {
     return (
         <Group wrap="nowrap">
-            <Avatar color="teal" radius="sm" size="45px" variant="filled">
-                <IconHeart style={{ width: "60%", height: "60%" }} />
+            <Avatar color="teal" radius="sm" size="49px" variant="filled">
+                <IconHeart />
             </Avatar>
             <div>
-                <Text>{label}</Text>
-                <Text size="sm" c="dimmed" fw={400}>
+                <Text size="lg" fw={700}>
+                    {label}
+                </Text>
+                <Text size="sm" fw={400} truncate="end" w={230}>
                     {description}
                 </Text>
             </div>
@@ -41,12 +43,20 @@ export function QuestItem({ quest }: QuestItemProps) {
                 <AccordionLabel label="Health" description={quest.description} />
             </Accordion.Control>
             <Accordion.Panel>
-                <div>{quest.description}</div>
-                <div>
-                    <Button variant="filled" onClick={() => accept(quest.id)}>
-                        Accept
-                    </Button>
-                </div>
+                <Blockquote color="teal" mb={15} p={22}>
+                    {quest.description}
+                </Blockquote>
+                <Group justify="flex-end" mb={15} gap="xs">
+                    <Badge variant="light" size="lg" color="teal">
+                        {quest.xp} XP
+                    </Badge>
+                    <Badge variant="light" size="lg" color="teal">
+                        15 MIN
+                    </Badge>
+                </Group>
+                <Button fullWidth variant="filled" color="teal" size="xs" onClick={() => accept(quest.id)}>
+                    Accept
+                </Button>
             </Accordion.Panel>
         </Accordion.Item>
     );

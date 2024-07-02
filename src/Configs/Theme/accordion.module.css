@@ -1,4 +1,6 @@
 .item {
+    background-color: var(--item-filled-color);
+
     &[data-active] {
         background-color: var(--item-filled-color);
         border: 1px solid transparent;
