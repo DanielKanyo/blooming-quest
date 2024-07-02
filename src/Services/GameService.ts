@@ -1,6 +1,6 @@
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 
-import { store } from "../Configs/Firebase/FirebaseConfig";
+import { db } from "../Configs/Firebase/FirebaseConfig";
 import { Challenge } from "../Shared/Types/ChallengeType";
 import { Quest } from "../Shared/Types/QuestType";
 
@@ -20,7 +20,7 @@ export enum Months {
 }
 
 export const fetchCurrentChallenge = async (userId: string, year: number, month: Months): Promise<Challenge | null> => {
-    const challengesRef = collection(store, "challenges");
+    const challengesRef = collection(db, "challenges");
     const q = query(challengesRef, where("userId", "==", userId), where("year", "==", year), where("month", "==", month));
     const querySnapshot = await getDocs(q);
 
@@ -34,7 +34,7 @@ export const fetchCurrentChallenge = async (userId: string, year: number, month:
 };
 
 export const joinChallenge = async (userId: string, year: number, month: Months): Promise<void> => {
-    const docRef = doc(collection(store, "challenges"));
+    const docRef = doc(collection(db, "challenges"));
 
     await setDoc(docRef, {
         userId,
@@ -45,7 +45,7 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
 };
 
 export const fetchQuests = async (): Promise<Quest[]> => {
-    const q = query(collection(store, "quests"));
+    const q = query(collection(db, "quests"));
     const querySnapshot = await getDocs(q);
 
     const result: Quest[] = [];
@@ -58,7 +58,7 @@ export const fetchQuests = async (): Promise<Quest[]> => {
 };
 
 export const acceptQuest = async (questId: string) => {
-    const docRef = doc(store, "quests", questId);
+    const docRef = doc(db, "quests", questId);
     const docSnap = await getDoc(docRef);
 
     const data = docSnap.data() as Quest;

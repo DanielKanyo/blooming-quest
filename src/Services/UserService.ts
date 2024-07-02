@@ -1,15 +1,15 @@
 import { deleteUser, updatePassword } from "firebase/auth";
 import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 
-import { auth, store } from "../Configs/Firebase/FirebaseConfig";
+import { auth, db } from "../Configs/Firebase/FirebaseConfig";
 import { User } from "../Shared/Types/UserType";
 
 export const createUser = async (userId: string, userDetails: User) => {
-    await setDoc(doc(store, "users", userId), userDetails);
+    await setDoc(doc(db, "users", userId), userDetails);
 };
 
 export const fetchUser = async (userId: string): Promise<User | null> => {
-    const docRef = doc(store, "users", userId);
+    const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
 
     return docSnap.exists() ? (docSnap.data() as User) : null;
@@ -28,5 +28,5 @@ export const deleteAccount = async (): Promise<void> => {
 };
 
 export const deleteAccountData = async (): Promise<void> => {
-    await deleteDoc(doc(store, "users", auth.currentUser!.uid));
+    await deleteDoc(doc(db, "users", auth.currentUser!.uid));
 };
