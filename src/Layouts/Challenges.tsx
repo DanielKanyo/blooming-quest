@@ -1,23 +1,20 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Button, Center, Loader } from "@mantine/core";
 import { IconCalendarPlus } from "@tabler/icons-react";
 
 import classes from "../Configs/Theme/style.module.css";
-import { ChallengeContext } from "../Contexts/ChallengeContext";
-import { UserContext } from "../Contexts/UserContext";
 import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
-import { Challenge } from "../Shared/Types/ChallengeType";
+import { updateChallenge } from "../Store/Features/ChallengeSlice";
+import store from "../Store/Store";
 
-type ChallengesProps = {
-    setChallenge: (challenge: Challenge | null) => void;
-};
-
-export function Challenges({ setChallenge }: ChallengesProps) {
+export function Challenges() {
     const month = new Date().toLocaleString("default", { month: "long" });
-    const user = useContext(UserContext);
-    const challenge = useContext(ChallengeContext);
+    const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
+    const challenge = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
     const [joining, setJoining] = useState(false);
+    const dispatch = useDispatch();
 
     const joinMonthlyChallenge = () => {
         const userId = user.id;
@@ -30,8 +27,10 @@ export function Challenges({ setChallenge }: ChallengesProps) {
             .then(() => {
                 fetchCurrentChallenge(userId, year, month)
                     .then((c) => {
-                        setJoining(false);
-                        setChallenge(c);
+                        if (c) {
+                            dispatch(updateChallenge(c));
+                            setJoining(false);
+                        }
                     })
                     .catch((err) => {
                         setJoining(false);
@@ -46,7 +45,7 @@ export function Challenges({ setChallenge }: ChallengesProps) {
 
     return (
         <>
-            {challenge ? (
+            {Object.entries(challenge).length ? (
                 <div>
                     {user.email} already joined the {month} challenge
                 </div>

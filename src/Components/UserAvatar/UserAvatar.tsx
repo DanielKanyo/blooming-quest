@@ -1,21 +1,24 @@
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Avatar, Menu, rem } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
 
-import { UserContext } from "../../Contexts/UserContext";
 import { signOut } from "../../Services/UserService";
 import { User } from "../../Shared/Types/UserType";
+import { updateUser } from "../../Store/Features/UserSlice";
+import store from "../../Store/Store";
 import "./UserAvatar.css";
 
 export function UserAvatar() {
-    const user = useContext(UserContext);
+    const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSignOut = () => {
         signOut().then(() => {
             navigate("/");
+            dispatch(updateUser({} as User));
         });
     };
 

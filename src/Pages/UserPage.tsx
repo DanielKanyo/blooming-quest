@@ -1,5 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import {
@@ -23,11 +24,11 @@ import { IconAlertTriangle, IconArrowLeft, IconAt, IconInfoCircle, IconKey, Icon
 
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 import classes from "../Configs/Theme/style.module.css";
-import { UserContext } from "../Contexts/UserContext";
 import { deleteAccount, deleteAccountData, setNewPassword } from "../Services/UserService";
+import store from "../Store/Store";
 
 export function UserPage() {
-    const user = useContext(UserContext);
+    const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const [authUser] = useAuthState(auth);
     const [passwordResetLoading, setPasswordResetLoading] = useState(false);
     const [passwordResetError, setPasswordResetError] = useState("");
