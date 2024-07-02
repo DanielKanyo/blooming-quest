@@ -1,11 +1,13 @@
-import { Accordion, Text, Group, Avatar, Button, Badge, Blockquote } from "@mantine/core";
-import { IconHeart } from "@tabler/icons-react";
+import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon } from "@mantine/core";
+import { IconHeart, IconPlus } from "@tabler/icons-react";
 
 import { acceptQuest } from "../../Services/GameService";
+import { Challenge } from "../../Shared/Types/ChallengeType";
 import { Quest } from "../../Shared/Types/QuestType";
 
 type QuestItemProps = {
     quest: Quest;
+    challenge: Challenge;
 };
 
 interface AccordionLabelProps {
@@ -31,10 +33,11 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
     );
 }
 
-export function QuestItem({ quest }: QuestItemProps) {
-    const accept = (questId: string) => {
-        // TODO: implement
-        acceptQuest(questId);
+export function QuestItem({ quest, challenge }: QuestItemProps) {
+    const accept = (challengeId: string, questId: string) => {
+        acceptQuest(challengeId, questId).then(() => {
+            // TODO: update challenge.quests with new item
+        });
     };
 
     return (
@@ -54,9 +57,14 @@ export function QuestItem({ quest }: QuestItemProps) {
                         15 MIN
                     </Badge>
                 </Group>
-                <Button fullWidth variant="filled" color="teal" size="xs" onClick={() => accept(quest.id)}>
-                    Accept
-                </Button>
+                <ActionIcon
+                    style={{ width: "100%" }}
+                    variant="filled"
+                    aria-label="accept-challenge"
+                    onClick={() => accept(challenge.id, quest.id)}
+                >
+                    <IconPlus size={16} />
+                </ActionIcon>
             </Accordion.Panel>
         </Accordion.Item>
     );

@@ -36,12 +36,15 @@ export const fetchCurrentChallenge = async (userId: string, year: number, month:
 export const joinChallenge = async (userId: string, year: number, month: Months): Promise<void> => {
     const docRef = doc(collection(db, "challenges"));
 
-    await setDoc(docRef, {
+    const challenge: Challenge = {
         userId,
         year,
         month,
         id: docRef.id,
-    });
+        quests: [],
+    };
+
+    await setDoc(docRef, challenge);
 };
 
 export const fetchQuests = async (): Promise<Quest[]> => {
@@ -57,15 +60,15 @@ export const fetchQuests = async (): Promise<Quest[]> => {
     return result;
 };
 
-export const acceptQuest = async (questId: string) => {
-    const docRef = doc(db, "quests", questId);
-    const docSnap = await getDoc(docRef);
+export const acceptQuest = async (challengeId: string, questId: string) => {
+    const questDocRef = doc(db, "quests", questId);
+    const challengeDocRef = doc(db, "challenges", challengeId);
 
-    const data = docSnap.data() as Quest;
+    const questDocSnap = await getDoc(questDocRef);
+    const challengeDocSnap = await getDoc(challengeDocRef);
 
-    if (data.acceptedByChallenges && data.acceptedByChallenges.length) {
-        await setDoc(docRef, { acceptedByChallenges: [questId, ...data.acceptedByChallenges] }, { merge: true });
-    } else {
-        await setDoc(docRef, { acceptedByChallenges: [questId] }, { merge: true });
-    }
+    const quest = questDocSnap.data() as Quest;
+    const challenge = challengeDocSnap.data() as Challenge;
+
+    await setDoc(challengeDocRef, { quests: [quest, ...challenge.quests] }, { merge: true });
 };
