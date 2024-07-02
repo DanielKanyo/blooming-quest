@@ -1,9 +1,12 @@
+import { useDispatch } from "react-redux";
+
 import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon } from "@mantine/core";
 import { IconHeart, IconPlus } from "@tabler/icons-react";
 
 import { acceptQuest } from "../../Services/GameService";
 import { Challenge } from "../../Shared/Types/ChallengeType";
 import { Quest } from "../../Shared/Types/QuestType";
+import { updateQuests } from "../../Store/Features/ChallengeSlice";
 
 type QuestItemProps = {
     quest: Quest;
@@ -34,9 +37,11 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
 }
 
 export function QuestItem({ quest, challenge }: QuestItemProps) {
-    const accept = (challengeId: string, questId: string) => {
-        acceptQuest(challengeId, questId).then(() => {
-            // TODO: update challenge.quests with new item
+    const dispatch = useDispatch();
+
+    const accept = (challengeId: string, quest: Quest) => {
+        acceptQuest(challengeId, quest.id).then(() => {
+            dispatch(updateQuests(quest));
         });
     };
 
@@ -61,7 +66,7 @@ export function QuestItem({ quest, challenge }: QuestItemProps) {
                     style={{ width: "100%" }}
                     variant="filled"
                     aria-label="accept-challenge"
-                    onClick={() => accept(challenge.id, quest.id)}
+                    onClick={() => accept(challenge.id, quest)}
                 >
                     <IconPlus size={16} />
                 </ActionIcon>

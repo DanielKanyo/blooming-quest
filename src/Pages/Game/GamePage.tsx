@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Card, Center, Divider, Loader, Skeleton } from "@mantine/core";
+import { Card, Center, Loader, Skeleton } from "@mantine/core";
 
 import { Challenges } from "../../Layouts/Challenges";
 import { MyQuests } from "../../Layouts/Quests/MyQuests/MyQuests";
@@ -38,13 +38,7 @@ export function GamePage() {
                     )}
                 </Card>
             </div>
-            <div className="my-quests-container">
-                <Card shadow="sm" padding="lg" radius="md" h="100%">
-                    MyQuests
-                    <Divider my="md" />
-                    {challengeStore.loading ? <Skeleton h={50} mb="sm" animate={true} /> : <MyQuests />}
-                </Card>
-            </div>
+            <div className="my-quests-container">{challengeStore.loading ? <Skeleton h={50} mb="sm" animate={true} /> : <MyQuests />}</div>
         </div>
     );
 }

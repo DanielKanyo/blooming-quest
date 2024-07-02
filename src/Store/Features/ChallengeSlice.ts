@@ -17,8 +17,13 @@ export const challengeSlice = createSlice({
         updateChallengeLoading: (state, action) => {
             state.loading = action.payload;
         },
+        updateQuests: (state, action) => {
+            if (state.challenge) {
+                state.challenge.quests.push(action.payload);
+            }
+        },
     },
 });
 
-export const { updateChallenge, updateChallengeLoading } = challengeSlice.actions;
+export const { updateChallenge, updateChallengeLoading, updateQuests } = challengeSlice.actions;
 export default challengeSlice.reducer;

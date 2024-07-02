@@ -1,8 +1,8 @@
 .item {
-    background-color: var(--item-filled-color);
+    background-color: var(--mantine-color-dark-6);
 
     &[data-active] {
-        background-color: var(--item-filled-color);
+        background-color: var(--mantine-color-dark-6);
         border: 1px solid transparent;
     }
 }

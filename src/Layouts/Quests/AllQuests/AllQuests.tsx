@@ -34,7 +34,7 @@ export function AllQuests() {
                 ) : (
                     <>
                         {!challengeStore.challenge ? (
-                            <div>Join a challenge to be able to accept quests...</div>
+                            <div>Join the challenge to be able to accept quests...</div>
                         ) : (
                             <>
                                 {questsLoding ? (
