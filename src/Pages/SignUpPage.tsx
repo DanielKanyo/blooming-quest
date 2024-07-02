@@ -8,7 +8,6 @@ import { useForm } from "@mantine/form";
 import { IconAt, IconKey, IconLetterCase } from "@tabler/icons-react";
 
 import { auth } from "../Configs/Firebase/FirebaseConfig";
-import classes from "../Configs/Theme/style.module.css";
 import { createUser } from "../Services/UserService";
 
 export function SignUpPage() {
@@ -141,7 +140,6 @@ export function SignUpPage() {
                         fullWidth
                         type="submit"
                         disabled={signUpLoading}
-                        className={classes.button}
                         style={{ marginTop: rem(20) }}
                         variant="gradient"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}

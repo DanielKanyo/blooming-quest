@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Flex, ScrollArea, Skeleton } from "@mantine/core";
+import { Accordion, Flex, ScrollArea, Skeleton } from "@mantine/core";
 
 import { QuestItem } from "../../../Components/Quest/QuestItem";
 import { fetchQuests } from "../../../Services/GameService";
@@ -30,7 +30,7 @@ export function AllQuests() {
         <ScrollArea h="100%" type="never">
             <Flex direction="column" px="lg">
                 {challengeStore.loading ? (
-                    <Skeleton h={50} mb="sm" animate={true} />
+                    <Skeleton h={70} mb="sm" animate={true} />
                 ) : (
                     <>
                         {!challengeStore.challenge ? (
@@ -40,9 +40,11 @@ export function AllQuests() {
                                 {questsLoding ? (
                                     <Skeleton h={50} mb="sm" animate={true} />
                                 ) : (
-                                    quests.map((quest) => {
-                                        return <QuestItem key={quest.id} quest={quest} />;
-                                    })
+                                    <Accordion variant="separated">
+                                        {quests.map((quest) => {
+                                            return <QuestItem key={quest.id} quest={quest} />;
+                                        })}
+                                    </Accordion>
                                 )}
                             </>
                         )}

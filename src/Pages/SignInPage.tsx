@@ -8,7 +8,6 @@ import { useForm } from "@mantine/form";
 import { IconAt, IconKey } from "@tabler/icons-react";
 
 import { auth } from "../Configs/Firebase/FirebaseConfig";
-import classes from "../Configs/Theme/style.module.css";
 
 export function SignInPage() {
     const [signInLoading, setSignInLoading] = useState(false);
@@ -82,7 +81,6 @@ export function SignInPage() {
                         type="submit"
                         style={{ marginTop: rem(20) }}
                         disabled={signInLoading}
-                        className={classes.button}
                         variant="gradient"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
                     >

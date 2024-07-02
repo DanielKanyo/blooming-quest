@@ -1,39 +1,53 @@
-import { ActionIcon, Avatar, Card, Text, Tooltip } from "@mantine/core";
-import { IconHeart, IconPlus } from "@tabler/icons-react";
+import { Accordion, Text, Group, Avatar, Button } from "@mantine/core";
+import { IconHeart } from "@tabler/icons-react";
 
 import { acceptQuest } from "../../Services/GameService";
 import { Quest } from "../../Shared/Types/QuestType";
-import "./QuestItem.css";
 
 type QuestItemProps = {
     quest: Quest;
 };
 
+interface AccordionLabelProps {
+    label: string;
+    description: string;
+}
+
+function AccordionLabel({ label, description }: AccordionLabelProps) {
+    return (
+        <Group wrap="nowrap">
+            <Avatar color="teal" radius="sm" size="45px" variant="filled">
+                <IconHeart style={{ width: "60%", height: "60%" }} />
+            </Avatar>
+            <div>
+                <Text>{label}</Text>
+                <Text size="sm" c="dimmed" fw={400}>
+                    {description}
+                </Text>
+            </div>
+        </Group>
+    );
+}
+
 export function QuestItem({ quest }: QuestItemProps) {
     const accept = (questId: string) => {
-        // TODO
-        console.log(questId);
+        // TODO: implement
         acceptQuest(questId);
     };
 
     return (
-        <Card shadow="sm" padding="md" radius="md" className="quest-card">
-            <div className="icon-and-title-container">
-                <Avatar variant="filled" radius="sm" size="lg" color="grape">
-                    <IconHeart size="1.5rem" />
-                </Avatar>
-                <div className="category-and-description-container">
-                    <Text c="white" size="lg" fw={700}>
-                        Health
-                    </Text>
-                    <Text size="sm">{quest.description}</Text>
+        <Accordion.Item value={quest.id}>
+            <Accordion.Control>
+                <AccordionLabel label="Health" description={quest.description} />
+            </Accordion.Control>
+            <Accordion.Panel>
+                <div>{quest.description}</div>
+                <div>
+                    <Button variant="filled" onClick={() => accept(quest.id)}>
+                        Accept
+                    </Button>
                 </div>
-            </div>
-            <Tooltip label="Accept quest" position="left">
-                <ActionIcon variant="transparent" color="gray" aria-label="plus" className="add-quest-btn" onClick={() => accept(quest.id)}>
-                    <IconPlus style={{ width: "80%", height: "80%" }} stroke={2} />
-                </ActionIcon>
-            </Tooltip>
-        </Card>
+            </Accordion.Panel>
+        </Accordion.Item>
     );
 }

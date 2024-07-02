@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Center } from "@mantine/core";
 import { IconCalendarPlus } from "@tabler/icons-react";
 
-import classes from "../Configs/Theme/style.module.css";
 import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { User } from "../Shared/Types/UserType";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
@@ -48,7 +47,6 @@ export function Challenges() {
             ) : (
                 <Center h="100%">
                     <Button
-                        className={classes.button}
                         variant="gradient"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
                         leftSection={<IconCalendarPlus size={16} />}
