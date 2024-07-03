@@ -8,7 +8,6 @@ import { useForm } from "@mantine/form";
 import { IconAt, IconKey, IconLetterCase } from "@tabler/icons-react";
 
 import { auth } from "../Configs/Firebase/FirebaseConfig";
-import classes from "../Configs/Theme/style.module.css";
 import { createUser } from "../Services/UserService";
 
 export function SignUpPage() {
@@ -66,7 +65,7 @@ export function SignUpPage() {
 
     return (
         <Center style={{ height: "100vh" }}>
-            <Card shadow="xl" padding="xl" radius="md" withBorder style={{ width: rem(500) }}>
+            <Card shadow="sm" padding="xl" radius="md" style={{ width: rem(500) }}>
                 <form
                     onSubmit={form.onSubmit(({ firstName, lastName, email, password }) =>
                         handleSubmit(firstName, lastName, email, password)
@@ -141,12 +140,11 @@ export function SignUpPage() {
                         fullWidth
                         type="submit"
                         disabled={signUpLoading}
-                        className={classes.button}
                         style={{ marginTop: rem(20) }}
                         variant="gradient"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
                     >
-                        {signUpLoading ? <Loader size={16} color="white" /> : "Sign Up"}
+                        {signUpLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Sign Up"}
                     </Button>
 
                     <Group justify="flex-end" gap="xs" style={{ marginTop: rem(40) }}>

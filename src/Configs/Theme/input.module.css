@@ -12,10 +12,3 @@
     font-size: var(--mantine-font-size-sm);
     opacity: 0.7;
 }
-
-.button {
-    &:disabled,
-    &[data-disabled] {
-        background-color: var(--mantine-color-dark-5);
-    }
-}

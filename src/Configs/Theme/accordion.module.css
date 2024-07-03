@@ -1,0 +1,16 @@
+.root[data-variant="separated"] .item {
+    margin-top: var(--mantine-spacing-xs);
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+}
+
+.item {
+    background-color: var(--mantine-color-dark-6);
+
+    &[data-active] {
+        background-color: var(--mantine-color-dark-6);
+        border: 1px solid transparent;
+    }
+}

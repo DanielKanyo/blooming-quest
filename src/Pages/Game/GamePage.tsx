@@ -1,54 +1,44 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Card, Center, Divider, Loader, Skeleton } from "@mantine/core";
+import { Card, Center, Loader, Skeleton } from "@mantine/core";
 
-import { ChallengeContext } from "../../Contexts/ChallengeContext";
-import { UserContext } from "../../Contexts/UserContext";
 import { Challenges } from "../../Layouts/Challenges";
 import { MyQuests } from "../../Layouts/Quests/MyQuests/MyQuests";
 import { fetchCurrentChallenge } from "../../Services/GameService";
-import { Challenge } from "../../Shared/Types/ChallengeType";
+import { ChallengeStore, updateChallenge } from "../../Store/Features/ChallengeSlice";
+import store from "../../Store/Store";
 import "./Game.css";
 
 export function GamePage() {
-    const user = useContext(UserContext);
-    const [challengeLoading, setChallengeLoading] = useState(true);
-    const [challenge, setChallenge] = useState<Challenge | null>(null);
+    const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
+    const challengeStore: ChallengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         fetchCurrentChallenge(user.id, new Date().getFullYear(), new Date().getMonth())
             .then((challenge) => {
-                setChallenge(challenge);
-
-                setChallengeLoading(false);
+                dispatch(updateChallenge({ challenge: challenge || null, loading: false }));
             })
             .catch((err) => {
                 console.error(`Something wen wrong during challenge fetch... ${err.message}"`);
             });
-    }, [user, setChallenge, setChallengeLoading]);
+    }, [user, dispatch]);
 
     return (
-        <ChallengeContext.Provider value={challenge}>
-            <div className="main">
-                <div className="challenges-container">
-                    <Card h="100%" shadow="sm" padding="lg" radius="md" withBorder>
-                        {challengeLoading ? (
-                            <Center h="100%">
-                                <Loader size={40} color="white" />
-                            </Center>
-                        ) : (
-                            <Challenges setChallenge={setChallenge} />
-                        )}
-                    </Card>
-                </div>
-                <div className="my-quests-container">
-                    <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-                        MyQuests
-                        <Divider my="md" />
-                        {challengeLoading ? <Skeleton h={50} mb="sm" animate={true} /> : <MyQuests />}
-                    </Card>
-                </div>
+        <div className="main">
+            <div className="challenges-container">
+                <Card h="100%" shadow="sm" padding="lg" radius="md">
+                    {challengeStore.loading ? (
+                        <Center h="100%">
+                            <Loader size={40} color="var(--mantine-color-dark-0)" />
+                        </Center>
+                    ) : (
+                        <Challenges />
+                    )}
+                </Card>
             </div>
-        </ChallengeContext.Provider>
+            <div className="my-quests-container">{!challengeStore.loading ? <Skeleton h={75} mb="sm" animate={true} /> : <MyQuests />}</div>
+        </div>
     );
 }

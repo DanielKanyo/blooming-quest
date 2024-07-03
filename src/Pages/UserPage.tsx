@@ -1,5 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import {
@@ -22,12 +23,11 @@ import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { IconAlertTriangle, IconArrowLeft, IconAt, IconInfoCircle, IconKey, IconLetterCase, IconUser } from "@tabler/icons-react";
 
 import { auth } from "../Configs/Firebase/FirebaseConfig";
-import classes from "../Configs/Theme/style.module.css";
-import { UserContext } from "../Contexts/UserContext";
 import { deleteAccount, deleteAccountData, setNewPassword } from "../Services/UserService";
+import store from "../Store/Store";
 
 export function UserPage() {
-    const user = useContext(UserContext);
+    const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const [authUser] = useAuthState(auth);
     const [passwordResetLoading, setPasswordResetLoading] = useState(false);
     const [passwordResetError, setPasswordResetError] = useState("");
@@ -168,12 +168,11 @@ export function UserPage() {
                             fullWidth
                             type="submit"
                             style={{ marginTop: rem(20) }}
-                            className={classes.button}
                             variant="gradient"
                             gradient={{ from: "cyan", to: "teal", deg: 60 }}
                             disabled={passwordResetLoading}
                         >
-                            {passwordResetLoading ? <Loader size={16} color="white" /> : "Reset Password"}
+                            {passwordResetLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Reset Password"}
                         </Button>
                     </form>
                 </div>
@@ -210,12 +209,11 @@ export function UserPage() {
                             <Button
                                 miw={90}
                                 variant="gradient"
-                                className={classes.button}
                                 disabled={accountRemovalLoading}
                                 gradient={{ from: "red", to: "pink", deg: 60 }}
                                 onClick={() => handleDeleteAccount()}
                             >
-                                {accountRemovalLoading ? <Loader size={16} color="white" /> : "Confirm"}
+                                {accountRemovalLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Confirm"}
                             </Button>
                         </Flex>
                     </Modal>
