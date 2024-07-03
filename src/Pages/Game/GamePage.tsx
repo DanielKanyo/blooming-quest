@@ -38,7 +38,7 @@ export function GamePage() {
                     )}
                 </Card>
             </div>
-            <div className="my-quests-container">{!challengeStore.loading ? <Skeleton h={75} mb="sm" animate={true} /> : <MyQuests />}</div>
+            <div className="my-quests-container">{challengeStore.loading ? <Skeleton h={75} mb="sm" animate={true} /> : <MyQuests />}</div>
         </div>
     );
 }
