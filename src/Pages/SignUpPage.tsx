@@ -9,6 +9,7 @@ import { IconAt, IconKey, IconLetterCase } from "@tabler/icons-react";
 
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { createUser } from "../Services/UserService";
+import { UserRoles } from "../Shared/Types/UserType";
 
 export function SignUpPage() {
     const [signUpLoading, seSignUpLoading] = useState(false);
@@ -45,6 +46,7 @@ export function SignUpPage() {
                         lastName,
                         email: userCredential.user.email!,
                         id: userCredential.user.uid,
+                        roles: [UserRoles.USER],
                     });
 
                     seSignUpLoading(false);

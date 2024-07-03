@@ -1,34 +1,33 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Accordion, Card, Flex, ScrollArea, Skeleton } from "@mantine/core";
 
 import { QuestItem } from "../../../Components/Quest/QuestItem";
 import { fetchQuests } from "../../../Services/GameService";
-import { Quest } from "../../../Shared/Types/QuestType";
+import { AllQuestsStore, updateAllQuests } from "../../../Store/Features/AllQuestsSlice";
 import { ChallengeStore } from "../../../Store/Features/ChallengeSlice";
 import store from "../../../Store/Store";
 
 export function AllQuests() {
-    const [quests, setQuests] = useState<Quest[]>([]);
-    const [questsLoding, setQuestsLoding] = useState(true);
     const challengeStore: ChallengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
+    const allQuestsStore: AllQuestsStore = useSelector((state: ReturnType<typeof store.getState>) => state.allQuests);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (challengeStore.challenge) {
+        if (challengeStore.challenge && allQuestsStore.loading) {
             fetchQuests()
                 .then((quests) => {
                     const myQuestIds = challengeStore.challenge!.quests.map((q) => q.id);
 
-                    setQuestsLoding(false);
-                    setQuests(quests.filter((q) => !myQuestIds.includes(q.id)));
+                    dispatch(updateAllQuests({ quests: quests.filter((q) => !myQuestIds.includes(q.id)), loading: false }));
                 })
                 .catch((err) => {
-                    setQuestsLoding(false);
+                    dispatch(updateAllQuests({ quests: [], loading: false }));
                     console.error(`Something went wrong... ${err.message}`);
                 });
         }
-    }, [setQuestsLoding, setQuests, challengeStore]);
+    }, [dispatch, allQuestsStore, challengeStore]);
 
     return (
         <ScrollArea h="100%" type="never">
@@ -41,13 +40,13 @@ export function AllQuests() {
                             <div>Join the challenge to be able to accept quests...</div>
                         ) : (
                             <>
-                                {questsLoding ? (
+                                {allQuestsStore.loading ? (
                                     <Skeleton h={75} mb="sm" animate={true} />
                                 ) : (
                                     <>
-                                        {quests.length ? (
+                                        {allQuestsStore.quests.length ? (
                                             <Accordion variant="separated">
-                                                {quests.map((quest) => {
+                                                {allQuestsStore.quests.map((quest) => {
                                                     return (
                                                         <QuestItem
                                                             key={quest.id}

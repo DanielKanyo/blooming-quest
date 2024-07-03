@@ -6,7 +6,14 @@ import { IconCheck, IconPlus, IconQuestionMark } from "@tabler/icons-react";
 
 import { acceptQuest } from "../../Services/GameService";
 import { Challenge } from "../../Shared/Types/ChallengeType";
-import { CategoryColorMapping, CategoryIconMapping, CategoryTextMapping, Quest, QuestCategories } from "../../Shared/Types/QuestType";
+import {
+    CategoryColorMapping,
+    CategoryIconMapping,
+    CategoryTextMapping,
+    DifficultyTextMapping,
+    Quest,
+    QuestCategories,
+} from "../../Shared/Types/QuestType";
 import { updateQuests } from "../../Store/Features/ChallengeSlice";
 
 type QuestItemProps = {
@@ -68,9 +75,14 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                     {quest.description}
                 </Blockquote>
                 <Group justify="space-between" gap="xs">
-                    <Badge radius="sm" variant="light" size="lg" h={29} color={CategoryColorMapping.get(quest.category)}>
-                        <span style={{ marginTop: 2 }}>{quest.xp} XP</span>
-                    </Badge>
+                    <div>
+                        <Badge radius="sm" variant="light" size="lg" mr={10} h={29} color={CategoryColorMapping.get(quest.category)}>
+                            <span style={{ marginTop: 2 }}>{DifficultyTextMapping.get(quest.difficulty)}</span>
+                        </Badge>
+                        <Badge radius="sm" variant="light" size="lg" h={29} color={CategoryColorMapping.get(quest.category)}>
+                            <span style={{ marginTop: 2 }}>{quest.xp} XP</span>
+                        </Badge>
+                    </div>
                     {acceptMode ? (
                         <Tooltip label="Accept Quest" position="left">
                             <ActionIcon

@@ -2,7 +2,7 @@ import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase
 
 import { db } from "../Configs/Firebase/FirebaseConfig";
 import { Challenge } from "../Shared/Types/ChallengeType";
-import { Quest } from "../Shared/Types/QuestType";
+import { Quest, QuestCategories, QuestDifficulties } from "../Shared/Types/QuestType";
 
 export enum Months {
     January,
@@ -78,4 +78,27 @@ export const acceptQuest = async (challengeId: string, questId: string) => {
     };
 
     await setDoc(challengeDocRef, { quests: [questToAdd, ...challenge.quests] }, { merge: true });
+};
+
+export const createQuest = async (
+    category: QuestCategories,
+    description: string,
+    difficulty: QuestDifficulties,
+    xp: number
+): Promise<Quest> => {
+    const docRef = doc(collection(db, "quests"));
+
+    const quest: Quest = {
+        category,
+        description,
+        difficulty,
+        xp,
+        id: docRef.id,
+    };
+
+    await setDoc(docRef, quest);
+
+    const questDocRef = doc(db, "quests", docRef.id);
+
+    return (await getDoc(questDocRef)).data() as Quest;
 };
