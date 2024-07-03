@@ -41,7 +41,7 @@ export function HomePage() {
         <>
             {loading ? (
                 <Center style={{ height: "100vh" }}>
-                    <Loader size={40} color="white" />
+                    <Loader size={40} color="var(--mantine-color-dark-0)" />
                 </Center>
             ) : (
                 <>

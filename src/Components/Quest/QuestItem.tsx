@@ -1,32 +1,36 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon } from "@mantine/core";
-import { IconHeart, IconPlus } from "@tabler/icons-react";
+import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip } from "@mantine/core";
+import { IconCheck, IconPlus, IconQuestionMark } from "@tabler/icons-react";
 
 import { acceptQuest } from "../../Services/GameService";
 import { Challenge } from "../../Shared/Types/ChallengeType";
-import { Quest } from "../../Shared/Types/QuestType";
+import { CategoryColorMapping, CategoryIconMapping, CategoryTextMapping, Quest, QuestCategories } from "../../Shared/Types/QuestType";
 import { updateQuests } from "../../Store/Features/ChallengeSlice";
 
 type QuestItemProps = {
     quest: Quest;
     challenge: Challenge;
+    acceptMode: boolean;
 };
 
 interface AccordionLabelProps {
-    label: string;
     description: string;
+    category: QuestCategories;
 }
 
-function AccordionLabel({ label, description }: AccordionLabelProps) {
+function AccordionLabel({ description, category }: AccordionLabelProps) {
+    const Icon = CategoryIconMapping.get(category) || IconQuestionMark;
+
     return (
         <Group wrap="nowrap">
-            <Avatar color="teal" radius="sm" size="49px" variant="filled">
-                <IconHeart />
+            <Avatar color={CategoryColorMapping.get(category)} radius="sm" size="49px" variant="filled">
+                <Icon />
             </Avatar>
             <div>
                 <Text size="lg" fw={700}>
-                    {label}
+                    {CategoryTextMapping.get(category)}
                 </Text>
                 <Text size="sm" fw={400} truncate="end" w={230}>
                     {description}
@@ -36,40 +40,63 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
     );
 }
 
-export function QuestItem({ quest, challenge }: QuestItemProps) {
+export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
+    const [acceptLoading, setAcceptLoading] = useState(false);
     const dispatch = useDispatch();
 
     const accept = (challengeId: string, quest: Quest) => {
+        setAcceptLoading(true);
+
         acceptQuest(challengeId, quest.id).then(() => {
             dispatch(updateQuests(quest));
+            setAcceptLoading(false);
         });
+    };
+
+    const complete = (questId: string) => {
+        // TODO
+        console.log(questId);
     };
 
     return (
         <Accordion.Item value={quest.id}>
             <Accordion.Control>
-                <AccordionLabel label="Health" description={quest.description} />
+                <AccordionLabel description={quest.description} category={quest.category} />
             </Accordion.Control>
             <Accordion.Panel>
-                <Blockquote color="teal" mb={15} p={22}>
+                <Blockquote color={CategoryColorMapping.get(quest.category)} mb={15} p={22}>
                     {quest.description}
                 </Blockquote>
-                <Group justify="flex-end" mb={15} gap="xs">
-                    <Badge variant="light" size="lg" color="teal">
-                        {quest.xp} XP
+                <Group justify="space-between" gap="xs">
+                    <Badge radius="sm" variant="light" size="lg" h={29} color={CategoryColorMapping.get(quest.category)}>
+                        <span style={{ marginTop: 2 }}>{quest.xp} XP</span>
                     </Badge>
-                    <Badge variant="light" size="lg" color="teal">
-                        15 MIN
-                    </Badge>
+                    {acceptMode ? (
+                        <Tooltip label="Accept Quest" position="left">
+                            <ActionIcon
+                                variant="light"
+                                color={CategoryColorMapping.get(quest.category)}
+                                disabled={acceptLoading}
+                                aria-label="accept-challenge"
+                                onClick={() => accept(challenge.id, quest)}
+                            >
+                                <IconPlus size={16} />
+                            </ActionIcon>
+                        </Tooltip>
+                    ) : (
+                        <Tooltip label="Complete Quest" position="left">
+                            <ActionIcon
+                                variant="light"
+                                color={CategoryColorMapping.get(quest.category)}
+                                disabled={acceptLoading}
+                                aria-label="complete-challenge"
+                                onClick={() => complete(quest.id)}
+                            >
+                                <IconCheck size={16} />
+                            </ActionIcon>
+                        </Tooltip>
+                    )}
                 </Group>
-                <ActionIcon
-                    style={{ width: "100%" }}
-                    variant="filled"
-                    aria-label="accept-challenge"
-                    onClick={() => accept(challenge.id, quest)}
-                >
-                    <IconPlus size={16} />
-                </ActionIcon>
             </Accordion.Panel>
         </Accordion.Item>
     );

@@ -1,4 +1,4 @@
-.button {
+.root {
     &:disabled,
     &[data-disabled] {
         background-color: var(--mantine-color-dark-5);

@@ -42,7 +42,14 @@ export function AllQuests() {
                                 ) : (
                                     <Accordion variant="separated">
                                         {quests.map((quest) => {
-                                            return <QuestItem key={quest.id} quest={quest} challenge={challengeStore.challenge!} />;
+                                            return (
+                                                <QuestItem
+                                                    key={quest.id}
+                                                    quest={quest}
+                                                    challenge={challengeStore.challenge!}
+                                                    acceptMode={true}
+                                                />
+                                            );
                                         })}
                                     </Accordion>
                                 )}

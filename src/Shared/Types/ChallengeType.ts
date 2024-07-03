@@ -7,4 +7,6 @@ export type Challenge = {
     year: number;
     month: Months;
     quests: Quest[];
+    xpToComplete: number;
+    xpCurrent: number;
 };

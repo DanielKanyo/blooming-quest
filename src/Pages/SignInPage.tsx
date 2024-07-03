@@ -84,7 +84,7 @@ export function SignInPage() {
                         variant="gradient"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
                     >
-                        {signInLoading ? <Loader size={16} color="white" /> : "Login"}
+                        {signInLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Login"}
                     </Button>
 
                     <Group justify="flex-end" gap="xs" style={{ marginTop: rem(40) }}>

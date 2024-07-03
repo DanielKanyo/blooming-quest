@@ -144,7 +144,7 @@ export function SignUpPage() {
                         variant="gradient"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
                     >
-                        {signUpLoading ? <Loader size={16} color="white" /> : "Sign Up"}
+                        {signUpLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Sign Up"}
                     </Button>
 
                     <Group justify="flex-end" gap="xs" style={{ marginTop: rem(40) }}>

@@ -42,6 +42,8 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
         month,
         id: docRef.id,
         quests: [],
+        xpToComplete: 50,
+        xpCurrent: 0,
     };
 
     await setDoc(docRef, challenge);
@@ -70,5 +72,10 @@ export const acceptQuest = async (challengeId: string, questId: string) => {
     const quest = questDocSnap.data() as Quest;
     const challenge = challengeDocSnap.data() as Challenge;
 
-    await setDoc(challengeDocRef, { quests: [quest, ...challenge.quests] }, { merge: true });
+    const questToAdd = {
+        ...quest,
+        completed: false,
+    };
+
+    await setDoc(challengeDocRef, { quests: [questToAdd, ...challenge.quests] }, { merge: true });
 };
