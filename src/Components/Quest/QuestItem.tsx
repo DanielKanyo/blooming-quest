@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip } from "@mantine/core";
-import { IconCheck, IconPlus, IconQuestionMark } from "@tabler/icons-react";
+import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip, Alert } from "@mantine/core";
+import { IconCheck, IconPlus, IconQuestionMark, IconX } from "@tabler/icons-react";
 
-import { acceptQuest } from "../../Services/GameService";
+import { acceptQuest, deleteQuest } from "../../Services/GameService";
 import { Challenge } from "../../Shared/Types/ChallengeType";
 import {
     CategoryColorMapping,
@@ -14,7 +14,10 @@ import {
     Quest,
     QuestCategories,
 } from "../../Shared/Types/QuestType";
-import { updateQuests } from "../../Store/Features/ChallengeSlice";
+import { UserRoles } from "../../Shared/Types/UserType";
+import { removeQuest } from "../../Store/Features/AllQuestsSlice";
+import { addQuestToChallenge } from "../../Store/Features/ChallengeSlice";
+import store from "../../Store/Store";
 
 type QuestItemProps = {
     quest: Quest;
@@ -49,20 +52,42 @@ function AccordionLabel({ description, category }: AccordionLabelProps) {
 
 export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
     const [acceptLoading, setAcceptLoading] = useState(false);
+    const [acceptError, setAcceptError] = useState("");
+    const [removeLoading, setRemoveLoading] = useState(false);
+    const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const dispatch = useDispatch();
 
     const accept = (challengeId: string, quest: Quest) => {
         setAcceptLoading(true);
+        setAcceptError("");
 
-        acceptQuest(challengeId, quest.id).then(() => {
-            dispatch(updateQuests(quest));
-            setAcceptLoading(false);
-        });
+        acceptQuest(challengeId, quest.id)
+            .then(() => {
+                // Add quest to challenge
+                dispatch(addQuestToChallenge(quest));
+                // Remove quest from all since it's selected
+                dispatch(removeQuest(quest.id));
+                setAcceptLoading(false);
+                setAcceptError("");
+            })
+            .catch((err) => {
+                setAcceptError(err.message);
+                setAcceptLoading(false);
+            });
     };
 
     const complete = (questId: string) => {
         // TODO
         console.log(questId);
+    };
+
+    const remove = (questId: string) => {
+        setRemoveLoading(true);
+
+        deleteQuest(questId).then(() => {
+            dispatch(removeQuest(questId));
+            setRemoveLoading(false);
+        });
     };
 
     return (
@@ -74,9 +99,14 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                 <Blockquote color={CategoryColorMapping.get(quest.category)} mb={15} p={22}>
                     {quest.description}
                 </Blockquote>
+                {acceptError && (
+                    <Alert mb={15} variant="light" color="red" title="Something went wrong!">
+                        Please try again later...
+                    </Alert>
+                )}
                 <Group justify="space-between" gap="xs">
                     <div>
-                        <Badge radius="sm" variant="light" size="lg" mr={10} h={29} color={CategoryColorMapping.get(quest.category)}>
+                        <Badge radius="sm" variant="light" size="lg" mr={8} h={29} color={CategoryColorMapping.get(quest.category)}>
                             <span style={{ marginTop: 2 }}>{DifficultyTextMapping.get(quest.difficulty)}</span>
                         </Badge>
                         <Badge radius="sm" variant="light" size="lg" h={29} color={CategoryColorMapping.get(quest.category)}>
@@ -84,19 +114,35 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                         </Badge>
                     </div>
                     {acceptMode ? (
-                        <Tooltip label="Accept Quest" position="left">
-                            <ActionIcon
-                                variant="light"
-                                color={CategoryColorMapping.get(quest.category)}
-                                disabled={acceptLoading}
-                                aria-label="accept-challenge"
-                                onClick={() => accept(challenge.id, quest)}
-                            >
-                                <IconPlus size={16} />
-                            </ActionIcon>
-                        </Tooltip>
+                        <div>
+                            {user.roles.includes(UserRoles.ADMINISTRATOR) && (
+                                <Tooltip label="Delete Quest" position="bottom" color="gray">
+                                    <ActionIcon
+                                        mr={8}
+                                        variant="light"
+                                        color="red"
+                                        aria-label="accept-challenge"
+                                        onClick={() => remove(quest.id)}
+                                        disabled={removeLoading}
+                                    >
+                                        <IconX size={16} />
+                                    </ActionIcon>
+                                </Tooltip>
+                            )}
+                            <Tooltip label="Accept Quest" position="bottom" color="gray">
+                                <ActionIcon
+                                    variant="light"
+                                    color={CategoryColorMapping.get(quest.category)}
+                                    disabled={acceptLoading}
+                                    aria-label="accept-challenge"
+                                    onClick={() => accept(challenge.id, quest)}
+                                >
+                                    <IconPlus size={16} />
+                                </ActionIcon>
+                            </Tooltip>
+                        </div>
                     ) : (
-                        <Tooltip label="Complete Quest" position="left">
+                        <Tooltip label="Complete Quest" position="bottom" color="gray">
                             <ActionIcon
                                 variant="light"
                                 color={CategoryColorMapping.get(quest.category)}

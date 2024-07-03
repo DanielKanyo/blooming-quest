@@ -19,7 +19,7 @@ export function AllQuests() {
             fetchQuests()
                 .then((quests) => {
                     const myQuestIds = challengeStore.challenge!.quests.map((q) => q.id);
-
+                    // Filter already selected quests
                     dispatch(updateAllQuests({ quests: quests.filter((q) => !myQuestIds.includes(q.id)), loading: false }));
                 })
                 .catch((err) => {
