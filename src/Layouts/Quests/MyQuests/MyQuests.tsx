@@ -20,7 +20,7 @@ export function MyQuests() {
                         </Accordion>
                     ) : (
                         <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
-                            No quest accepted...
+                            You haven't accepted a quest yet...
                         </Card>
                     )}
                 </>
