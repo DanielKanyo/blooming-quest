@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { Accordion, ScrollArea } from "@mantine/core";
+import { Accordion, Card, ScrollArea } from "@mantine/core";
 
 import { QuestItem } from "../../../Components/Quest/QuestItem";
 import store from "../../../Store/Store";
@@ -19,7 +19,9 @@ export function MyQuests() {
                             })}
                         </Accordion>
                     ) : (
-                        <div>No quest accepted...</div>
+                        <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                            No quest accepted...
+                        </Card>
                     )}
                 </>
             ) : (

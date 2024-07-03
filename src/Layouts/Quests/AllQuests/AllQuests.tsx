@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Accordion, Flex, ScrollArea, Skeleton } from "@mantine/core";
+import { Accordion, Card, Flex, ScrollArea, Skeleton } from "@mantine/core";
 
 import { QuestItem } from "../../../Components/Quest/QuestItem";
 import { fetchQuests } from "../../../Services/GameService";
@@ -15,22 +15,26 @@ export function AllQuests() {
     const challengeStore: ChallengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
 
     useEffect(() => {
-        fetchQuests()
-            .then((quests) => {
-                setQuestsLoding(false);
-                setQuests(quests);
-            })
-            .catch((err) => {
-                setQuestsLoding(false);
-                console.error(`Something went wrong... ${err.message}`);
-            });
-    }, [setQuestsLoding, setQuests]);
+        if (challengeStore.challenge) {
+            fetchQuests()
+                .then((quests) => {
+                    const myQuestIds = challengeStore.challenge!.quests.map((q) => q.id);
+
+                    setQuestsLoding(false);
+                    setQuests(quests.filter((q) => !myQuestIds.includes(q.id)));
+                })
+                .catch((err) => {
+                    setQuestsLoding(false);
+                    console.error(`Something went wrong... ${err.message}`);
+                });
+        }
+    }, [setQuestsLoding, setQuests, challengeStore]);
 
     return (
         <ScrollArea h="100%" type="never">
             <Flex direction="column" px="lg">
                 {challengeStore.loading ? (
-                    <Skeleton h={70} mb="sm" animate={true} />
+                    <Skeleton h={75} mb="sm" animate={true} />
                 ) : (
                     <>
                         {!challengeStore.challenge ? (
@@ -38,20 +42,28 @@ export function AllQuests() {
                         ) : (
                             <>
                                 {questsLoding ? (
-                                    <Skeleton h={50} mb="sm" animate={true} />
+                                    <Skeleton h={75} mb="sm" animate={true} />
                                 ) : (
-                                    <Accordion variant="separated">
-                                        {quests.map((quest) => {
-                                            return (
-                                                <QuestItem
-                                                    key={quest.id}
-                                                    quest={quest}
-                                                    challenge={challengeStore.challenge!}
-                                                    acceptMode={true}
-                                                />
-                                            );
-                                        })}
-                                    </Accordion>
+                                    <>
+                                        {quests.length ? (
+                                            <Accordion variant="separated">
+                                                {quests.map((quest) => {
+                                                    return (
+                                                        <QuestItem
+                                                            key={quest.id}
+                                                            quest={quest}
+                                                            challenge={challengeStore.challenge!}
+                                                            acceptMode={true}
+                                                        />
+                                                    );
+                                                })}
+                                            </Accordion>
+                                        ) : (
+                                            <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                                                No more quests left for this month...
+                                            </Card>
+                                        )}
+                                    </>
                                 )}
                             </>
                         )}
