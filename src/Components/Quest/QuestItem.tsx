@@ -36,10 +36,10 @@ function AccordionLabel({ description, category }: AccordionLabelProps) {
                 <Icon />
             </Avatar>
             <div>
-                <Text size="lg" fw={700}>
+                <Text size="lg" fw={500} truncate="end" w={230}>
                     {CategoryTextMapping.get(category)}
                 </Text>
-                <Text size="sm" fw={400} truncate="end" w={230}>
+                <Text size="sm" truncate="end" c="dimmed" w={230}>
                     {description}
                 </Text>
             </div>

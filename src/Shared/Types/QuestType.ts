@@ -35,17 +35,17 @@ export const TextDifficultyMapping = new Map<string, QuestDifficulties>([
 ]);
 
 export const CategoryTextMapping = new Map<QuestCategories, string>([
-    [QuestCategories.Healt, "Health"],
-    [QuestCategories.Sport, "Sport"],
-    [QuestCategories.Cooking, "Cooking"],
-    [QuestCategories.Education, "Education"],
+    [QuestCategories.Healt, "Health and Wellness"],
+    [QuestCategories.Sport, "Sport and Fitness"],
+    [QuestCategories.Cooking, "Cooking and Food"],
+    [QuestCategories.Education, "Learning and Education"],
 ]);
 
 export const TextCategoryMapping = new Map<string, QuestCategories>([
-    ["Health", QuestCategories.Healt],
-    ["Sport", QuestCategories.Sport],
-    ["Cooking", QuestCategories.Cooking],
-    ["Education", QuestCategories.Education],
+    ["Health and Wellness", QuestCategories.Healt],
+    ["Sport and Fitness", QuestCategories.Sport],
+    ["Cooking and Food", QuestCategories.Cooking],
+    ["Learning and Education", QuestCategories.Education],
 ]);
 
 export const CategoryColorMapping = new Map<QuestCategories, string>([
