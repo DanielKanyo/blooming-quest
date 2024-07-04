@@ -37,7 +37,9 @@ export function AllQuests() {
                 ) : (
                     <>
                         {!challengeStore.challenge ? (
-                            <div>Join the challenge to be able to accept quests...</div>
+                            <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                                Join the challenge to be able to accept quests...
+                            </Card>
                         ) : (
                             <>
                                 {allQuestsStore.loading ? (
