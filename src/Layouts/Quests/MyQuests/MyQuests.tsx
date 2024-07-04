@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 import { Accordion, Card, ScrollArea, Tabs, Tooltip } from "@mantine/core";
-import { IconCheck, IconDots } from "@tabler/icons-react";
+import { IconDots, IconSquareCheck } from "@tabler/icons-react";
 
 import { QuestItem } from "../../../Components/Quest/QuestItem";
 import store from "../../../Store/Store";
@@ -20,7 +20,7 @@ export function MyQuests() {
                                     <Tabs.Tab value="uncompleted" leftSection={<IconDots />}></Tabs.Tab>
                                 </Tooltip>
                                 <Tooltip label="Completed" position="top" color="gray">
-                                    <Tabs.Tab value="completed" leftSection={<IconCheck />}></Tabs.Tab>
+                                    <Tabs.Tab value="completed" leftSection={<IconSquareCheck />}></Tabs.Tab>
                                 </Tooltip>
                             </Tabs.List>
 
