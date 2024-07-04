@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { Button, Modal, NativeSelect, NumberInput, TextInput, rem } from "@mantine/core";
@@ -25,6 +26,7 @@ type QuestEditorProps = {
 export function QuestEditor({ opened, close }: QuestEditorProps) {
     const isMobile = useMediaQuery("(max-width: 50em)");
     const dispatch = useDispatch();
+    const [createLoading, setCreateLoading] = useState(false);
 
     const form = useForm({
         mode: "uncontrolled",
@@ -37,6 +39,8 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
     });
 
     const handleSubmit = (values: typeof form.values) => {
+        setCreateLoading(true);
+
         const category = TextCategoryMapping.get(values.category)!;
         const description = values.description;
         const difficulty = TextDifficultyMapping.get(values.difficulty)!;
@@ -47,9 +51,12 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                 dispatch(addQuest(quest));
 
                 form.reset();
+                setCreateLoading(false);
+
                 close();
             })
             .catch((err) => {
+                setCreateLoading(false);
                 console.error(`Something went wrong... ${err.message}`);
             });
     };
@@ -80,6 +87,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                     style={{ marginTop: rem(20) }}
                     variant="gradient"
                     gradient={{ from: "cyan", to: "teal", deg: 60 }}
+                    disabled={createLoading}
                 >
                     Create Quest
                 </Button>

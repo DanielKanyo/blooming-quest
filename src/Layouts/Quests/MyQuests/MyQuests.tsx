@@ -14,7 +14,7 @@ export function MyQuests() {
             {challengeStore.challenge ? (
                 <>
                     {challengeStore.challenge.quests.length ? (
-                        <Tabs variant="pills" defaultValue="uncompleted">
+                        <Tabs variant="pills" defaultValue="uncompleted" color="teal">
                             <Tabs.List grow>
                                 <Tooltip label="In Progress" position="top" color="gray">
                                     <Tabs.Tab value="uncompleted" leftSection={<IconDots />}></Tabs.Tab>
