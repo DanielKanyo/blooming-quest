@@ -8,9 +8,14 @@ export type ChallengeStore = {
     loading: boolean;
 };
 
+export const initChallenge: ChallengeStore = {
+    challenge: null,
+    loading: true,
+};
+
 export const challengeSlice = createSlice({
     name: "challenge",
-    initialState: { challenge: null, loading: true } as ChallengeStore,
+    initialState: initChallenge,
     reducers: {
         updateChallenge: (_state, action: PayloadAction<ChallengeStore>) => {
             return action.payload;
@@ -23,9 +28,10 @@ export const challengeSlice = createSlice({
                 state.challenge.quests.push(action.payload);
             }
         },
-        completeQuestInChallenge: (state, action: PayloadAction<string>) => {
+        completeQuestInChallenge: (state, action: PayloadAction<{ questId: string; xpCurrent: number }>) => {
             if (state.challenge) {
-                state.challenge.completedQuests.push(action.payload);
+                state.challenge.xpCurrent = action.payload.xpCurrent;
+                state.challenge.completedQuests.push(action.payload.questId);
             }
         },
     },

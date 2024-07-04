@@ -112,8 +112,10 @@ export const deleteQuest = async (questId: string): Promise<void> => {
     await deleteDoc(doc(db, "quests", questId));
 };
 
-export const completeQuest = async (challengeId: string, questId: string): Promise<void> => {
+export const completeQuest = async (challengeId: string, questId: string, xpCurrentNew: number): Promise<void> => {
     const challengeDocRef = doc(db, "challenges", challengeId);
+
+    await setDoc(challengeDocRef, { xpCurrent: xpCurrentNew }, { merge: true });
 
     await updateDoc(challengeDocRef, {
         completedQuests: arrayUnion(questId),

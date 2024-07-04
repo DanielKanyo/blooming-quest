@@ -8,7 +8,7 @@ import { User } from "../Shared/Types/UserType";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
 import store from "../Store/Store";
 
-export function Challenges() {
+export function Challenge() {
     const month = new Date().toLocaleString("default", { month: "long" });
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const challengeStore: ChallengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
@@ -42,7 +42,10 @@ export function Challenges() {
         <>
             {challengeStore.challenge ? (
                 <div>
-                    {user.email} already joined the {month} challenge
+                    <div>
+                        {user.email} already joined the {month} challenge.
+                    </div>
+                    <div>Current XP: {challengeStore.challenge.xpCurrent}</div>
                 </div>
             ) : (
                 <Center h="100%">

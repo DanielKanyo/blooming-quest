@@ -77,12 +77,14 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
             });
     };
 
-    const complete = (challengeId: string, questId: string) => {
+    const complete = (challenge: Challenge, quest: Quest) => {
+        const xpCurrentNew = challenge.xpCurrent + quest.xp;
+
         setCompleteLoading(true);
 
-        completeQuest(challengeId, questId)
+        completeQuest(challenge.id, quest.id, xpCurrentNew)
             .then(() => {
-                dispatch(completeQuestInChallenge(questId));
+                dispatch(completeQuestInChallenge({ questId: quest.id, xpCurrent: xpCurrentNew }));
                 setCompleteLoading(false);
             })
             .catch((err) => {
@@ -161,7 +163,7 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                                         color={CategoryColorMapping.get(quest.category)}
                                         aria-label="complete-challenge"
                                         disabled={completeLoading}
-                                        onClick={() => complete(challenge.id, quest.id)}
+                                        onClick={() => complete(challenge, quest)}
                                     >
                                         <IconCheck size={16} />
                                     </ActionIcon>

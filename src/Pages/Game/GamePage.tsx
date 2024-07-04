@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Card, Center, Loader, Skeleton } from "@mantine/core";
 
-import { Challenges } from "../../Layouts/Challenges";
+import { Challenge } from "../../Layouts/Challenge";
 import { MyQuests } from "../../Layouts/Quests/MyQuests/MyQuests";
 import { fetchCurrentChallenge } from "../../Services/GameService";
 import { ChallengeStore, updateChallenge } from "../../Store/Features/ChallengeSlice";
@@ -34,7 +34,7 @@ export function GamePage() {
                             <Loader size={40} color="var(--mantine-color-dark-0)" />
                         </Center>
                     ) : (
-                        <Challenges />
+                        <Challenge />
                     )}
                 </Card>
             </div>

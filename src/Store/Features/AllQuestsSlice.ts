@@ -7,9 +7,14 @@ export type AllQuestsStore = {
     loading: boolean;
 };
 
+export const initAllQuests: AllQuestsStore = {
+    quests: [],
+    loading: true,
+};
+
 export const allQuestsSlice = createSlice({
     name: "allQuests",
-    initialState: { quests: [], loading: true } as AllQuestsStore,
+    initialState: initAllQuests,
     reducers: {
         updateAllQuests: (_state, action: PayloadAction<AllQuestsStore>) => {
             return action.payload;

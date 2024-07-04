@@ -3,25 +3,29 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Avatar, Menu, rem } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconLogout, IconSettings, IconShieldCog } from "@tabler/icons-react";
+import { IconLogout, IconPencil, IconSettings } from "@tabler/icons-react";
 
 import { signOut } from "../../Services/UserService";
 import { User, UserRoles } from "../../Shared/Types/UserType";
-import { updateUser } from "../../Store/Features/UserSlice";
+import { updateAllQuests, initAllQuests } from "../../Store/Features/AllQuestsSlice";
+import { updateChallenge, initChallenge } from "../../Store/Features/ChallengeSlice";
+import { initUser, updateUser } from "../../Store/Features/UserSlice";
 import store from "../../Store/Store";
-import { AdminModal } from "../AdminModal/AdminModal";
+import { QuestEditor } from "../QuestEditor/QuestEditor";
 import "./UserAvatar.css";
 
 export function UserAvatar() {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [adminModalOpened, { open, close }] = useDisclosure(false);
+    const [questEditorOpened, { open, close }] = useDisclosure(false);
 
     const handleSignOut = () => {
         signOut().then(() => {
             navigate("/");
-            dispatch(updateUser({} as User));
+            dispatch(updateUser(initUser));
+            dispatch(updateChallenge(initChallenge));
+            dispatch(updateAllQuests(initAllQuests));
         });
     };
 
@@ -57,7 +61,7 @@ export function UserAvatar() {
                     {user.roles.includes(UserRoles.ADMINISTRATOR) && (
                         <Menu.Item
                             leftSection={
-                                <IconShieldCog
+                                <IconPencil
                                     style={{
                                         width: rem(14),
                                         height: rem(14),
@@ -66,7 +70,7 @@ export function UserAvatar() {
                             }
                             onClick={open}
                         >
-                            Admin
+                            Quest Editor
                         </Menu.Item>
                     )}
                     <Menu.Item
@@ -85,7 +89,7 @@ export function UserAvatar() {
                     </Menu.Item>
                 </Menu.Dropdown>
             </Menu>
-            <AdminModal opened={adminModalOpened} close={close} />
+            <QuestEditor opened={questEditorOpened} close={close} />
         </>
     );
 }
