@@ -142,17 +142,20 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                             </Tooltip>
                         </div>
                     ) : (
-                        <Tooltip label="Complete Quest" position="bottom" color="gray">
-                            <ActionIcon
-                                variant="light"
-                                color={CategoryColorMapping.get(quest.category)}
-                                disabled={acceptLoading}
-                                aria-label="complete-challenge"
-                                onClick={() => complete(quest.id)}
-                            >
-                                <IconCheck size={16} />
-                            </ActionIcon>
-                        </Tooltip>
+                        <>
+                            {!quest.completed && (
+                                <Tooltip label="Complete Quest" position="bottom" color="gray">
+                                    <ActionIcon
+                                        variant="light"
+                                        color={CategoryColorMapping.get(quest.category)}
+                                        aria-label="complete-challenge"
+                                        onClick={() => complete(quest.id)}
+                                    >
+                                        <IconCheck size={16} />
+                                    </ActionIcon>
+                                </Tooltip>
+                            )}
+                        </>
                     )}
                 </Group>
             </Accordion.Panel>

@@ -1,0 +1,11 @@
+.list {
+    gap: var(--mantine-spacing-xs);
+}
+
+.tab {
+    background-color: var(--mantine-color-dark-6);
+
+    &[data-active="true"] {
+        background-color: var(--mantine-color-dark-4);
+    }
+}
