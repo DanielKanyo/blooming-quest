@@ -26,10 +26,12 @@ export function MyQuests() {
 
                             <ScrollArea h="calc(100vh - 220px)" type="never" pt="var(--mantine-spacing-xs)">
                                 <Tabs.Panel value="uncompleted">
-                                    {challengeStore.challenge.quests.filter((q) => !q.completed).length ? (
+                                    {challengeStore.challenge.quests.filter(
+                                        (q) => !challengeStore.challenge!.completedQuests.includes(q.id)
+                                    ).length ? (
                                         <Accordion variant="separated">
                                             {challengeStore.challenge.quests
-                                                .filter((q) => !q.completed)
+                                                .filter((q) => !challengeStore.challenge!.completedQuests.includes(q.id))
                                                 .map((quest) => {
                                                     return (
                                                         <QuestItem
@@ -49,10 +51,11 @@ export function MyQuests() {
                                 </Tabs.Panel>
 
                                 <Tabs.Panel value="completed">
-                                    {challengeStore.challenge.quests.filter((q) => q.completed).length ? (
+                                    {challengeStore.challenge.quests.filter((q) => challengeStore.challenge!.completedQuests.includes(q.id))
+                                        .length ? (
                                         <Accordion variant="separated">
                                             {challengeStore.challenge.quests
-                                                .filter((q) => q.completed)
+                                                .filter((q) => challengeStore.challenge!.completedQuests.includes(q.id))
                                                 .map((quest) => {
                                                     return (
                                                         <QuestItem

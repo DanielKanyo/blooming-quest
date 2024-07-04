@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip, Alert } from "@mantine/core";
 import { IconCheck, IconPlus, IconQuestionMark, IconX } from "@tabler/icons-react";
 
-import { acceptQuest, deleteQuest } from "../../Services/GameService";
+import { acceptQuest, completeQuest, deleteQuest } from "../../Services/GameService";
 import { Challenge } from "../../Shared/Types/ChallengeType";
 import {
     CategoryColorMapping,
@@ -16,7 +16,7 @@ import {
 } from "../../Shared/Types/QuestType";
 import { UserRoles } from "../../Shared/Types/UserType";
 import { removeQuest } from "../../Store/Features/AllQuestsSlice";
-import { addQuestToChallenge } from "../../Store/Features/ChallengeSlice";
+import { addQuestToChallenge, completeQuestInChallenge } from "../../Store/Features/ChallengeSlice";
 import store from "../../Store/Store";
 
 type QuestItemProps = {
@@ -54,6 +54,7 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
     const [acceptLoading, setAcceptLoading] = useState(false);
     const [acceptError, setAcceptError] = useState("");
     const [removeLoading, setRemoveLoading] = useState(false);
+    const [completeLoading, setCompleteLoading] = useState(false);
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const dispatch = useDispatch();
 
@@ -76,9 +77,19 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
             });
     };
 
-    const complete = (questId: string) => {
-        // TODO
-        console.log(questId);
+    const complete = (challengeId: string, questId: string) => {
+        setCompleteLoading(true);
+
+        completeQuest(challengeId, questId)
+            .then(() => {
+                dispatch(completeQuestInChallenge(questId));
+                setCompleteLoading(false);
+            })
+            .catch((err) => {
+                // TODO: Display error
+                console.log(err);
+                setCompleteLoading(false);
+            });
     };
 
     const remove = (questId: string) => {
@@ -143,13 +154,14 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                         </div>
                     ) : (
                         <>
-                            {!quest.completed && (
+                            {!challenge.completedQuests.includes(quest.id) && (
                                 <Tooltip label="Complete Quest" position="bottom" color="gray">
                                     <ActionIcon
                                         variant="light"
                                         color={CategoryColorMapping.get(quest.category)}
                                         aria-label="complete-challenge"
-                                        onClick={() => complete(quest.id)}
+                                        disabled={completeLoading}
+                                        onClick={() => complete(challenge.id, quest.id)}
                                     >
                                         <IconCheck size={16} />
                                     </ActionIcon>

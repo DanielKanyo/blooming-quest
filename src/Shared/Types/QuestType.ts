@@ -16,8 +16,6 @@ export type Quest = {
     description: string;
     difficulty: QuestDifficulties;
     xp: number;
-    completed?: boolean;
-    accepted?: boolean;
 };
 
 export enum QuestCategories {

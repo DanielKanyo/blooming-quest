@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 import { db } from "../Configs/Firebase/FirebaseConfig";
 import { Challenge } from "../Shared/Types/ChallengeType";
@@ -44,6 +44,7 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
         quests: [],
         xpToComplete: 50,
         xpCurrent: 0,
+        completedQuests: [],
     };
 
     await setDoc(docRef, challenge);
@@ -109,4 +110,12 @@ export const createQuest = async (
 
 export const deleteQuest = async (questId: string): Promise<void> => {
     await deleteDoc(doc(db, "quests", questId));
+};
+
+export const completeQuest = async (challengeId: string, questId: string): Promise<void> => {
+    const challengeDocRef = doc(db, "challenges", challengeId);
+
+    await updateDoc(challengeDocRef, {
+        completedQuests: arrayUnion(questId),
+    });
 };

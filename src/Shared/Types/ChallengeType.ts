@@ -9,4 +9,5 @@ export type Challenge = {
     quests: Quest[];
     xpToComplete: number;
     xpCurrent: number;
+    completedQuests: string[];
 };
