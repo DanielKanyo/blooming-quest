@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 
 import { db } from "../Configs/Firebase/FirebaseConfig";
 import { Challenge } from "../Shared/Types/ChallengeType";
@@ -72,6 +72,10 @@ export const acceptQuest = async (challengeId: string, questId: string) => {
     const quest = questDocSnap.data() as Quest;
     const challenge = challengeDocSnap.data() as Challenge;
 
+    if (!quest) {
+        throw new Error("Quest does not exists...");
+    }
+
     const questToAdd = {
         ...quest,
         completed: false,
@@ -101,4 +105,8 @@ export const createQuest = async (
     const questDocRef = doc(db, "quests", docRef.id);
 
     return (await getDoc(questDocRef)).data() as Quest;
+};
+
+export const deleteQuest = async (questId: string): Promise<void> => {
+    await deleteDoc(doc(db, "quests", questId));
 };

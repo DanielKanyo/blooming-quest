@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { Challenge } from "../../Shared/Types/ChallengeType";
+import { Quest } from "../../Shared/Types/QuestType";
 
 export type ChallengeStore = {
     challenge: Challenge | null;
@@ -14,10 +15,10 @@ export const challengeSlice = createSlice({
         updateChallenge: (_state, action: PayloadAction<ChallengeStore>) => {
             return action.payload;
         },
-        updateChallengeLoading: (state, action) => {
+        updateChallengeLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload;
         },
-        updateQuests: (state, action) => {
+        addQuestToChallenge: (state, action: PayloadAction<Quest>) => {
             if (state.challenge) {
                 state.challenge.quests.push(action.payload);
             }
@@ -25,5 +26,5 @@ export const challengeSlice = createSlice({
     },
 });
 
-export const { updateChallenge, updateChallengeLoading, updateQuests } = challengeSlice.actions;
+export const { updateChallenge, updateChallengeLoading, addQuestToChallenge } = challengeSlice.actions;
 export default challengeSlice.reducer;

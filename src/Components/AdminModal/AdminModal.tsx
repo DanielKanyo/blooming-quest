@@ -15,7 +15,7 @@ import {
     TextCategoryMapping,
     TextDifficultyMapping,
 } from "../../Shared/Types/QuestType";
-import { updateQuests } from "../../Store/Features/AllQuestsSlice";
+import { addQuest } from "../../Store/Features/AllQuestsSlice";
 
 type AdminModalProps = {
     opened: boolean;
@@ -44,7 +44,7 @@ export function AdminModal({ opened, close }: AdminModalProps) {
 
         createQuest(category, description, difficulty, xp)
             .then((quest) => {
-                dispatch(updateQuests(quest));
+                dispatch(addQuest(quest));
 
                 close();
             })

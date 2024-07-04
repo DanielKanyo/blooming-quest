@@ -14,11 +14,14 @@ export const allQuestsSlice = createSlice({
         updateAllQuests: (_state, action: PayloadAction<AllQuestsStore>) => {
             return action.payload;
         },
-        updateQuests: (state, action: PayloadAction<Quest>) => {
+        addQuest: (state, action: PayloadAction<Quest>) => {
             state.quests = [action.payload, ...state.quests];
+        },
+        removeQuest: (state, action: PayloadAction<string>) => {
+            state.quests = state.quests.filter((q) => q.id !== action.payload);
         },
     },
 });
 
-export const { updateAllQuests, updateQuests } = allQuestsSlice.actions;
+export const { updateAllQuests, addQuest, removeQuest } = allQuestsSlice.actions;
 export default allQuestsSlice.reducer;
