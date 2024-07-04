@@ -29,7 +29,7 @@ export function AdminModal({ opened, close }: AdminModalProps) {
     const form = useForm({
         mode: "uncontrolled",
         initialValues: {
-            category: CategoryTextMapping.get(QuestCategories.Cooking)!,
+            category: CategoryTextMapping.get(QuestCategories.FitnessAndHealth)!,
             description: "",
             difficulty: DifficultyTextMapping.get(QuestDifficulties.Easy)!,
             xp: 0,
@@ -46,6 +46,7 @@ export function AdminModal({ opened, close }: AdminModalProps) {
             .then((quest) => {
                 dispatch(addQuest(quest));
 
+                form.reset();
                 close();
             })
             .catch((err) => {

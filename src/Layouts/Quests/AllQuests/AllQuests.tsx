@@ -30,8 +30,8 @@ export function AllQuests() {
     }, [dispatch, allQuestsStore, challengeStore]);
 
     return (
-        <ScrollArea h="100%" type="never">
-            <Flex direction="column" px="lg">
+        <ScrollArea h="calc(100vh - 80px)" type="never">
+            <Flex direction="column" px="lg" mb="var(--mantine-spacing-lg)">
                 {challengeStore.loading ? (
                     <Skeleton h={75} mb="sm" animate={true} />
                 ) : (

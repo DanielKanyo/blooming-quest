@@ -1,4 +1,14 @@
-import { Icon, IconChefHat, IconHeart, IconRun, IconSchool } from "@tabler/icons-react";
+import {
+    Icon,
+    IconChefHat,
+    IconPalette,
+    IconPlant,
+    IconPlant2,
+    IconSchool,
+    IconSocial,
+    IconStretching2,
+    IconTrekking,
+} from "@tabler/icons-react";
 
 export type Quest = {
     id: string;
@@ -11,10 +21,14 @@ export type Quest = {
 };
 
 export enum QuestCategories {
-    Healt,
-    Sport,
-    Cooking,
-    Education,
+    FitnessAndHealth,
+    CookingAndFood,
+    LearningAndEducation,
+    SpiritualAndMindfulness,
+    CreativeArts,
+    AdventureAndExploration,
+    PersonalGrowthAndLifestyle,
+    SocialAndCommunity,
 }
 
 export enum QuestDifficulties {
@@ -36,38 +50,58 @@ export const TextDifficultyMapping = new Map<string, QuestDifficulties>([
 ]);
 
 export const CategoryTextMapping = new Map<QuestCategories, string>([
-    [QuestCategories.Healt, "Health and Wellness"],
-    [QuestCategories.Sport, "Sport and Fitness"],
-    [QuestCategories.Cooking, "Cooking and Food"],
-    [QuestCategories.Education, "Learning and Education"],
+    [QuestCategories.FitnessAndHealth, "Fitness and Health"],
+    [QuestCategories.CookingAndFood, "Cooking and Food"],
+    [QuestCategories.LearningAndEducation, "Learning and Education"],
+    [QuestCategories.SpiritualAndMindfulness, "Spiritual and Mindfulness"],
+    [QuestCategories.CreativeArts, "Creative Arts"],
+    [QuestCategories.AdventureAndExploration, "Adventure and Exploration"],
+    [QuestCategories.PersonalGrowthAndLifestyle, "Personal Growth and Lifestyle"],
+    [QuestCategories.SocialAndCommunity, "Social And Community"],
 ]);
 
 export const TextCategoryMapping = new Map<string, QuestCategories>([
-    ["Health and Wellness", QuestCategories.Healt],
-    ["Sport and Fitness", QuestCategories.Sport],
-    ["Cooking and Food", QuestCategories.Cooking],
-    ["Learning and Education", QuestCategories.Education],
+    ["Fitness and Health", QuestCategories.FitnessAndHealth],
+    ["Cooking and Food", QuestCategories.CookingAndFood],
+    ["Learning and Education", QuestCategories.LearningAndEducation],
+    ["Spiritual and Mindfulness", QuestCategories.SpiritualAndMindfulness],
+    ["Creative Arts", QuestCategories.CreativeArts],
+    ["Adventure and Exploration", QuestCategories.AdventureAndExploration],
+    ["Personal Growth and Lifestyle", QuestCategories.PersonalGrowthAndLifestyle],
+    ["Social And Community", QuestCategories.SocialAndCommunity],
 ]);
 
 export const CategoryColorMapping = new Map<QuestCategories, string>([
-    [QuestCategories.Healt, "teal"],
-    [QuestCategories.Sport, "cyan"],
-    [QuestCategories.Cooking, "yellow"],
-    [QuestCategories.Education, "violet"],
+    [QuestCategories.FitnessAndHealth, "teal"],
+    [QuestCategories.CookingAndFood, "yellow"],
+    [QuestCategories.LearningAndEducation, "violet"],
+    [QuestCategories.SpiritualAndMindfulness, "green"],
+    [QuestCategories.CreativeArts, "pink"],
+    [QuestCategories.AdventureAndExploration, "lime"],
+    [QuestCategories.PersonalGrowthAndLifestyle, "orange"],
+    [QuestCategories.SocialAndCommunity, "grape"],
 ]);
 
 export const CategoryIconMapping = new Map<QuestCategories, Icon>([
-    [QuestCategories.Healt, IconHeart],
-    [QuestCategories.Sport, IconRun],
-    [QuestCategories.Cooking, IconChefHat],
-    [QuestCategories.Education, IconSchool],
+    [QuestCategories.FitnessAndHealth, IconStretching2],
+    [QuestCategories.CookingAndFood, IconChefHat],
+    [QuestCategories.LearningAndEducation, IconSchool],
+    [QuestCategories.SpiritualAndMindfulness, IconPlant2],
+    [QuestCategories.CreativeArts, IconPalette],
+    [QuestCategories.AdventureAndExploration, IconTrekking],
+    [QuestCategories.PersonalGrowthAndLifestyle, IconPlant],
+    [QuestCategories.SocialAndCommunity, IconSocial],
 ]);
 
 export const Categories = [
-    CategoryTextMapping.get(QuestCategories.Healt)!,
-    CategoryTextMapping.get(QuestCategories.Sport)!,
-    CategoryTextMapping.get(QuestCategories.Cooking)!,
-    CategoryTextMapping.get(QuestCategories.Education)!,
+    CategoryTextMapping.get(QuestCategories.FitnessAndHealth)!,
+    CategoryTextMapping.get(QuestCategories.CookingAndFood)!,
+    CategoryTextMapping.get(QuestCategories.LearningAndEducation)!,
+    CategoryTextMapping.get(QuestCategories.SpiritualAndMindfulness)!,
+    CategoryTextMapping.get(QuestCategories.CreativeArts)!,
+    CategoryTextMapping.get(QuestCategories.AdventureAndExploration)!,
+    CategoryTextMapping.get(QuestCategories.PersonalGrowthAndLifestyle)!,
+    CategoryTextMapping.get(QuestCategories.SocialAndCommunity)!,
 ];
 
 export const Difficulties = [

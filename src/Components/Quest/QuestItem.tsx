@@ -35,11 +35,11 @@ function AccordionLabel({ description, category }: AccordionLabelProps) {
 
     return (
         <Group wrap="nowrap">
-            <Avatar color={CategoryColorMapping.get(category)} radius="sm" size="49px" variant="filled">
+            <Avatar color={CategoryColorMapping.get(category)} radius="sm" size="45px" variant="filled">
                 <Icon />
             </Avatar>
             <div>
-                <Text size="lg" fw={500} truncate="end" w={230}>
+                <Text size="md" fw={500} truncate="end" w={230}>
                     {CategoryTextMapping.get(category)}
                 </Text>
                 <Text size="sm" truncate="end" c="dimmed" w={230}>
@@ -107,10 +107,10 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                 <Group justify="space-between" gap="xs">
                     <div>
                         <Badge radius="sm" variant="light" size="lg" mr={8} h={29} color={CategoryColorMapping.get(quest.category)}>
-                            <span style={{ marginTop: 2 }}>{DifficultyTextMapping.get(quest.difficulty)}</span>
+                            {DifficultyTextMapping.get(quest.difficulty)}
                         </Badge>
                         <Badge radius="sm" variant="light" size="lg" h={29} color={CategoryColorMapping.get(quest.category)}>
-                            <span style={{ marginTop: 2 }}>{quest.xp} XP</span>
+                            {quest.xp} XP
                         </Badge>
                     </div>
                     {acceptMode ? (
