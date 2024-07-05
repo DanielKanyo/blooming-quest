@@ -5,7 +5,7 @@ import { Button, Modal, NativeSelect, NumberInput, TextInput, rem } from "@manti
 import { useForm } from "@mantine/form";
 import { useMediaQuery } from "@mantine/hooks";
 
-import { createQuest } from "../../Services/GameService";
+import { createQuest } from "../Services/GameService";
 import {
     Categories,
     CategoryTextMapping,
@@ -15,8 +15,8 @@ import {
     QuestDifficulties,
     TextCategoryMapping,
     TextDifficultyMapping,
-} from "../../Shared/Types/QuestType";
-import { addQuest } from "../../Store/Features/AllQuestsSlice";
+} from "../Shared/Types/QuestType";
+import { addQuest } from "../Store/Features/AllQuestsSlice";
 
 type QuestEditorProps = {
     opened: boolean;

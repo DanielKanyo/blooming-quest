@@ -11,7 +11,7 @@ import { updateAllQuests, initAllQuests } from "../../Store/Features/AllQuestsSl
 import { updateChallenge, initChallenge } from "../../Store/Features/ChallengeSlice";
 import { initUser, updateUser } from "../../Store/Features/UserSlice";
 import store from "../../Store/Store";
-import { QuestEditor } from "../QuestEditor/QuestEditor";
+import { QuestEditor } from "../QuestEditor";
 import "./UserAvatar.css";
 
 export function UserAvatar() {

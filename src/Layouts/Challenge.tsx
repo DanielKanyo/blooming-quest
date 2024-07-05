@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Center } from "@mantine/core";
 import { IconCalendarPlus } from "@tabler/icons-react";
 
+import { ProgressIndicator } from "../Components/ProgressIndicator";
 import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { User } from "../Shared/Types/UserType";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
@@ -41,12 +42,12 @@ export function Challenge() {
     return (
         <>
             {challengeStore.challenge ? (
-                <div>
-                    <div>
+                <>
+                    <ProgressIndicator />
+                    <div style={{ marginTop: 20 }}>
                         {user.email} already joined the {month} challenge.
                     </div>
-                    <div>Current XP: {challengeStore.challenge.xpCurrent}</div>
-                </div>
+                </>
             ) : (
                 <Center h="100%">
                     <Button
