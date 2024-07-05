@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 
-import { AppShell, Burger, Center, Group, Loader, Text } from "@mantine/core";
+import { AppShell, Burger, Center, Group, Loader, Text, Image } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { UserAvatar } from "../Components/UserAvatar/UserAvatar";
@@ -12,6 +12,8 @@ import { AllQuests } from "../Layouts/Quests/AllQuests/AllQuests";
 import { fetchUser } from "../Services/UserService";
 import { updateUser } from "../Store/Features/UserSlice";
 import store from "../Store/Store";
+
+import logo from "../Assets/Images/logo.png";
 
 export function HomePage() {
     const [opened, { toggle }] = useDisclosure();
@@ -68,7 +70,10 @@ export function HomePage() {
                             <AppShell.Navbar>
                                 <Group px="lg" style={{ minHeight: 80 }}>
                                     <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-                                    <Text>BloomingQuest</Text>
+                                    <Link to="/home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+                                        <Image h={45} src={logo} />
+                                        <Text ml={10} className="game-title">BloomingQuest</Text>
+                                    </Link>
                                 </Group>
                                 <AppShell.Section h="100%" grow>
                                     <AllQuests />
