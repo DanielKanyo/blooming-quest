@@ -6,6 +6,12 @@
     height: calc(100vh - 80px - 60px - 35px);
 }
 
+.sign-title {
+    font-family: "Amatic SC", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+}
+
 .game-title {
     font-family: "Amatic SC", sans-serif;
     font-size: 33px;

@@ -69,10 +69,10 @@ export function MyQuests() {
                                     {determineInProgressQuests(challengeStore.challenge).length ? (
                                         <>
                                             <Group justify="flex-end" mb={10} gap={10}>
-                                                <Badge radius="sm" variant="light" color="gray">
+                                                <Badge radius="sm" variant="light" color="gray" size="lg">
                                                     {calcNumOfInProgressQuests(challengeStore.challenge)}
                                                 </Badge>
-                                                <Badge radius="sm" variant="light" color="gray">
+                                                <Badge radius="sm" variant="light" color="gray" size="lg">
                                                     {sumUpInProgressQuestXp(challengeStore.challenge)} XP
                                                 </Badge>
                                             </Group>
@@ -100,10 +100,10 @@ export function MyQuests() {
                                     {determineCompletedQuests(challengeStore.challenge).length ? (
                                         <>
                                             <Group justify="flex-end" mb={10} gap={10}>
-                                                <Badge radius="sm" variant="light" color="gray">
+                                                <Badge radius="sm" variant="light" color="gray" size="lg">
                                                     {calcNumOfCompletedQuests(challengeStore.challenge)}
                                                 </Badge>
-                                                <Badge radius="sm" variant="light" color="gray">
+                                                <Badge radius="sm" variant="light" color="gray" size="lg">
                                                     {sumUpCompletedQuestXp(challengeStore.challenge)} XP
                                                 </Badge>
                                             </Group>

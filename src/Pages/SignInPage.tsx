@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
+import { Center, Card, Button, TextInput, Text, Image, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconAt, IconKey } from "@tabler/icons-react";
 
+import logo from "../Assets/Images/logo.png";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 
 export function SignInPage() {
@@ -41,15 +42,17 @@ export function SignInPage() {
     };
 
     return (
-        <Center style={{ height: "100vh" }}>
-            <Card shadow="sm" padding="xl" radius="md" style={{ width: rem(500) }}>
+        <Center style={{ height: "90vh", flexDirection: "column" }} pb={100}>
+            <Image h={50} w={50} src={logo} />
+            <Text ml={10} className="sign-title" mb={20}>
+                BloomingQuest
+            </Text>
+            <Card shadow="sm" py="lg" px="xl" radius="md" style={{ width: rem(500) }}>
                 <form onSubmit={form.onSubmit(({ email, password }) => handleSubmit(email, password))}>
                     <Text size="xl">Login</Text>
-                    <Text size="sm" style={{ opacity: "0.4" }}>
+                    <Text size="sm" style={{ opacity: "0.4" }} mb={25}>
                         Please fill the input below
                     </Text>
-
-                    <Divider my="xl" />
 
                     <TextInput
                         size="md"
@@ -87,7 +90,7 @@ export function SignInPage() {
                         {signInLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Login"}
                     </Button>
 
-                    <Group justify="flex-end" gap="xs" style={{ marginTop: rem(40) }}>
+                    <Group justify="flex-end" gap="xs" style={{ marginTop: rem(25) }}>
                         <Text size="sm" style={{ opacity: "0.4" }}>
                             Don't hava an account?
                         </Text>

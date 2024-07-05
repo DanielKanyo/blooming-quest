@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { Center, Card, Button, TextInput, Text, Divider, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
+import { Center, Card, Button, TextInput, Text, Image, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconAt, IconKey, IconLetterCase } from "@tabler/icons-react";
 
+import logo from "../Assets/Images/logo.png";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { createUser } from "../Services/UserService";
 import { UserRoles } from "../Shared/Types/UserType";
@@ -66,7 +67,11 @@ export function SignUpPage() {
     };
 
     return (
-        <Center style={{ height: "100vh" }}>
+        <Center style={{ height: "90vh", flexDirection: "column" }}>
+            <Image h={50} w={50} src={logo} />
+            <Text ml={10} className="sign-title" mb={20}>
+                BloomingQuest
+            </Text>
             <Card shadow="sm" padding="xl" radius="md" style={{ width: rem(500) }}>
                 <form
                     onSubmit={form.onSubmit(({ firstName, lastName, email, password }) =>
@@ -74,11 +79,9 @@ export function SignUpPage() {
                     )}
                 >
                     <Text size="xl">Create Account</Text>
-                    <Text size="sm" style={{ opacity: "0.4" }}>
+                    <Text size="sm" style={{ opacity: "0.4" }} mb={25}>
                         Please fill the inputs below
                     </Text>
-
-                    <Divider my="xl" />
 
                     <TextInput
                         size="md"
@@ -149,7 +152,7 @@ export function SignUpPage() {
                         {signUpLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Sign Up"}
                     </Button>
 
-                    <Group justify="flex-end" gap="xs" style={{ marginTop: rem(40) }}>
+                    <Group justify="flex-end" gap="xs" style={{ marginTop: rem(25) }}>
                         <Text size="sm" style={{ opacity: "0.4" }}>
                             Already hava an account?
                         </Text>
