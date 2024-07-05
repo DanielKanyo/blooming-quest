@@ -15,7 +15,6 @@
 .game-title {
     font-family: "Amatic SC", sans-serif;
     font-size: 33px;
-    text-transform: uppercase;
     font-weight: 700;
     color: var(--mantine-color-dark-0);
 
