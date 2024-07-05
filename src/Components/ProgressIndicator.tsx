@@ -31,7 +31,7 @@ export function ProgressIndicator() {
                 <>
                     <Progress
                         color={calcProgressColor(calcProgressValue(challengeStore.challenge))}
-                        size="lg"
+                        size="sm"
                         value={calcProgressValue(challengeStore.challenge)}
                     />
                     <Group justify="space-between" mt={10}>
