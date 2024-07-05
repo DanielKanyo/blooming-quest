@@ -35,11 +35,16 @@ export function ProgressIndicator() {
                         value={calcProgressValue(challengeStore.challenge)}
                     />
                     <Group justify="space-between" mt={6}>
-                        <Badge radius="sm" variant="light" color={calcProgressColor(calcProgressValue(challengeStore.challenge))}>
-                            {calcProgressValue(challengeStore.challenge)}%
-                        </Badge>
+                        <Group gap={6}>
+                            <Badge radius="sm" variant="light" color={calcProgressColor(calcProgressValue(challengeStore.challenge))}>
+                                {challengeStore.challenge.xpCurrent} XP
+                            </Badge>
+                            <Badge radius="sm" variant="light" color={calcProgressColor(calcProgressValue(challengeStore.challenge))}>
+                                {calcProgressValue(challengeStore.challenge)} %
+                            </Badge>
+                        </Group>
                         <Badge radius="sm" variant="light" color="gray">
-                            100%
+                            {challengeStore.challenge.xpToComplete} XP
                         </Badge>
                     </Group>
                 </>

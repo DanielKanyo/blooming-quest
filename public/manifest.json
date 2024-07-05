@@ -11,14 +11,5 @@
             "sizes": "128x128",
             "type": "image/png"
         }
-    ],
-    "screenshots": [
-        {
-            "src": "flowerpattern.jpg",
-            "sizes": "3000x2000",
-            "type": "image/jpg",
-            "form_factor": "wide",
-            "label": "BloomingQuest"
-        }
     ]
 }
