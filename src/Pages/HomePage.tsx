@@ -6,14 +6,13 @@ import { Outlet, useNavigate, Link } from "react-router-dom";
 import { AppShell, Burger, Center, Group, Loader, Text, Image } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
+import logo from "../Assets/Images/logo.png";
 import { UserAvatar } from "../Components/UserAvatar/UserAvatar";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { AllQuests } from "../Layouts/Quests/AllQuests/AllQuests";
 import { fetchUser } from "../Services/UserService";
 import { updateUser } from "../Store/Features/UserSlice";
 import store from "../Store/Store";
-
-import logo from "../Assets/Images/logo.png";
 
 export function HomePage() {
     const [opened, { toggle }] = useDisclosure();
@@ -72,7 +71,9 @@ export function HomePage() {
                                     <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
                                     <Link to="/home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
                                         <Image h={45} src={logo} />
-                                        <Text ml={10} className="game-title">BloomingQuest</Text>
+                                        <Text ml={10} className="game-title">
+                                            BloomingQuest
+                                        </Text>
                                     </Link>
                                 </Group>
                                 <AppShell.Section h="100%" grow>
