@@ -72,7 +72,7 @@ export function SignUpPage() {
             <Text ml={10} className="sign-title" mb={20}>
                 BloomingQuest
             </Text>
-            <Card shadow="sm" padding="xl" radius="md" style={{ width: rem(500) }}>
+            <Card shadow="sm" padding="xl" radius="sm" style={{ width: rem(500) }}>
                 <form
                     onSubmit={form.onSubmit(({ firstName, lastName, email, password }) =>
                         handleSubmit(firstName, lastName, email, password)
@@ -85,7 +85,7 @@ export function SignUpPage() {
 
                     <TextInput
                         size="md"
-                        radius="md"
+                        radius="sm"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your first name..."
                         key={form.key("firstName")}
@@ -94,7 +94,7 @@ export function SignUpPage() {
                     />
                     <TextInput
                         size="md"
-                        radius="md"
+                        radius="sm"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your last name..."
                         key={form.key("lastName")}
@@ -103,7 +103,7 @@ export function SignUpPage() {
                     />
                     <TextInput
                         size="md"
-                        radius="md"
+                        radius="sm"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your email address..."
                         key={form.key("email")}
@@ -112,7 +112,7 @@ export function SignUpPage() {
                     />
                     <PasswordInput
                         size="md"
-                        radius="md"
+                        radius="sm"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your password..."
                         key={form.key("password")}
@@ -121,7 +121,7 @@ export function SignUpPage() {
                     />
                     <PasswordInput
                         size="md"
-                        radius="md"
+                        radius="sm"
                         style={{ marginBottom: rem(20) }}
                         placeholder="Enter your password again..."
                         key={form.key("confirmPassword")}

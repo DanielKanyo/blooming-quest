@@ -109,7 +109,7 @@ export function UserPage() {
                     <TextInput
                         size="md"
                         label="Email"
-                        radius="md"
+                        radius="sm"
                         value={user.email}
                         disabled
                         style={{ marginBottom: rem(10) }}
@@ -118,7 +118,7 @@ export function UserPage() {
                     <TextInput
                         size="md"
                         label="Name"
-                        radius="md"
+                        radius="sm"
                         value={`${user.firstName} ${user.lastName}`}
                         disabled
                         style={{ marginBottom: rem(10) }}
@@ -139,7 +139,7 @@ export function UserPage() {
                     <form onSubmit={form.onSubmit(({ newPassword }) => handleSubmit(newPassword))}>
                         <PasswordInput
                             size="md"
-                            radius="md"
+                            radius="sm"
                             style={{ marginBottom: rem(10) }}
                             placeholder="Enter your new password..."
                             key={form.key("newPassword")}
@@ -148,7 +148,7 @@ export function UserPage() {
                         />
                         <PasswordInput
                             size="md"
-                            radius="md"
+                            radius="sm"
                             style={{ marginBottom: rem(20) }}
                             placeholder="Enter your new password again..."
                             key={form.key("confirmPassword")}

@@ -90,7 +90,7 @@ export function MyQuests() {
                                             </Accordion>
                                         </>
                                     ) : (
-                                        <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                                        <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
                                             You completed all of your quests...
                                         </Card>
                                     )}
@@ -121,7 +121,7 @@ export function MyQuests() {
                                             </Accordion>
                                         </>
                                     ) : (
-                                        <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                                        <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
                                             You haven't completed any of your quests...
                                         </Card>
                                     )}
@@ -129,13 +129,13 @@ export function MyQuests() {
                             </ScrollArea>
                         </Tabs>
                     ) : (
-                        <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                        <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
                             You haven't accepted a quest yet...
                         </Card>
                     )}
                 </>
             ) : (
-                <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
                     Join the challenge to be able to accept quests...
                 </Card>
             )}

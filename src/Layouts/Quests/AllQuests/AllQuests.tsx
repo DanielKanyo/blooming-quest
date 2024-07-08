@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Accordion, Button, Card, Flex, ScrollArea, Skeleton } from "@mantine/core";
+import { Accordion, Button, Card, Flex, ScrollArea } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
 
 import { CategoryFilter } from "../../../Components/CategoryFilter";
 import { QuestItem } from "../../../Components/Quest/QuestItem";
+import { QuestSkeleton } from "../../../Components/QuestSkeleton";
 import { fetchQuests, fetchQuestsAfter } from "../../../Services/GameService";
 import { QuestCategories } from "../../../Shared/Types/QuestType";
 import { AllQuestsStore, updateAllQuests, extendAllQuests } from "../../../Store/Features/AllQuestsSlice";
@@ -55,17 +56,17 @@ export function AllQuests() {
             <ScrollArea h="calc(100vh - 104px)" type="never">
                 <Flex direction="column" px="lg" mb="var(--mantine-spacing-lg)">
                     {challengeStore.loading ? (
-                        <Skeleton h={75} mb="sm" animate={true} />
+                        <QuestSkeleton />
                     ) : (
                         <>
                             {!challengeStore.challenge ? (
-                                <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                                <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
                                     Join the challenge to be able to accept quests...
                                 </Card>
                             ) : (
                                 <>
                                     {allQuestsStore.loading ? (
-                                        <Skeleton h={75} mb="sm" animate={true} />
+                                        <QuestSkeleton />
                                     ) : (
                                         <>
                                             {allQuestsStore.quests.length ? (
@@ -94,7 +95,7 @@ export function AllQuests() {
                                                     </Button>
                                                 </>
                                             ) : (
-                                                <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
+                                                <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
                                                     No more quests left for this month...
                                                 </Card>
                                             )}
