@@ -35,10 +35,10 @@ export function AllQuests() {
         }
     }, [dispatch, allQuestsStore, challengeStore, activeCategoryFilter]);
 
-    const loadMoreQuests = () => {
+    const loadMoreQuests = (activeCategoryFilter: QuestCategories | null) => {
         const lastQuestVisible = allQuestsStore.quests[allQuestsStore.quests.length - 1];
 
-        fetchQuestsAfter(lastQuestVisible).then((nextQuests) => {
+        fetchQuestsAfter(lastQuestVisible, activeCategoryFilter).then((nextQuests) => {
             if (nextQuests.length) {
                 dispatch(extendAllQuests(nextQuests));
             } else {
@@ -87,7 +87,7 @@ export function AllQuests() {
                                                         size="xs"
                                                         variant="filled"
                                                         color="teal"
-                                                        onClick={() => loadMoreQuests()}
+                                                        onClick={() => loadMoreQuests(activeCategoryFilter)}
                                                         disabled={noMoreQuests}
                                                     >
                                                         <IconDots />

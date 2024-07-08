@@ -33,7 +33,7 @@ export enum Months {
     December,
 }
 
-const ALL_QUESTS_LIMIT = 25;
+export const ALL_QUESTS_LIMIT = 10;
 
 export const fetchCurrentChallenge = async (userId: string, year: number, month: Months): Promise<Challenge | null> => {
     const challengesRef = collection(db, "challenges");
@@ -86,8 +86,23 @@ export const fetchQuests = async (activeCategoryFilter: QuestCategories | null):
     return result;
 };
 
-export const fetchQuestsAfter = async (lastVisibleQuest: Quest): Promise<Quest[]> => {
-    const next = query(collection(db, "quests"), orderBy("id"), startAfter(lastVisibleQuest.id), limit(ALL_QUESTS_LIMIT));
+export const fetchQuestsAfter = async (lastVisibleQuest: Quest, activeCategoryFilter: QuestCategories | null): Promise<Quest[]> => {
+    const questsRef = collection(db, "quests");
+
+    let next;
+
+    if (activeCategoryFilter != null) {
+        next = query(
+            questsRef,
+            orderBy("id"),
+            where("category", "==", activeCategoryFilter),
+            startAfter(lastVisibleQuest.id),
+            limit(ALL_QUESTS_LIMIT)
+        );
+    } else {
+        next = query(questsRef, orderBy("id"), startAfter(lastVisibleQuest.id), limit(ALL_QUESTS_LIMIT));
+    }
+
     const querySnapshot = await getDocs(next);
 
     const result: Quest[] = [];
