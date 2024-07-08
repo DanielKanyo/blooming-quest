@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 import { Accordion, Badge, Card, Group, ScrollArea, Tabs, Tooltip } from "@mantine/core";
-import { IconCircleCheckFilled, IconDots } from "@tabler/icons-react";
+import { IconProgress, IconProgressCheck } from "@tabler/icons-react";
 
 import { QuestItem } from "../../../Components/Quest/QuestItem";
 import { Challenge } from "../../../Shared/Types/ChallengeType";
@@ -57,10 +57,10 @@ export function MyQuests() {
                         <Tabs variant="pills" defaultValue="uncompleted" color="teal">
                             <Tabs.List grow>
                                 <Tooltip label="In Progress" position="top" color="gray">
-                                    <Tabs.Tab value="uncompleted" leftSection={<IconDots />}></Tabs.Tab>
+                                    <Tabs.Tab value="uncompleted" leftSection={<IconProgress />}></Tabs.Tab>
                                 </Tooltip>
                                 <Tooltip label="Completed" position="top" color="gray">
-                                    <Tabs.Tab value="completed" leftSection={<IconCircleCheckFilled />}></Tabs.Tab>
+                                    <Tabs.Tab value="completed" leftSection={<IconProgressCheck />}></Tabs.Tab>
                                 </Tooltip>
                             </Tabs.List>
 

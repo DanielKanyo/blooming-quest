@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip, Alert } from "@mantine/core";
+import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip, Alert, Image, Flex } from "@mantine/core";
 import { IconCheck, IconPlus, IconQuestionMark, IconX } from "@tabler/icons-react";
 
 import { acceptQuest, completeQuest, deleteQuest } from "../../Services/GameService";
+import { FLOWERS } from "../../Shared/Flowers";
 import { Challenge } from "../../Shared/Types/ChallengeType";
 import {
     CategoryColorMapping,
@@ -118,14 +119,25 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                     </Alert>
                 )}
                 <Group justify="space-between" gap="xs">
-                    <div>
+                    <Flex>
                         <Badge radius="sm" variant="light" size="lg" mr={8} h={29} color={CategoryColorMapping.get(quest.category)}>
                             {DifficultyTextMapping.get(quest.difficulty)}
                         </Badge>
-                        <Badge radius="sm" variant="light" size="lg" h={29} color={CategoryColorMapping.get(quest.category)}>
+                        <Badge radius="sm" variant="light" size="lg" mr={8} h={29} color={CategoryColorMapping.get(quest.category)}>
                             {quest.xp} XP
                         </Badge>
-                    </div>
+                        <Badge
+                            radius="sm"
+                            variant="light"
+                            size="lg"
+                            px={6}
+                            h={29}
+                            color={CategoryColorMapping.get(quest.category)}
+                            style={{ overflow: "visible" }}
+                        >
+                            <Image radius="md" h={33} w={33} src={FLOWERS.get(quest.reward)} />
+                        </Badge>
+                    </Flex>
                     {acceptMode ? (
                         <div>
                             {user.roles.includes(UserRoles.ADMINISTRATOR) && (

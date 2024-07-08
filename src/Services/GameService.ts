@@ -140,7 +140,8 @@ export const createQuest = async (
     category: QuestCategories,
     description: string,
     difficulty: QuestDifficulties,
-    xp: number
+    xp: number,
+    reward: string
 ): Promise<Quest> => {
     const docRef = doc(collection(db, "quests"));
 
@@ -150,6 +151,7 @@ export const createQuest = async (
         difficulty,
         xp,
         id: docRef.id,
+        reward,
     };
 
     await setDoc(docRef, quest);

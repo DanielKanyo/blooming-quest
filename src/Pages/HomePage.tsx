@@ -70,7 +70,7 @@ export function HomePage() {
                                 <Group px="lg" style={{ minHeight: 80 }}>
                                     <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
                                     <Link to="/home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-                                        <Image h={45} src={logo} />
+                                        <Image h={35} src={logo} />
                                         <Text ml={10} className="game-title">
                                             BloomingQuest
                                         </Text>

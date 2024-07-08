@@ -16,6 +16,7 @@ export type Quest = {
     description: string;
     difficulty: QuestDifficulties;
     xp: number;
+    reward: string;
 };
 
 export enum QuestCategories {
@@ -31,19 +32,19 @@ export enum QuestCategories {
 
 export enum QuestDifficulties {
     Easy,
-    Intermediate,
+    Medium,
     Hard,
 }
 
 export const DifficultyTextMapping = new Map<QuestDifficulties, string>([
     [QuestDifficulties.Easy, "Easy"],
-    [QuestDifficulties.Intermediate, "Intermediate"],
+    [QuestDifficulties.Medium, "Medium"],
     [QuestDifficulties.Hard, "Hard"],
 ]);
 
 export const TextDifficultyMapping = new Map<string, QuestDifficulties>([
     ["Easy", QuestDifficulties.Easy],
-    ["Intermediate", QuestDifficulties.Intermediate],
+    ["Medium", QuestDifficulties.Medium],
     ["Hard", QuestDifficulties.Hard],
 ]);
 
@@ -104,6 +105,6 @@ export const Categories = [
 
 export const Difficulties = [
     DifficultyTextMapping.get(QuestDifficulties.Easy)!,
-    DifficultyTextMapping.get(QuestDifficulties.Intermediate)!,
+    DifficultyTextMapping.get(QuestDifficulties.Medium)!,
     DifficultyTextMapping.get(QuestDifficulties.Hard)!,
 ];
