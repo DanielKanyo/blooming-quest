@@ -38,7 +38,7 @@ function AccordionLabel({ description, category }: AccordionLabelProps) {
             <Avatar color={CategoryColorMapping.get(category)} radius="sm" size="45px" variant="filled">
                 <Icon />
             </Avatar>
-            <div>
+            <div style={{ height: 45 }}>
                 <Text size="md" fw={500} truncate="end" w={230}>
                     {CategoryTextMapping.get(category)}
                 </Text>
