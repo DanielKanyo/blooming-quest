@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Avatar, Menu, rem } from "@mantine/core";
+import { Avatar, Menu, rem, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconLogout, IconPencil, IconSettings } from "@tabler/icons-react";
 
@@ -41,9 +41,14 @@ export function UserAvatar() {
                 <Menu.Target>
                     <Avatar variant="filled" color="teal" className="user-avatar" radius="xl" name={getInitials(user)} />
                 </Menu.Target>
-                <Menu.Dropdown>
-                    <Menu.Label>{user.email}</Menu.Label>
-                    <Menu.Divider />
+                <Menu.Dropdown p="sm">
+                    <Menu.Label>
+                        <Text size="sm" c="var(--mantine-color-dark-0)">
+                            {user.firstName} {user.lastName}
+                        </Text>
+                        <div>{user.email}</div>
+                    </Menu.Label>
+                    <Menu.Divider my="sm" />
                     <Menu.Item
                         component={Link}
                         to="/home/user"

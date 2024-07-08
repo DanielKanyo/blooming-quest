@@ -33,7 +33,7 @@ export enum Months {
     December,
 }
 
-export const ALL_QUESTS_LIMIT = 30;
+export const ALL_QUESTS_LIMIT = 50;
 
 export const fetchCurrentChallenge = async (userId: string, year: number, month: Months): Promise<Challenge | null> => {
     const challengesRef = collection(db, "challenges");
