@@ -5,7 +5,7 @@ import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip,
 import { IconCheck, IconPlus, IconQuestionMark, IconX } from "@tabler/icons-react";
 
 import { acceptQuest, completeQuest, deleteQuest } from "../../Services/GameService";
-import { FLOWERS } from "../../Shared/Flowers";
+import { REWARDS } from "../../Shared/Rewards";
 import { Challenge } from "../../Shared/Types/ChallengeType";
 import {
     CategoryColorMapping,
@@ -135,7 +135,7 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                             color={CategoryColorMapping.get(quest.category)}
                             style={{ overflow: "visible" }}
                         >
-                            <Image radius="md" h={33} w={33} src={FLOWERS.get(quest.reward)} />
+                            <Image radius="md" h={33} w={33} src={REWARDS.get(quest.reward)} />
                         </Badge>
                     </Flex>
                     {acceptMode ? (

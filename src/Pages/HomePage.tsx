@@ -9,6 +9,7 @@ import { useDisclosure } from "@mantine/hooks";
 import logo from "../Assets/Images/logo.png";
 import { UserAvatar } from "../Components/UserAvatar/UserAvatar";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
+import { Footer } from "../Layouts/Footer";
 import { AllQuests } from "../Layouts/Quests/AllQuests/AllQuests";
 import { fetchUser } from "../Services/UserService";
 import { updateUser } from "../Store/Features/UserSlice";
@@ -83,7 +84,9 @@ export function HomePage() {
                             <AppShell.Main>
                                 <Outlet />
                             </AppShell.Main>
-                            <AppShell.Footer p="md">Footer</AppShell.Footer>
+                            <AppShell.Footer>
+                                <Footer />
+                            </AppShell.Footer>
                         </AppShell>
                     )}
                 </>

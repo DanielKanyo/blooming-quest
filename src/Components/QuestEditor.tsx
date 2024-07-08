@@ -6,7 +6,7 @@ import { useForm } from "@mantine/form";
 import { useMediaQuery } from "@mantine/hooks";
 
 import { createQuest } from "../Services/GameService";
-import { FLOWERS } from "../Shared/Flowers";
+import { REWARDS } from "../Shared/Rewards";
 import {
     Categories,
     CategoryTextMapping,
@@ -28,7 +28,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
     const isMobile = useMediaQuery("(max-width: 50em)");
     const dispatch = useDispatch();
     const [createLoading, setCreateLoading] = useState(false);
-    const [selectedFlower, setSelectedFlower] = useState<string | null>(null);
+    const [selectedReward, setSelectedReward] = useState<string | null>(null);
 
     const form = useForm({
         mode: "uncontrolled",
@@ -47,7 +47,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
         const description = values.description;
         const difficulty = TextDifficultyMapping.get(values.difficulty)!;
         const xp = values.xp;
-        const reward = selectedFlower!;
+        const reward = selectedReward!;
 
         createQuest(category, description, difficulty, xp, reward)
             .then((quest) => {
@@ -64,8 +64,8 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
             });
     };
 
-    const toggleSelectedFlower = (flower: string) => {
-        setSelectedFlower(flower === selectedFlower ? null : flower);
+    const toggleSelectedReward = (reward: string) => {
+        setSelectedReward(reward === selectedReward ? null : reward);
     };
 
     return (
@@ -90,18 +90,19 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                     {...form.getInputProps("xp")}
                 />
                 <Text style={{ fontSize: "var(--mantine-font-size-sm)" }} mb={4} opacity={0.7}>
-                    Reward Flower
+                    Reward Plants
                 </Text>
                 <SimpleGrid cols={5} spacing="xs" verticalSpacing="xs">
-                    {[...FLOWERS.keys()].map((flower) => (
+                    {[...REWARDS.keys()].map((reward) => (
                         <Button
-                            key={flower}
-                            variant="light"
-                            color="teal"
-                            disabled={Boolean(selectedFlower) && selectedFlower !== flower}
-                            onClick={() => toggleSelectedFlower(flower)}
+                            key={reward}
+                            variant={reward === selectedReward ? "filled" : "light"}
+                            color={reward === selectedReward ? "teal" : "gray"}
+                            disabled={Boolean(selectedReward) && selectedReward !== reward}
+                            onClick={() => toggleSelectedReward(reward)}
+                            style={{ opacity: Boolean(selectedReward) && selectedReward !== reward ? 0.3 : 1 }}
                         >
-                            <Image radius="md" h={26} w={26} src={FLOWERS.get(flower)} />
+                            <Image radius="md" h={26} w={26} src={REWARDS.get(reward)} />
                         </Button>
                     ))}
                 </SimpleGrid>
@@ -111,7 +112,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                     style={{ marginTop: rem(20) }}
                     variant="gradient"
                     gradient={{ from: "cyan", to: "teal", deg: 60 }}
-                    disabled={createLoading || !selectedFlower}
+                    disabled={createLoading || !selectedReward}
                 >
                     Create Quest
                 </Button>
