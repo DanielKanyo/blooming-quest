@@ -19,6 +19,9 @@ export const allQuestsSlice = createSlice({
         updateAllQuests: (_state, action: PayloadAction<AllQuestsStore>) => {
             return action.payload;
         },
+        updateAllQuestsLoading: (state, action: PayloadAction<boolean>) => {
+            state.loading = action.payload;
+        },
         extendAllQuests: (state, action: PayloadAction<Quest[]>) => {
             state.quests = [...state.quests, ...action.payload];
         },
@@ -31,5 +34,5 @@ export const allQuestsSlice = createSlice({
     },
 });
 
-export const { updateAllQuests, addQuest, removeQuest, extendAllQuests } = allQuestsSlice.actions;
+export const { updateAllQuests, addQuest, removeQuest, extendAllQuests, updateAllQuestsLoading } = allQuestsSlice.actions;
 export default allQuestsSlice.reducer;

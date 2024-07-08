@@ -66,10 +66,17 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
     await setDoc(docRef, challenge);
 };
 
-export const fetchQuests = async (): Promise<Quest[]> => {
-    const q = query(collection(db, "quests"), orderBy("id"), limit(ALL_QUESTS_LIMIT));
-    const querySnapshot = await getDocs(q);
+export const fetchQuests = async (activeCategoryFilter: QuestCategories | null): Promise<Quest[]> => {
+    const questsRef = collection(db, "quests");
 
+    let q;
+
+    if (activeCategoryFilter != null) {
+        q = query(questsRef, orderBy("id"), where("category", "==", activeCategoryFilter), limit(ALL_QUESTS_LIMIT));
+    } else {
+        q = query(questsRef, orderBy("id"), limit(ALL_QUESTS_LIMIT));
+    }
+    const querySnapshot = await getDocs(q);
     const result: Quest[] = [];
 
     querySnapshot.forEach((doc) => {

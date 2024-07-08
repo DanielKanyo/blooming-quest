@@ -7,7 +7,7 @@ import { IconDots } from "@tabler/icons-react";
 import { CategoryFilter } from "../../../Components/CategoryFilter";
 import { QuestItem } from "../../../Components/Quest/QuestItem";
 import { fetchQuests, fetchQuestsAfter } from "../../../Services/GameService";
-import { Quest, QuestCategories } from "../../../Shared/Types/QuestType";
+import { QuestCategories } from "../../../Shared/Types/QuestType";
 import { AllQuestsStore, updateAllQuests, extendAllQuests } from "../../../Store/Features/AllQuestsSlice";
 import { ChallengeStore } from "../../../Store/Features/ChallengeSlice";
 import store from "../../../Store/Store";
@@ -21,22 +21,19 @@ export function AllQuests() {
 
     useEffect(() => {
         if (challengeStore.challenge && allQuestsStore.loading) {
-            fetchQuests()
+            fetchQuests(activeCategoryFilter)
                 .then((quests) => {
                     const myQuestIds = challengeStore.challenge!.quests.map((q) => q.id);
                     // Filter already selected quests
                     dispatch(updateAllQuests({ quests: quests.filter((q) => !myQuestIds.includes(q.id)), loading: false }));
+                    setNoMoreQuests(false);
                 })
                 .catch((err) => {
                     dispatch(updateAllQuests({ quests: [], loading: false }));
                     console.error(`Something went wrong... ${err.message}`);
                 });
         }
-    }, [dispatch, allQuestsStore, challengeStore]);
-
-    const filterAllQuests = (quests: Quest[], activeFilter: QuestCategories | null) => {
-        return activeFilter !== null ? quests.filter((q) => q.category === activeFilter) : quests;
-    };
+    }, [dispatch, allQuestsStore, challengeStore, activeCategoryFilter]);
 
     const loadMoreQuests = () => {
         const lastQuestVisible = allQuestsStore.quests[allQuestsStore.quests.length - 1];
@@ -74,7 +71,7 @@ export function AllQuests() {
                                             {allQuestsStore.quests.length ? (
                                                 <>
                                                     <Accordion variant="separated">
-                                                        {filterAllQuests(allQuestsStore.quests, activeCategoryFilter).map((quest) => {
+                                                        {allQuestsStore.quests.map((quest) => {
                                                             return (
                                                                 <QuestItem
                                                                     key={quest.id}
