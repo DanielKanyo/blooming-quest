@@ -1,4 +1,18 @@
-import { arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
+import {
+    arrayUnion,
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    limit,
+    orderBy,
+    query,
+    setDoc,
+    startAfter,
+    updateDoc,
+    where,
+} from "firebase/firestore";
 
 import { db } from "../Configs/Firebase/FirebaseConfig";
 import { Challenge } from "../Shared/Types/ChallengeType";
@@ -18,6 +32,8 @@ export enum Months {
     November,
     December,
 }
+
+const ALL_QUESTS_LIMIT = 25;
 
 export const fetchCurrentChallenge = async (userId: string, year: number, month: Months): Promise<Challenge | null> => {
     const challengesRef = collection(db, "challenges");
@@ -51,8 +67,21 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
 };
 
 export const fetchQuests = async (): Promise<Quest[]> => {
-    const q = query(collection(db, "quests"));
+    const q = query(collection(db, "quests"), orderBy("id"), limit(ALL_QUESTS_LIMIT));
     const querySnapshot = await getDocs(q);
+
+    const result: Quest[] = [];
+
+    querySnapshot.forEach((doc) => {
+        result.push(doc.data() as Quest);
+    });
+
+    return result;
+};
+
+export const fetchQuestsAfter = async (lastVisibleQuest: Quest): Promise<Quest[]> => {
+    const next = query(collection(db, "quests"), orderBy("id"), startAfter(lastVisibleQuest.id), limit(ALL_QUESTS_LIMIT));
+    const querySnapshot = await getDocs(next);
 
     const result: Quest[] = [];
 

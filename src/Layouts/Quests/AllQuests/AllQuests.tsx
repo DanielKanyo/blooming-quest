@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Accordion, Card, Flex, ScrollArea, Skeleton } from "@mantine/core";
+import { Accordion, Button, Card, Flex, ScrollArea, Skeleton } from "@mantine/core";
+import { IconDots } from "@tabler/icons-react";
 
 import { CategoryFilter } from "../../../Components/CategoryFilter";
 import { QuestItem } from "../../../Components/Quest/QuestItem";
-import { fetchQuests } from "../../../Services/GameService";
+import { fetchQuests, fetchQuestsAfter } from "../../../Services/GameService";
 import { Quest, QuestCategories } from "../../../Shared/Types/QuestType";
-import { AllQuestsStore, updateAllQuests } from "../../../Store/Features/AllQuestsSlice";
+import { AllQuestsStore, updateAllQuests, extendAllQuests } from "../../../Store/Features/AllQuestsSlice";
 import { ChallengeStore } from "../../../Store/Features/ChallengeSlice";
 import store from "../../../Store/Store";
 
@@ -16,6 +17,7 @@ export function AllQuests() {
     const allQuestsStore: AllQuestsStore = useSelector((state: ReturnType<typeof store.getState>) => state.allQuests);
     const dispatch = useDispatch();
     const [activeCategoryFilter, setActiveCategoryFilter] = useState<QuestCategories | null>(null);
+    const [noMoreQuests, setNoMoreQuests] = useState(false);
 
     useEffect(() => {
         if (challengeStore.challenge && allQuestsStore.loading) {
@@ -34,6 +36,18 @@ export function AllQuests() {
 
     const filterAllQuests = (quests: Quest[], activeFilter: QuestCategories | null) => {
         return activeFilter !== null ? quests.filter((q) => q.category === activeFilter) : quests;
+    };
+
+    const loadMoreQuests = () => {
+        const lastQuestVisible = allQuestsStore.quests[allQuestsStore.quests.length - 1];
+
+        fetchQuestsAfter(lastQuestVisible).then((nextQuests) => {
+            if (nextQuests.length) {
+                dispatch(extendAllQuests(nextQuests));
+            } else {
+                setNoMoreQuests(true);
+            }
+        });
     };
 
     return (
@@ -58,18 +72,30 @@ export function AllQuests() {
                                     ) : (
                                         <>
                                             {allQuestsStore.quests.length ? (
-                                                <Accordion variant="separated">
-                                                    {filterAllQuests(allQuestsStore.quests, activeCategoryFilter).map((quest) => {
-                                                        return (
-                                                            <QuestItem
-                                                                key={quest.id}
-                                                                quest={quest}
-                                                                challenge={challengeStore.challenge!}
-                                                                acceptMode={true}
-                                                            />
-                                                        );
-                                                    })}
-                                                </Accordion>
+                                                <>
+                                                    <Accordion variant="separated">
+                                                        {filterAllQuests(allQuestsStore.quests, activeCategoryFilter).map((quest) => {
+                                                            return (
+                                                                <QuestItem
+                                                                    key={quest.id}
+                                                                    quest={quest}
+                                                                    challenge={challengeStore.challenge!}
+                                                                    acceptMode={true}
+                                                                />
+                                                            );
+                                                        })}
+                                                    </Accordion>
+                                                    <Button
+                                                        mt={10}
+                                                        size="xs"
+                                                        variant="filled"
+                                                        color="teal"
+                                                        onClick={() => loadMoreQuests()}
+                                                        disabled={noMoreQuests}
+                                                    >
+                                                        <IconDots />
+                                                    </Button>
+                                                </>
                                             ) : (
                                                 <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
                                                     No more quests left for this month...
