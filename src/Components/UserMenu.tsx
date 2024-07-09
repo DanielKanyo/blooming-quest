@@ -1,24 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Avatar, Menu, rem, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Avatar, Button, Menu, rem, Text } from "@mantine/core";
+import { useDisclosure, useHover } from "@mantine/hooks";
 import { IconLogout, IconPencil, IconSettings } from "@tabler/icons-react";
 
-import { signOut } from "../../Services/UserService";
-import { User, UserRoles } from "../../Shared/Types/UserType";
-import { updateAllQuests, initAllQuests } from "../../Store/Features/AllQuestsSlice";
-import { updateChallenge, initChallenge } from "../../Store/Features/ChallengeSlice";
-import { initUser, updateUser } from "../../Store/Features/UserSlice";
-import store from "../../Store/Store";
-import { QuestEditor } from "../QuestEditor";
-import "./UserAvatar.css";
+import { signOut } from "../Services/UserService";
+import { User, UserRoles } from "../Shared/Types/UserType";
+import { updateAllQuests, initAllQuests } from "../Store/Features/AllQuestsSlice";
+import { updateChallenge, initChallenge } from "../Store/Features/ChallengeSlice";
+import { initUser, updateUser } from "../Store/Features/UserSlice";
+import store from "../Store/Store";
+import { QuestEditor } from "./QuestEditor";
 
-export function UserAvatar() {
+export function UserMenu() {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [questEditorOpened, { open, close }] = useDisclosure(false);
+    const { hovered, ref } = useHover();
 
     const handleSignOut = () => {
         signOut().then(() => {
@@ -35,11 +35,32 @@ export function UserAvatar() {
         return initials.toUpperCase();
     };
 
+    console.log(hovered);
+
     return (
         <>
-            <Menu position="bottom-end" shadow="md" width={200} transitionProps={{ transition: "fade-up", duration: 150 }}>
+            <Menu
+                trigger="click-hover"
+                openDelay={100}
+                closeDelay={150}
+                position="bottom-end"
+                shadow="md"
+                width={200}
+                transitionProps={{ transition: "fade-up", duration: 150 }}
+            >
                 <Menu.Target>
-                    <Avatar variant="filled" color="teal" className="user-avatar" radius="xl" name={getInitials(user)} />
+                    <div ref={ref}>
+                        <Button p={0} w={90} variant="light" size="lg" color="teal" radius="xl">
+                            <Avatar variant="filled" color="teal" radius="xl" name={getInitials(user)} />
+                            <Avatar
+                                variant="transparent"
+                                radius="xl"
+                                style={{ transform: hovered ? "rotate(45deg)" : "rotate(0deg)", transition: "0.5s" }}
+                            >
+                                <IconSettings size="1.5rem" />
+                            </Avatar>
+                        </Button>
+                    </div>
                 </Menu.Target>
                 <Menu.Dropdown p="sm">
                     <Menu.Label>

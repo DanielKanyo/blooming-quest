@@ -7,7 +7,7 @@ import { AppShell, Burger, Center, Group, Loader, Text, Image } from "@mantine/c
 import { useDisclosure } from "@mantine/hooks";
 
 import logo from "../Assets/Images/logo.png";
-import { UserAvatar } from "../Components/UserAvatar/UserAvatar";
+import { UserMenu } from "../Components/UserMenu";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { Footer } from "../Layouts/Footer";
 import { AllQuests } from "../Layouts/Quests/AllQuests/AllQuests";
@@ -64,7 +64,7 @@ export function HomePage() {
                                     <div>
                                         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
                                     </div>
-                                    <UserAvatar />
+                                    <UserMenu />
                                 </Group>
                             </AppShell.Header>
                             <AppShell.Navbar>
