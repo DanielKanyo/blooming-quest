@@ -17,6 +17,7 @@ import {
 import { db } from "../Configs/Firebase/FirebaseConfig";
 import { Challenge } from "../Shared/Types/ChallengeType";
 import { Quest, QuestCategories, QuestDifficulties } from "../Shared/Types/QuestType";
+import { randomExtraReward, randomNumberBetween } from "../Shared/Utils";
 
 export enum Months {
     January,
@@ -34,6 +35,8 @@ export enum Months {
 }
 
 export const ALL_QUESTS_LIMIT = 50;
+
+const NUMBER_TO_GET_EXRA_REWARD = 5;
 
 export const fetchCurrentChallenge = async (userId: string, year: number, month: Months): Promise<Challenge | null> => {
     const challengesRef = collection(db, "challenges");
@@ -58,7 +61,7 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
         month,
         id: docRef.id,
         quests: [],
-        xpToComplete: 50,
+        xpToComplete: 1000,
         xpCurrent: 0,
         completedQuests: [],
     };
@@ -114,7 +117,7 @@ export const fetchQuestsAfter = async (lastVisibleQuest: Quest, activeCategoryFi
     return result;
 };
 
-export const acceptQuest = async (challengeId: string, questId: string) => {
+export const acceptQuest = async (challengeId: string, questId: string): Promise<Quest> => {
     const questDocRef = doc(db, "quests", questId);
     const challengeDocRef = doc(db, "challenges", challengeId);
 
@@ -128,12 +131,18 @@ export const acceptQuest = async (challengeId: string, questId: string) => {
         throw new Error("Quest does not exists...");
     }
 
+    if (randomNumberBetween(1, 5) === NUMBER_TO_GET_EXRA_REWARD) {
+        quest.extraReward = randomExtraReward();
+    }
+
     const questToAdd = {
         ...quest,
         completed: false,
     };
 
     await setDoc(challengeDocRef, { quests: [questToAdd, ...challenge.quests] }, { merge: true });
+
+    return questToAdd;
 };
 
 export const createQuest = async (

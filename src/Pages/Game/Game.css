@@ -5,6 +5,7 @@
 
 .my-quests-container {
     min-width: 500px;
+    max-width: 500px;
     margin-left: 15px;
 }
 

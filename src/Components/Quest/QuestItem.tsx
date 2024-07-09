@@ -5,7 +5,7 @@ import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip,
 import { IconCheck, IconPlus, IconQuestionMark, IconX } from "@tabler/icons-react";
 
 import { acceptQuest, completeQuest, deleteQuest } from "../../Services/GameService";
-import { REWARDS } from "../../Shared/Rewards";
+import { EXTRA_REWARDS, REWARDS } from "../../Shared/Rewards";
 import { Challenge } from "../../Shared/Types/ChallengeType";
 import {
     CategoryColorMapping,
@@ -64,11 +64,11 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
         setAcceptError("");
 
         acceptQuest(challengeId, quest.id)
-            .then(() => {
+            .then((newQuest) => {
                 // Add quest to challenge
-                dispatch(addQuestToChallenge(quest));
+                dispatch(addQuestToChallenge(newQuest));
                 // Remove quest from all since it's selected
-                dispatch(removeQuest(quest.id));
+                dispatch(removeQuest(newQuest.id));
                 setAcceptLoading(false);
                 setAcceptError("");
             })
@@ -132,11 +132,25 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                             size="lg"
                             px={6}
                             h={29}
+                            mr={8}
                             color={CategoryColorMapping.get(quest.category)}
                             style={{ overflow: "visible" }}
                         >
                             <Image radius="md" h={33} w={33} src={REWARDS.get(quest.reward)} />
                         </Badge>
+                        {!acceptMode && quest.extraReward && (
+                            <Badge
+                                radius="sm"
+                                variant="light"
+                                size="lg"
+                                px={6}
+                                h={29}
+                                color={CategoryColorMapping.get(quest.category)}
+                                style={{ overflow: "visible" }}
+                            >
+                                <Image radius="md" h={33} w={33} src={EXTRA_REWARDS.get(quest.extraReward)} />
+                            </Badge>
+                        )}
                     </Flex>
                     {acceptMode ? (
                         <div>

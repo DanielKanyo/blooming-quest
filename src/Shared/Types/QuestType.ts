@@ -17,6 +17,7 @@ export type Quest = {
     difficulty: QuestDifficulties;
     xp: number;
     reward: string;
+    extraReward?: string;
 };
 
 export enum QuestCategories {
