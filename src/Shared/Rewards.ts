@@ -7,9 +7,11 @@ import squirrel from "../Assets/Animals/squirrel.png";
 import aloe from "../Assets/Plants/aloe.png";
 import anthurium from "../Assets/Plants/anthurium.png";
 import cactus from "../Assets/Plants/cactus.png";
+import cherryBlossom from "../Assets/Plants/cherry-blossom.png";
 import daisy from "../Assets/Plants/daisy.png";
 import gerbera from "../Assets/Plants/gerbera.png";
 import hibiscus from "../Assets/Plants/hibiscus.png";
+import iris from "../Assets/Plants/iris.png";
 import lilly from "../Assets/Plants/lilly.png";
 import lotus from "../Assets/Plants/lotus-flower.png";
 import orchid from "../Assets/Plants/orchid.png";
@@ -40,6 +42,8 @@ export const REWARDS = new Map<string, string>([
     ["anthurium", anthurium],
     ["daisy", daisy],
     ["hibiscus", hibiscus],
+    ["cherryBlossom", cherryBlossom],
+    ["iris", iris],
 ]);
 
 export const EXTRA_REWARDS = new Map<string, string>([
