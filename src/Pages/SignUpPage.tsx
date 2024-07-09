@@ -48,6 +48,7 @@ export function SignUpPage() {
                         email: userCredential.user.email!,
                         id: userCredential.user.uid,
                         roles: [UserRoles.USER],
+                        totalXp: 0,
                     });
 
                     seSignUpLoading(false);

@@ -35,8 +35,6 @@ export function UserMenu() {
         return initials.toUpperCase();
     };
 
-    console.log(hovered);
-
     return (
         <>
             <Menu
