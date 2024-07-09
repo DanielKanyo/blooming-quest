@@ -1,18 +1,34 @@
-.quest-card {
-    position: relative;
-}
-
-.icon-and-title-container {
-    display: flex;
-    align-items: center;
-}
-
-.category-and-description-container {
-    margin-left: 15px;
-}
-
-.add-quest-btn {
+.shine-element {
     position: absolute;
-    right: 10px;
-    top: 8px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--mantine-radius-sm);
+    overflow: hidden;
+}
+
+.shine-element:before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%);
+    top: 0;
+    left: -100px;
+    animation: shine 4s infinite linear;
+}
+
+@keyframes shine {
+    0% {
+        left: -100px;
+    }
+
+    20% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
 }

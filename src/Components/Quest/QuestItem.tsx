@@ -19,6 +19,8 @@ import { UserRoles } from "../../Shared/Types/UserType";
 import { removeQuest } from "../../Store/Features/AllQuestsSlice";
 import { addQuestToChallenge, completeQuestInChallenge } from "../../Store/Features/ChallengeSlice";
 import store from "../../Store/Store";
+import "./QuestItem.css";
+import { GOLD_COLOR } from "./QuestItemConstants";
 
 type QuestItemProps = {
     quest: Quest;
@@ -145,9 +147,10 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                                 size="lg"
                                 px={6}
                                 h={29}
-                                color={CategoryColorMapping.get(quest.category)}
-                                style={{ overflow: "visible" }}
+                                color={GOLD_COLOR}
+                                style={{ overflow: "visible", position: "relative" }}
                             >
+                                <span className="shine-element"></span>
                                 <Image radius="md" h={33} w={33} src={EXTRA_REWARDS.get(quest.extraReward)} />
                             </Badge>
                         )}
