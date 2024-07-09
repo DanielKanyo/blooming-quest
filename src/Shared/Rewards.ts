@@ -2,10 +2,12 @@ import dragonfly from "../Assets/Animals/dragonfly.png";
 import frog from "../Assets/Animals/frog.png";
 import hedgehog from "../Assets/Animals/hedgehog.png";
 import ladybug from "../Assets/Animals/ladybug.png";
+import snail from "../Assets/Animals/snail.png";
 import squirrel from "../Assets/Animals/squirrel.png";
 import aloe from "../Assets/Plants/aloe.png";
 import anthurium from "../Assets/Plants/anthurium.png";
 import cactus from "../Assets/Plants/cactus.png";
+import daisy from "../Assets/Plants/daisy.png";
 import gerbera from "../Assets/Plants/gerbera.png";
 import hibiscus from "../Assets/Plants/hibiscus.png";
 import lilly from "../Assets/Plants/lilly.png";
@@ -23,7 +25,6 @@ import violet from "../Assets/Plants/violet.png";
 export const REWARDS = new Map<string, string>([
     ["rose", rose],
     ["sunflower", sunflower],
-    ["hibiscus", hibiscus],
     ["pinkCosmos", pinkCosmos],
     ["sisyrinchium", sisyrinchium],
     ["lotus", lotus],
@@ -37,6 +38,8 @@ export const REWARDS = new Map<string, string>([
     ["cactus", cactus],
     ["aloe", aloe],
     ["anthurium", anthurium],
+    ["daisy", daisy],
+    ["hibiscus", hibiscus],
 ]);
 
 export const EXTRA_REWARDS = new Map<string, string>([
@@ -45,4 +48,5 @@ export const EXTRA_REWARDS = new Map<string, string>([
     ["squirrel", squirrel],
     ["ladybug", ladybug],
     ["hedgehog", hedgehog],
+    ["snail", snail],
 ]);
