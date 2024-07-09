@@ -23,6 +23,7 @@ import springStarflower from "../Assets/Plants/spring-starflower.png";
 import sunflower from "../Assets/Plants/sunflower.png";
 import tulip from "../Assets/Plants/tulip.png";
 import violet from "../Assets/Plants/violet.png";
+import asianFlower from "../Assets/Plants/asian-flower.png";
 
 export const REWARDS = new Map<string, string>([
     ["rose", rose],
@@ -44,6 +45,7 @@ export const REWARDS = new Map<string, string>([
     ["hibiscus", hibiscus],
     ["cherryBlossom", cherryBlossom],
     ["iris", iris],
+    ["asianFlower", asianFlower],
 ]);
 
 export const EXTRA_REWARDS = new Map<string, string>([
