@@ -31,7 +31,7 @@ export function GamePage() {
                 <Card h="100%" shadow="sm" padding="lg" radius="sm">
                     {challengeStore.loading ? (
                         <Center h="100%">
-                            <Loader size={40} color="var(--mantine-color-dark-0)" />
+                            <Loader size={40} color="var(--mantine-color-dark-0)" type="dots" />
                         </Center>
                     ) : (
                         <Challenge />

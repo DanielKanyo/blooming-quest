@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { Center, Card, Button, TextInput, Text, Image, rem, Loader, PasswordInput, Group, Alert } from "@mantine/core";
+import { Center, Card, Button, TextInput, Text, Image, rem, PasswordInput, Group, Alert } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconAt, IconKey, IconLetterCase } from "@tabler/icons-react";
 
@@ -144,12 +144,13 @@ export function SignUpPage() {
                     <Button
                         fullWidth
                         type="submit"
-                        disabled={signUpLoading}
+                        loading={signUpLoading}
+                        loaderProps={{ type: "dots" }}
                         style={{ marginTop: rem(20) }}
                         variant="gradient"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
                     >
-                        {signUpLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Sign Up"}
+                        Sign Up
                     </Button>
 
                     <Group justify="flex-end" gap="xs" style={{ marginTop: rem(25) }}>

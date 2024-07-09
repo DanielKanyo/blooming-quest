@@ -3,21 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import {
-    Affix,
-    Alert,
-    Blockquote,
-    Box,
-    Button,
-    Container,
-    Divider,
-    Flex,
-    Loader,
-    Modal,
-    PasswordInput,
-    rem,
-    TextInput,
-} from "@mantine/core";
+import { Affix, Alert, Blockquote, Box, Button, Container, Divider, Flex, Modal, PasswordInput, rem, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { IconAlertTriangle, IconArrowLeft, IconAt, IconInfoCircle, IconKey, IconLetterCase, IconUser } from "@tabler/icons-react";
@@ -170,9 +156,10 @@ export function UserPage() {
                             style={{ marginTop: rem(20) }}
                             variant="gradient"
                             gradient={{ from: "cyan", to: "teal", deg: 60 }}
-                            disabled={passwordResetLoading}
+                            loading={passwordResetLoading}
+                            loaderProps={{ type: "dots" }}
                         >
-                            {passwordResetLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Reset Password"}
+                            Reset Password
                         </Button>
                     </form>
                 </div>
@@ -209,11 +196,12 @@ export function UserPage() {
                             <Button
                                 miw={90}
                                 variant="gradient"
-                                disabled={accountRemovalLoading}
+                                loading={accountRemovalLoading}
+                                loaderProps={{ type: "dots" }}
                                 gradient={{ from: "red", to: "pink", deg: 60 }}
                                 onClick={() => handleDeleteAccount()}
                             >
-                                {accountRemovalLoading ? <Loader size={16} color="var(--mantine-color-dark-0)" /> : "Confirm"}
+                                Confirm
                             </Button>
                         </Flex>
                     </Modal>

@@ -54,6 +54,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                 dispatch(addQuest(quest));
 
                 form.reset();
+                setSelectedReward(null);
                 setCreateLoading(false);
 
                 close();
@@ -113,6 +114,8 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                     variant="gradient"
                     gradient={{ from: "cyan", to: "teal", deg: 60 }}
                     disabled={createLoading || !selectedReward}
+                    loading={createLoading}
+                    loaderProps={{ type: "dots" }}
                 >
                     Create Quest
                 </Button>

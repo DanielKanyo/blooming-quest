@@ -22,6 +22,8 @@ export function LandingPage() {
     }, [user, navigate]);
 
     return (
-        <Center style={{ height: "100vh" }}>{loading ? <Loader size={40} color="var(--mantine-color-dark-0)" /> : <SignInPage />}</Center>
+        <Center style={{ height: "100vh" }}>
+            {loading ? <Loader size={40} color="var(--mantine-color-dark-0)" type="dots" /> : <SignInPage />}
+        </Center>
     );
 }
