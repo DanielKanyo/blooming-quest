@@ -15,7 +15,7 @@ export type Quest = {
     category: QuestCategories;
     description: string;
     difficulty: QuestDifficulties;
-    xp: number;
+    coin: number;
     reward: string;
     extraReward?: string;
 };

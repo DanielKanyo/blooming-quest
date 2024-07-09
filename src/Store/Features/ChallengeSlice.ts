@@ -28,9 +28,9 @@ export const challengeSlice = createSlice({
                 state.challenge.quests.push(action.payload);
             }
         },
-        completeQuestInChallenge: (state, action: PayloadAction<{ questId: string; xpCurrent: number }>) => {
+        completeQuestInChallenge: (state, action: PayloadAction<{ questId: string; coinCurrent: number }>) => {
             if (state.challenge) {
-                state.challenge.xpCurrent = action.payload.xpCurrent;
+                state.challenge.coinCurrent = action.payload.coinCurrent;
                 state.challenge.completedQuests.push(action.payload.questId);
             }
         },

@@ -4,7 +4,7 @@ export type User = {
     email: string;
     id: string;
     roles: UserRoles[];
-    totalXp: number;
+    totalCoin: number;
 };
 
 export enum UserRoles {

@@ -36,7 +36,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
             category: CategoryTextMapping.get(QuestCategories.FitnessAndHealth)!,
             description: "",
             difficulty: DifficultyTextMapping.get(QuestDifficulties.Easy)!,
-            xp: 5,
+            coin: 5,
         },
     });
 
@@ -46,10 +46,10 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
         const category = TextCategoryMapping.get(values.category)!;
         const description = values.description;
         const difficulty = TextDifficultyMapping.get(values.difficulty)!;
-        const xp = values.xp;
+        const coin = values.coin;
         const reward = selectedReward!;
 
-        createQuest(category, description, difficulty, xp, reward)
+        createQuest(category, description, difficulty, coin, reward)
             .then((quest) => {
                 dispatch(addQuest(quest));
 
@@ -82,13 +82,13 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                     {...form.getInputProps("difficulty")}
                 />
                 <NumberInput
-                    label="Experience points"
+                    label="Coins"
                     allowDecimal={false}
                     mb={10}
                     step={5}
                     min={5}
-                    key={form.key("xp")}
-                    {...form.getInputProps("xp")}
+                    key={form.key("coin")}
+                    {...form.getInputProps("coin")}
                 />
                 <Text style={{ fontSize: "var(--mantine-font-size-sm)" }} mb={4} opacity={0.7}>
                     Reward Plants

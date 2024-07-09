@@ -10,9 +10,9 @@ export function ProgressIndicator() {
     const challengeStore: ChallengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
 
     const calcProgressValue = (challenge: Challenge): number => {
-        const { xpCurrent, xpToComplete } = challenge;
+        const { coinCurrent, coinToComplete } = challenge;
 
-        return !xpCurrent ? 0 : (xpCurrent * 100) / xpToComplete;
+        return !coinCurrent ? 0 : (coinCurrent * 100) / coinToComplete;
     };
 
     const calcProgressColor = (percent: number): string => {
@@ -37,14 +37,14 @@ export function ProgressIndicator() {
                     <Group justify="space-between" mt={10}>
                         <Group gap={10}>
                             <Badge radius="sm" variant="light" color={calcProgressColor(calcProgressValue(challengeStore.challenge))}>
-                                {challengeStore.challenge.xpCurrent} XP
+                                {challengeStore.challenge.coinCurrent} Coin
                             </Badge>
                             <Badge radius="sm" variant="light" color={calcProgressColor(calcProgressValue(challengeStore.challenge))}>
                                 {calcProgressValue(challengeStore.challenge)} %
                             </Badge>
                         </Group>
                         <Badge radius="sm" variant="light" color="gray">
-                            {challengeStore.challenge.xpToComplete} XP
+                            {challengeStore.challenge.coinToComplete} Coin
                         </Badge>
                     </Group>
                 </>

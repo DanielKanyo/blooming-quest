@@ -61,8 +61,8 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
         month,
         id: docRef.id,
         quests: [],
-        xpToComplete: 1000,
-        xpCurrent: 0,
+        coinToComplete: 1000,
+        coinCurrent: 0,
         completedQuests: [],
     };
 
@@ -149,7 +149,7 @@ export const createQuest = async (
     category: QuestCategories,
     description: string,
     difficulty: QuestDifficulties,
-    xp: number,
+    coin: number,
     reward: string
 ): Promise<Quest> => {
     const docRef = doc(collection(db, "quests"));
@@ -158,7 +158,7 @@ export const createQuest = async (
         category,
         description,
         difficulty,
-        xp,
+        coin,
         id: docRef.id,
         reward,
     };
@@ -174,10 +174,10 @@ export const deleteQuest = async (questId: string): Promise<void> => {
     await deleteDoc(doc(db, "quests", questId));
 };
 
-export const completeQuest = async (challengeId: string, questId: string, xpCurrentNew: number): Promise<void> => {
+export const completeQuest = async (challengeId: string, questId: string, coinCurrentNew: number): Promise<void> => {
     const challengeDocRef = doc(db, "challenges", challengeId);
 
-    await setDoc(challengeDocRef, { xpCurrent: xpCurrentNew }, { merge: true });
+    await setDoc(challengeDocRef, { coinCurrent: coinCurrentNew }, { merge: true });
 
     await updateDoc(challengeDocRef, {
         completedQuests: arrayUnion(questId),
