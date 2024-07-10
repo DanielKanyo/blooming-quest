@@ -11,11 +11,11 @@ import store from "../../../Store/Store";
 export function MyQuests() {
     const challengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
 
-    const sumUpXp = (arr: Quest[]): number => {
+    const sumUpCoin = (arr: Quest[]): number => {
         let result = 0;
 
         arr.forEach((quest) => {
-            result += quest.xp;
+            result += quest.coin;
         });
 
         return result;
@@ -25,10 +25,10 @@ export function MyQuests() {
         return challenge.quests.filter((q) => !challengeStore.challenge!.completedQuests.includes(q.id));
     };
 
-    const sumUpInProgressQuestXp = (challenge: Challenge): number => {
+    const sumUpInProgressQuestCoin = (challenge: Challenge): number => {
         const inProgressQuests = determineInProgressQuests(challenge);
 
-        return sumUpXp(inProgressQuests);
+        return sumUpCoin(inProgressQuests);
     };
 
     const calcNumOfInProgressQuests = (challenge: Challenge): number => {
@@ -39,10 +39,10 @@ export function MyQuests() {
         return challenge.quests.filter((q) => challengeStore.challenge!.completedQuests.includes(q.id));
     };
 
-    const sumUpCompletedQuestXp = (challenge: Challenge): number => {
+    const sumUpCompletedQuestCoin = (challenge: Challenge): number => {
         const completedQuests = determineCompletedQuests(challenge);
 
-        return sumUpXp(completedQuests);
+        return sumUpCoin(completedQuests);
     };
 
     const calcNumOfCompletedQuests = (challenge: Challenge): number => {
@@ -73,7 +73,7 @@ export function MyQuests() {
                                                     {calcNumOfInProgressQuests(challengeStore.challenge)}
                                                 </Badge>
                                                 <Badge radius="sm" variant="light" color="gray" size="lg">
-                                                    {sumUpInProgressQuestXp(challengeStore.challenge)} XP
+                                                    {sumUpInProgressQuestCoin(challengeStore.challenge)} Coin
                                                 </Badge>
                                             </Group>
                                             <Accordion variant="separated">
@@ -104,7 +104,7 @@ export function MyQuests() {
                                                     {calcNumOfCompletedQuests(challengeStore.challenge)}
                                                 </Badge>
                                                 <Badge radius="sm" variant="light" color="gray" size="lg">
-                                                    {sumUpCompletedQuestXp(challengeStore.challenge)} XP
+                                                    {sumUpCompletedQuestCoin(challengeStore.challenge)} Coin
                                                 </Badge>
                                             </Group>
                                             <Accordion variant="separated">

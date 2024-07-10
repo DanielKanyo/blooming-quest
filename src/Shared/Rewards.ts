@@ -6,6 +6,7 @@ import snail from "../Assets/Animals/snail.png";
 import squirrel from "../Assets/Animals/squirrel.png";
 import aloe from "../Assets/Plants/aloe.png";
 import anthurium from "../Assets/Plants/anthurium.png";
+import asianFlower from "../Assets/Plants/asian-flower.png";
 import cactus from "../Assets/Plants/cactus.png";
 import cherryBlossom from "../Assets/Plants/cherry-blossom.png";
 import daisy from "../Assets/Plants/daisy.png";
@@ -23,7 +24,6 @@ import springStarflower from "../Assets/Plants/spring-starflower.png";
 import sunflower from "../Assets/Plants/sunflower.png";
 import tulip from "../Assets/Plants/tulip.png";
 import violet from "../Assets/Plants/violet.png";
-import asianFlower from "../Assets/Plants/asian-flower.png";
 
 export const REWARDS = new Map<string, string>([
     ["rose", rose],
