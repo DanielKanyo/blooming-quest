@@ -64,6 +64,7 @@ export const joinChallenge = async (userId: string, year: number, month: Months)
         coinToComplete: 1000,
         coinCurrent: 0,
         completedQuests: [],
+        completed: false,
     };
 
     await setDoc(docRef, challenge);

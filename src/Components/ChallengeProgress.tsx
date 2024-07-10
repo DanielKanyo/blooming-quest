@@ -9,7 +9,7 @@ import { ChallengeStore } from "../Store/Features/ChallengeSlice";
 import store from "../Store/Store";
 import { BadgeWithImage } from "./BadgeWithImage/BadgeWithImage";
 
-export function ProgressIndicator() {
+export function ChallengeProgress() {
     const challengeStore: ChallengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
 
     const calcProgressValue = (challenge: Challenge): number => {

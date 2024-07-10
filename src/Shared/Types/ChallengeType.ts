@@ -10,4 +10,5 @@ export type Challenge = {
     coinToComplete: number;
     coinCurrent: number;
     completedQuests: string[];
+    completed: boolean;
 };

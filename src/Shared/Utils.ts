@@ -9,3 +9,9 @@ export const randomExtraReward = (): string => {
     const randomIndex = Math.floor(Math.random() * values.length);
     return values[randomIndex];
 };
+
+export const daysInThisMonth = () => {
+    const now = new Date();
+
+    return new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+};
