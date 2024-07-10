@@ -70,7 +70,14 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
     };
 
     return (
-        <Modal opened={opened} onClose={close} title="Quest Editor" fullScreen={isMobile} transitionProps={{ transition: "fade-up" }}>
+        <Modal
+            size="lg"
+            opened={opened}
+            onClose={close}
+            title="Quest Editor"
+            fullScreen={isMobile}
+            transitionProps={{ transition: "fade-up" }}
+        >
             <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
                 <NativeSelect mb={10} label="Category" data={Categories} key={form.key("category")} {...form.getInputProps("category")} />
                 <TextInput mb={10} label="Description" key={form.key("description")} {...form.getInputProps("description")} />
@@ -93,7 +100,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                 <Text style={{ fontSize: "var(--mantine-font-size-sm)" }} mb={4} opacity={0.7}>
                     Reward Plants
                 </Text>
-                <SimpleGrid cols={5} spacing="xs" verticalSpacing="xs">
+                <SimpleGrid cols={7} spacing="xs" verticalSpacing="xs">
                     {[...REWARDS.keys()].map((reward) => (
                         <Button
                             key={reward}
