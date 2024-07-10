@@ -1,7 +1,10 @@
+import butterfly1 from "../Assets/Animals/butterfly1.png";
+import butterfly2 from "../Assets/Animals/butterfly2.png";
 import dragonfly from "../Assets/Animals/dragonfly.png";
 import frog from "../Assets/Animals/frog.png";
 import hedgehog from "../Assets/Animals/hedgehog.png";
 import ladybug from "../Assets/Animals/ladybug.png";
+import rabbit from "../Assets/Animals/rabbit.png";
 import snail from "../Assets/Animals/snail.png";
 import squirrel from "../Assets/Animals/squirrel.png";
 import aloe from "../Assets/Plants/aloe.png";
@@ -55,4 +58,7 @@ export const EXTRA_REWARDS = new Map<string, string>([
     ["ladybug", ladybug],
     ["hedgehog", hedgehog],
     ["snail", snail],
+    ["rabbit", rabbit],
+    ["butterfly1", butterfly1],
+    ["butterfly2", butterfly2],
 ]);
