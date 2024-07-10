@@ -5,7 +5,7 @@ import { Accordion, Button, Card, Flex, ScrollArea } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
 
 import { CategoryFilter } from "../../../Components/CategoryFilter";
-import { QuestItem } from "../../../Components/Quest/QuestItem";
+import { QuestItem } from "../../../Components/QuestItem";
 import { QuestSkeleton } from "../../../Components/QuestSkeleton";
 import { fetchQuests, fetchQuestsAfter } from "../../../Services/GameService";
 import { QuestCategories } from "../../../Shared/Types/QuestType";

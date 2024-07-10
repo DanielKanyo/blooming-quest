@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Accordion, Badge, Card, Group, ScrollArea, Tabs, Tooltip } from "@mantine/core";
 import { IconProgress, IconProgressCheck } from "@tabler/icons-react";
 
-import { QuestItem } from "../../../Components/Quest/QuestItem";
+import { QuestItem } from "../../../Components/QuestItem";
 import { Challenge } from "../../../Shared/Types/ChallengeType";
 import { Quest } from "../../../Shared/Types/QuestType";
 import store from "../../../Store/Store";

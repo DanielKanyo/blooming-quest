@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Accordion, Text, Group, Avatar, Badge, Blockquote, ActionIcon, Tooltip, Alert, Image, Flex } from "@mantine/core";
+import { Accordion, Text, Group, Avatar, Blockquote, ActionIcon, Tooltip, Alert, Flex } from "@mantine/core";
 import { IconCheck, IconPlus, IconQuestionMark, IconX } from "@tabler/icons-react";
 
-import coin from "../../Assets/Other/coin.png";
-import flame from "../../Assets/Other/flame.png";
-import seaWave from "../../Assets/Other/sea-waves.png";
-import wind from "../../Assets/Other/wind.png";
-import { acceptQuest, completeQuest, deleteQuest } from "../../Services/GameService";
-import { EXTRA_REWARDS, REWARDS } from "../../Shared/Rewards";
-import { Challenge } from "../../Shared/Types/ChallengeType";
+import coin from "../Assets/Other/coin.png";
+import flame from "../Assets/Other/flame.png";
+import seaWave from "../Assets/Other/sea-waves.png";
+import wind from "../Assets/Other/wind.png";
+import { acceptQuest, completeQuest, deleteQuest } from "../Services/GameService";
+import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
+import { Challenge } from "../Shared/Types/ChallengeType";
 import {
     CategoryColorMapping,
     CategoryIconMapping,
@@ -19,13 +19,12 @@ import {
     Quest,
     QuestCategories,
     QuestDifficulties,
-} from "../../Shared/Types/QuestType";
-import { UserRoles } from "../../Shared/Types/UserType";
-import { removeQuest } from "../../Store/Features/AllQuestsSlice";
-import { addQuestToChallenge, completeQuestInChallenge } from "../../Store/Features/ChallengeSlice";
-import store from "../../Store/Store";
-import "./QuestItem.css";
-import { GOLD_COLOR } from "./QuestItemConstants";
+} from "../Shared/Types/QuestType";
+import { UserRoles } from "../Shared/Types/UserType";
+import { removeQuest } from "../Store/Features/AllQuestsSlice";
+import { addQuestToChallenge, completeQuestInChallenge } from "../Store/Features/ChallengeSlice";
+import store from "../Store/Store";
+import { BadgeWithImage } from "./BadgeWithImage/BadgeWithImage";
 
 type QuestItemProps = {
     quest: Quest;
@@ -37,6 +36,8 @@ interface AccordionLabelProps {
     description: string;
     category: QuestCategories;
 }
+
+const GOLD_COLOR = "#FFD700";
 
 function AccordionLabel({ description, category }: AccordionLabelProps) {
     const Icon = CategoryIconMapping.get(category) || IconQuestionMark;
@@ -140,49 +141,16 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                 )}
                 <Flex justify="space-between" gap={18} direction="column">
                     <Flex>
-                        <Badge pr={6} pl={0} radius="sm" variant="light" size="lg" mr={8} h={29} color="gray">
-                            <Flex align="center">
-                                <Badge mt={1} variant="transparent" color="gray" size="lg" pl={8}>
-                                    {DifficultyTextMapping.get(quest.difficulty)}
-                                </Badge>
-                                <Image mt={12} ml={-8} radius="md" h={33} w={33} src={getDifficulityIcon(quest.difficulty)} />
-                            </Flex>
-                        </Badge>
-                        <Badge pr={6} pl={0} radius="sm" variant="light" size="lg" mr={8} h={29} color="gray">
-                            <Flex align="center">
-                                <Badge mt={1} variant="transparent" color="gray" size="lg" pl={8}>
-                                    {quest.coin}
-                                </Badge>
-                                <Image mt={10} ml={-4} radius="md" h={33} w={33} src={coin} />
-                            </Flex>
-                        </Badge>
-                        <Badge radius="sm" variant="light" size="lg" pr={6} pl={0} h={29} mr={8} color="gray">
-                            <Flex align="center">
-                                <Badge mt={1} variant="transparent" color="gray" size="lg" pl={8}>
-                                    1x
-                                </Badge>
-                                <Image mt={10} ml={-6} radius="md" h={33} w={33} src={REWARDS.get(quest.reward)} />
-                            </Flex>
-                        </Badge>
+                        <BadgeWithImage
+                            imgSrc={getDifficulityIcon(quest.difficulty)}
+                            text={DifficultyTextMapping.get(quest.difficulty)!}
+                            color="gray"
+                            marginRight={8}
+                        />
+                        <BadgeWithImage imgSrc={coin} text={quest.coin} color="gray" marginRight={8} />
+                        <BadgeWithImage imgSrc={REWARDS.get(quest.reward)!} text="1x" color="gray" marginRight={8} />
                         {!acceptMode && quest.extraReward && (
-                            <Badge
-                                radius="sm"
-                                variant="light"
-                                size="lg"
-                                pr={6}
-                                pl={0}
-                                h={29}
-                                color={GOLD_COLOR}
-                                style={{ position: "relative" }}
-                            >
-                                <span className="shine-element"></span>
-                                <Flex align="center">
-                                    <Badge mt={1} variant="transparent" color="gray" size="lg" pl={8}>
-                                        1x
-                                    </Badge>
-                                    <Image mt={10} ml={-6} radius="md" h={33} w={33} src={EXTRA_REWARDS.get(quest.extraReward)} />
-                                </Flex>
-                            </Badge>
+                            <BadgeWithImage imgSrc={EXTRA_REWARDS.get(quest.extraReward)!} text="1x" color={GOLD_COLOR} shine={true} />
                         )}
                     </Flex>
                     {acceptMode ? (
