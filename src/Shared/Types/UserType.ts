@@ -5,6 +5,7 @@ export type User = {
     id: string;
     roles: UserRoles[];
     totalCoin: number;
+    gem: number;
 };
 
 export enum UserRoles {

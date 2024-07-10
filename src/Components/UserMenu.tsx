@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Avatar, Button, Menu, rem, Text } from "@mantine/core";
+import { Avatar, Button, Card, Flex, Image, Menu, NumberFormatter, rem, Text } from "@mantine/core";
 import { useDisclosure, useHover } from "@mantine/hooks";
 import { IconLogout, IconPencil, IconSettings } from "@tabler/icons-react";
 
+import coin from "../Assets/Other/coin.png";
+import diamond from "../Assets/Other/diamond.png";
 import { signOut } from "../Services/UserService";
 import { User, UserRoles } from "../Shared/Types/UserType";
 import { updateAllQuests, initAllQuests } from "../Store/Features/AllQuestsSlice";
@@ -43,7 +45,7 @@ export function UserMenu() {
                 closeDelay={150}
                 position="bottom-end"
                 shadow="md"
-                width={200}
+                width={350}
                 transitionProps={{ transition: "fade-up", duration: 150 }}
             >
                 <Menu.Target>
@@ -67,7 +69,30 @@ export function UserMenu() {
                         </Text>
                         <div>{user.email}</div>
                     </Menu.Label>
-                    <Menu.Divider my="sm" />
+                    <Flex gap="xs" my={15}>
+                        <Card w="100%" shadow="md" padding="sm" radius="md" bg="var(--mantine-color-dark-5)">
+                            <Flex direction="column" justify="center" align="center">
+                                <Image h={33} w={33} src={coin} mb={6} mt={4} />
+                                <div style={{ fontSize: 28, color: "white", height: 35, display: "flex", alignItems: "center" }}>
+                                    <NumberFormatter value={user.totalCoin} thousandSeparator />
+                                </div>
+                                <Text size="sm" c="dimmed">
+                                    Coins
+                                </Text>
+                            </Flex>
+                        </Card>
+                        <Card w="100%" shadow="md" padding="sm" radius="md" bg="var(--mantine-color-dark-5)">
+                            <Flex direction="column" justify="center" align="center">
+                                <Image h={33} w={33} src={diamond} mb={6} mt={4} />
+                                <div style={{ fontSize: 28, color: "white", height: 35, display: "flex", alignItems: "center" }}>
+                                    <NumberFormatter value={user.gem} thousandSeparator />
+                                </div>
+                                <Text size="sm" c="dimmed">
+                                    Gems
+                                </Text>
+                            </Flex>
+                        </Card>
+                    </Flex>
                     <Menu.Item
                         component={Link}
                         to="/home/user"

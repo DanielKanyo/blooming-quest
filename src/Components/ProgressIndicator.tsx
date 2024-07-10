@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 
-import { Badge, Group, Progress } from "@mantine/core";
+import { Group, Progress } from "@mantine/core";
 
 import coin from "../Assets/Other/coin.png";
+import percentage from "../Assets/Other/percentage.png";
 import { Challenge } from "../Shared/Types/ChallengeType";
 import { ChallengeStore } from "../Store/Features/ChallengeSlice";
 import store from "../Store/Store";
@@ -43,18 +44,11 @@ export function ProgressIndicator() {
                                 text={challengeStore.challenge.coinCurrent}
                                 color={calcProgressColor(calcProgressValue(challengeStore.challenge))}
                             />
-                            <Badge
-                                h={28}
-                                radius="sm"
-                                variant="light"
+                            <BadgeWithImage
+                                imgSrc={percentage}
+                                text={calcProgressValue(challengeStore.challenge)}
                                 color={calcProgressColor(calcProgressValue(challengeStore.challenge))}
-                            >
-                                <Badge mt={1} variant="transparent" color="gray" px={2}>
-                                    <Badge variant="transparent" color="gray" size="lg" p={0}>
-                                        {calcProgressValue(challengeStore.challenge)} %
-                                    </Badge>
-                                </Badge>
-                            </Badge>
+                            />
                         </Group>
                         <BadgeWithImage imgSrc={coin} text={challengeStore.challenge.coinToComplete} color="gray" />
                     </Group>

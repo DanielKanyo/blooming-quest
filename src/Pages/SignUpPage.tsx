@@ -49,6 +49,7 @@ export function SignUpPage() {
                         id: userCredential.user.uid,
                         roles: [UserRoles.USER],
                         totalCoin: 0,
+                        gem: 10,
                     });
 
                     seSignUpLoading(false);

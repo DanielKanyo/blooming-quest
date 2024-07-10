@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Accordion, Badge, Card, Group, ScrollArea, Tabs, Tooltip } from "@mantine/core";
 import { IconProgress, IconProgressCheck } from "@tabler/icons-react";
 
+import coin from "../../../Assets/Other/coin.png";
+import { BadgeWithImage } from "../../../Components/BadgeWithImage/BadgeWithImage";
 import { QuestItem } from "../../../Components/QuestItem";
 import { Challenge } from "../../../Shared/Types/ChallengeType";
 import { Quest } from "../../../Shared/Types/QuestType";
@@ -69,12 +71,16 @@ export function MyQuests() {
                                     {determineInProgressQuests(challengeStore.challenge).length ? (
                                         <>
                                             <Group justify="flex-end" mb={10} gap={10}>
-                                                <Badge radius="sm" variant="light" color="gray" size="lg">
-                                                    {calcNumOfInProgressQuests(challengeStore.challenge)}
+                                                <Badge radius="sm" variant="light" color="gray" h={28}>
+                                                    <Badge mt={1} variant="transparent" color="gray" size="lg" p={0}>
+                                                        {calcNumOfInProgressQuests(challengeStore.challenge)}
+                                                    </Badge>
                                                 </Badge>
-                                                <Badge radius="sm" variant="light" color="gray" size="lg">
-                                                    {sumUpInProgressQuestCoin(challengeStore.challenge)} Coin
-                                                </Badge>
+                                                <BadgeWithImage
+                                                    imgSrc={coin}
+                                                    text={sumUpInProgressQuestCoin(challengeStore.challenge)}
+                                                    color="gray"
+                                                />
                                             </Group>
                                             <Accordion variant="separated">
                                                 {determineInProgressQuests(challengeStore.challenge).map((quest) => {
@@ -100,12 +106,16 @@ export function MyQuests() {
                                     {determineCompletedQuests(challengeStore.challenge).length ? (
                                         <>
                                             <Group justify="flex-end" mb={10} gap={10}>
-                                                <Badge radius="sm" variant="light" color="gray" size="lg">
-                                                    {calcNumOfCompletedQuests(challengeStore.challenge)}
+                                                <Badge radius="sm" variant="light" color="gray" h={28}>
+                                                    <Badge mt={1} variant="transparent" color="gray" size="lg" p={0}>
+                                                        {calcNumOfCompletedQuests(challengeStore.challenge)}
+                                                    </Badge>
                                                 </Badge>
-                                                <Badge radius="sm" variant="light" color="gray" size="lg">
-                                                    {sumUpCompletedQuestCoin(challengeStore.challenge)} Coin
-                                                </Badge>
+                                                <BadgeWithImage
+                                                    imgSrc={coin}
+                                                    text={sumUpCompletedQuestCoin(challengeStore.challenge)}
+                                                    color="gray"
+                                                />
                                             </Group>
                                             <Accordion variant="separated">
                                                 {determineCompletedQuests(challengeStore.challenge).map((quest) => {
