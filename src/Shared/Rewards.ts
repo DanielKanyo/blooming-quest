@@ -1,6 +1,9 @@
+import bee from "../Assets/Animals/bee.png";
+import bison from "../Assets/Animals/bison.png";
 import cat from "../Assets/Animals/cat.png";
 import chameleon from "../Assets/Animals/chameleon.png";
 import crab from "../Assets/Animals/crab.png";
+import dog from "../Assets/Animals/dog.png";
 import dolphin from "../Assets/Animals/dolphin.png";
 import duck from "../Assets/Animals/duck.png";
 import elephant from "../Assets/Animals/elephant.png";
@@ -12,6 +15,8 @@ import hedgehog from "../Assets/Animals/hedgehog.png";
 import hen from "../Assets/Animals/hen.png";
 import hermitCrab from "../Assets/Animals/hermit-crab.png";
 import hippopotamus from "../Assets/Animals/hippopotamus.png";
+import horse from "../Assets/Animals/horse.png";
+import jellyfish from "../Assets/Animals/jellyfish.png";
 import kangaroo from "../Assets/Animals/kangaroo.png";
 import kiwi from "../Assets/Animals/kiwi.png";
 import koala from "../Assets/Animals/koala.png";
@@ -22,12 +27,15 @@ import monkey from "../Assets/Animals/monkey.png";
 import octopus from "../Assets/Animals/octopus.png";
 import owl from "../Assets/Animals/owl.png";
 import pandaBear from "../Assets/Animals/panda-bear.png";
+import parrot from "../Assets/Animals/parrot.png";
 import penguin from "../Assets/Animals/penguin.png";
 import pig from "../Assets/Animals/pig.png";
+import rabbit from "../Assets/Animals/rabbit.png";
 import seahorse from "../Assets/Animals/seahorse.png";
 import shark from "../Assets/Animals/shark.png";
 import sheep from "../Assets/Animals/sheep.png";
 import snail from "../Assets/Animals/snail.png";
+import snake from "../Assets/Animals/snake.png";
 import squid from "../Assets/Animals/squid.png";
 import squirrel from "../Assets/Animals/squirrel.png";
 import toucan from "../Assets/Animals/toucan.png";
@@ -135,9 +143,12 @@ export const REWARDS = new Map<string, string>([
 ]);
 
 export const EXTRA_REWARDS = new Map<string, string>([
+    ["bee", bee],
+    ["bison", bison],
     ["cat", cat],
     ["chameleon", chameleon],
     ["crab", crab],
+    ["dog", dog],
     ["dolphin", dolphin],
     ["duck", duck],
     ["elephant", elephant],
@@ -149,6 +160,8 @@ export const EXTRA_REWARDS = new Map<string, string>([
     ["hen", hen],
     ["hermitCrab", hermitCrab],
     ["hippopotamus", hippopotamus],
+    ["horse", horse],
+    ["jellyfish", jellyfish],
     ["kangaroo", kangaroo],
     ["kiwi", kiwi],
     ["koala", koala],
@@ -159,12 +172,15 @@ export const EXTRA_REWARDS = new Map<string, string>([
     ["octopus", octopus],
     ["owl", owl],
     ["pandaBear", pandaBear],
+    ["parrot", parrot],
     ["penguin", penguin],
     ["pig", pig],
+    ["rabbit", rabbit],
     ["seahorse", seahorse],
     ["shark", shark],
     ["sheep", sheep],
     ["snail", snail],
+    ["snake", snake],
     ["squid", squid],
     ["squirrel", squirrel],
     ["toucan", toucan],
