@@ -4,7 +4,6 @@ import { Button, Center, Flex, ScrollArea } from "@mantine/core";
 import { IconCalendarPlus } from "@tabler/icons-react";
 
 import { ChallengeProgress } from "../Components/ChallengeProgress";
-import { MonthProgress } from "../Components/MonthProgress";
 import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { User } from "../Shared/Types/UserType";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
@@ -56,7 +55,6 @@ export function Challenge() {
                     <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }} p="md">
                         Game Footer
                     </Flex>
-                    <MonthProgress />
                 </>
             ) : (
                 <Center h="100%">
