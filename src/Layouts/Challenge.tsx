@@ -8,7 +8,11 @@ import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { User } from "../Shared/Types/UserType";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
 import store from "../Store/Store";
+import { GardenArea } from "./GardenArea/GardenArea";
 import { HouseArea } from "./HouseArea";
+
+// This will come from the db
+const NUM_OF_GARDENS = 3;
 
 export function Challenge() {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
@@ -52,6 +56,9 @@ export function Challenge() {
                         p="md"
                     >
                         <HouseArea />
+                        {[...Array(NUM_OF_GARDENS).keys()].map((_item, key) => {
+                            return <GardenArea key={key} />;
+                        })}
                     </ScrollArea>
                     <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }} p="md">
                         Game Footer
