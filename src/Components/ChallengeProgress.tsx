@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 import { Group, Progress } from "@mantine/core";
@@ -28,29 +29,31 @@ export function ChallengeProgress() {
         return "teal";
     };
 
+    const challenge = challengeStore.challenge;
+
+    const progressValue = useMemo(() => {
+        if (challenge) {
+            return calcProgressValue(challenge);
+        }
+
+        return 0;
+    }, [challenge]);
+
+    const progressColor = useMemo(() => {
+        return calcProgressColor(progressValue);
+    }, [progressValue]);
+
     return (
         <>
-            {challengeStore.challenge && (
+            {challenge && (
                 <>
-                    <Progress
-                        color={calcProgressColor(calcProgressValue(challengeStore.challenge))}
-                        size="sm"
-                        value={calcProgressValue(challengeStore.challenge)}
-                    />
+                    <Progress color={progressColor} size="sm" value={progressValue} />
                     <Group justify="space-between" mt={10}>
                         <Group gap={10}>
-                            <BadgeWithImage
-                                imgSrc={coin}
-                                text={challengeStore.challenge.coinCurrent}
-                                color={calcProgressColor(calcProgressValue(challengeStore.challenge))}
-                            />
-                            <BadgeWithImage
-                                imgSrc={percentage}
-                                text={calcProgressValue(challengeStore.challenge)}
-                                color={calcProgressColor(calcProgressValue(challengeStore.challenge))}
-                            />
+                            <BadgeWithImage imgSrc={coin} text={challenge.coinCurrent} color={progressColor} />
+                            <BadgeWithImage imgSrc={percentage} text={progressValue} color={progressColor} />
                         </Group>
-                        <BadgeWithImage imgSrc={coin} text={challengeStore.challenge.coinToComplete} color="gray" />
+                        <BadgeWithImage imgSrc={coin} text={challenge.coinToComplete} color="gray" />
                     </Group>
                 </>
             )}

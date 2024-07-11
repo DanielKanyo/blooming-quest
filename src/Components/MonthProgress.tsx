@@ -2,12 +2,9 @@ import { useMemo } from "react";
 
 import { Progress, Tooltip } from "@mantine/core";
 
-type MonthProgressProps = {
-    numOfDaysInMonth: number;
-    date: number;
-};
+import { daysInThisMonth } from "../Shared/Utils";
 
-export function MonthProgress({ numOfDaysInMonth, date }: MonthProgressProps) {
+export function MonthProgress() {
     const getMonthProgressInPercent = (numOfDaysInMonth: number, date: number): number => {
         return (date * 100) / numOfDaysInMonth;
     };
@@ -31,6 +28,9 @@ export function MonthProgress({ numOfDaysInMonth, date }: MonthProgressProps) {
 
         return `There are ${daysLeft} days left in this month...`;
     };
+
+    const date = new Date().getDate();
+    const numOfDaysInMonth = daysInThisMonth();
 
     const monthProgressInPercent = useMemo(() => getMonthProgressInPercent(numOfDaysInMonth, date), [numOfDaysInMonth, date]);
 

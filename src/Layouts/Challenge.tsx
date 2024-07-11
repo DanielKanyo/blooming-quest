@@ -7,7 +7,6 @@ import { ChallengeProgress } from "../Components/ChallengeProgress";
 import { MonthProgress } from "../Components/MonthProgress";
 import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { User } from "../Shared/Types/UserType";
-import { daysInThisMonth } from "../Shared/Utils";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
 import store from "../Store/Store";
 
@@ -57,7 +56,7 @@ export function Challenge() {
                     <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }} p="md">
                         Game Footer
                     </Flex>
-                    <MonthProgress numOfDaysInMonth={daysInThisMonth()} date={new Date().getDate()} />
+                    <MonthProgress />
                 </>
             ) : (
                 <Center h="100%">
