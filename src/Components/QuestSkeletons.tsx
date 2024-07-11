@@ -2,7 +2,7 @@ import { Card, Group, Skeleton } from "@mantine/core";
 
 const NUM_OF_QUEST_SKELETONS = 15;
 
-export function QuestSkeleton() {
+export function QuestSkeletons() {
     return (
         <>
             {[...Array(NUM_OF_QUEST_SKELETONS).keys()].map((_item, key) => (

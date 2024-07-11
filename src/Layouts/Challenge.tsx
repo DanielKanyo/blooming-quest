@@ -8,6 +8,7 @@ import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { User } from "../Shared/Types/UserType";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
 import store from "../Store/Store";
+import { HouseArea } from "./HouseArea";
 
 export function Challenge() {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
@@ -50,7 +51,7 @@ export function Challenge() {
                         type="never"
                         p="md"
                     >
-                        <div style={{ height: "200vh" }}>Game Content (Scrollable)</div>
+                        <HouseArea />
                     </ScrollArea>
                     <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }} p="md">
                         Game Footer

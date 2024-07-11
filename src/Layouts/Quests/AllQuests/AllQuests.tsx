@@ -6,7 +6,7 @@ import { IconDots } from "@tabler/icons-react";
 
 import { CategoryFilter } from "../../../Components/CategoryFilter";
 import { QuestItem } from "../../../Components/QuestItem";
-import { QuestSkeleton } from "../../../Components/QuestSkeleton";
+import { QuestSkeletons } from "../../../Components/QuestSkeletons";
 import { fetchQuests, fetchQuestsAfter } from "../../../Services/GameService";
 import { QuestCategories } from "../../../Shared/Types/QuestType";
 import { updateAllQuests, extendAllQuests, AllQuestsStore } from "../../../Store/Features/AllQuestsSlice";
@@ -49,7 +49,7 @@ export function AllQuests() {
     }, [allQuestsStore.quests, activeCategoryFilter, dispatch]);
 
     if (challengeStore.loading) {
-        return <QuestSkeleton />;
+        return <QuestSkeletons />;
     }
 
     if (!challengeStore.challenge) {
@@ -66,7 +66,7 @@ export function AllQuests() {
             <ScrollArea h="calc(100vh - 104px)" type="never">
                 <Flex direction="column" mb="var(--mantine-spacing-lg)">
                     {allQuestsStore.loading ? (
-                        <QuestSkeleton />
+                        <QuestSkeletons />
                     ) : (
                         <>
                             {allQuestsStore.quests.length ? (
