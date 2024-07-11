@@ -12,36 +12,29 @@ import { BadgeWithImage } from "./BadgeWithImage/BadgeWithImage";
 
 export function ChallengeProgress() {
     const challengeStore: ChallengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
+    const { challenge } = challengeStore;
 
-    const calcProgressValue = (challenge: Challenge): number => {
-        const { coinCurrent, coinToComplete } = challenge;
+    const { progressValue, progressColor } = useMemo(() => {
+        if (!challenge) return { progressValue: 0, progressColor: "gray" };
 
-        return !coinCurrent ? 0 : (coinCurrent * 100) / coinToComplete;
-    };
+        const calcProgressValue = (challenge: Challenge): number => {
+            const { coinCurrent, coinToComplete } = challenge;
 
-    const calcProgressColor = (percent: number): string => {
-        if (percent < 30) {
-            return "red";
-        } else if (percent < 65) {
-            return "yellow";
-        }
+            return coinCurrent ? (coinCurrent * 100) / coinToComplete : 0;
+        };
 
-        return "teal";
-    };
+        const calcProgressColor = (percent: number): string => {
+            if (percent < 30) return "red";
+            if (percent < 65) return "yellow";
 
-    const challenge = challengeStore.challenge;
+            return "teal";
+        };
 
-    const progressValue = useMemo(() => {
-        if (challenge) {
-            return calcProgressValue(challenge);
-        }
+        const progressValue = calcProgressValue(challenge);
+        const progressColor = calcProgressColor(progressValue);
 
-        return 0;
+        return { progressValue, progressColor };
     }, [challenge]);
-
-    const progressColor = useMemo(() => {
-        return calcProgressColor(progressValue);
-    }, [progressValue]);
 
     return (
         <>
@@ -51,7 +44,7 @@ export function ChallengeProgress() {
                     <Group justify="space-between" mt={10}>
                         <Group gap={10}>
                             <BadgeWithImage imgSrc={coin} text={challenge.coinCurrent} color={progressColor} />
-                            <BadgeWithImage imgSrc={percentage} text={progressValue} color={progressColor} />
+                            <BadgeWithImage imgSrc={percentage} text={progressValue.toFixed(2)} color={progressColor} />
                         </Group>
                         <BadgeWithImage imgSrc={coin} text={challenge.coinToComplete} color="gray" />
                     </Group>

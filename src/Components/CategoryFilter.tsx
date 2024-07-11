@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
 import { Button, Group, Tooltip } from "@mantine/core";
@@ -24,31 +25,32 @@ const CATEGORIES = [
 export function CategoryFilter({ active, setActive }: CategoryFilterProps) {
     const dispatch = useDispatch();
 
-    const getVariant = (category: QuestCategories | null, active: QuestCategories | null) => {
+    const getVariant = useCallback((category: QuestCategories | null, active: QuestCategories | null) => {
         return category === active ? "filled" : "light";
-    };
+    }, []);
 
-    const setActiveCategory = (category: QuestCategories | null) => {
-        setActive(active !== category ? category : null);
+    const setActiveCategory = useCallback(
+        (category: QuestCategories | null) => {
+            setActive(active !== category ? category : null);
 
-        dispatch(updateAllQuestsLoading(true));
-    };
+            dispatch(updateAllQuestsLoading(true));
+        },
+        [active, dispatch, setActive]
+    );
 
     return (
         <Group gap={12} grow mb={12} px="lg">
-            {CATEGORIES.map((c) => {
-                return (
-                    <Tooltip key={c} label={CategoryTextMapping.get(c)} color="gray">
-                        <Button
-                            variant={getVariant(c, active)}
-                            color={CategoryColorMapping.get(c)}
-                            size="xs"
-                            h={12}
-                            onClick={() => setActiveCategory(c)}
-                        />
-                    </Tooltip>
-                );
-            })}
+            {CATEGORIES.map((c) => (
+                <Tooltip key={c} label={CategoryTextMapping.get(c)} color="gray">
+                    <Button
+                        variant={getVariant(c, active)}
+                        color={CategoryColorMapping.get(c)}
+                        size="xs"
+                        h={12}
+                        onClick={() => setActiveCategory(c)}
+                    />
+                </Tooltip>
+            ))}
         </Group>
     );
 }
