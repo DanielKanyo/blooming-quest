@@ -51,7 +51,6 @@ export function MonthProgress() {
                             {month} {date}
                         </Badge>
                     </Badge>
-                    {/* <BadgeWithImage text={`${month} ${date}`} color="gray" imgSrc={calendar} /> */}
                     <BadgeWithImage text={`${month} ${numOfDaysInMonth}`} color="gray" imgSrc={calendar} />
                 </Group>
             </div>
