@@ -9,7 +9,7 @@ import { User } from "../Shared/Types/UserType";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
 import store from "../Store/Store";
 import { GardenArea } from "./GardenArea/GardenArea";
-import { HouseArea } from "./HouseArea";
+import { HouseArea } from "./HouseArea/HouseArea";
 
 // This will come from the db
 const NUM_OF_GARDENS = 3;
