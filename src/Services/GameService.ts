@@ -36,7 +36,7 @@ export enum Months {
 
 export const ALL_QUESTS_LIMIT = 50;
 
-const NUMBER_TO_GET_EXRA_REWARD = 5;
+const NUMBER_TO_GET_EXRA_REWARD = 3;
 
 export const fetchCurrentChallenge = async (userId: string, year: number, month: Months): Promise<Challenge | null> => {
     const challengesRef = collection(db, "challenges");
@@ -132,7 +132,7 @@ export const acceptQuest = async (challengeId: string, questId: string): Promise
         throw new Error("Quest does not exists...");
     }
 
-    if (randomNumberBetween(1, 5) === NUMBER_TO_GET_EXRA_REWARD) {
+    if (randomNumberBetween(1, 3) === NUMBER_TO_GET_EXRA_REWARD) {
         quest.extraReward = randomExtraReward();
     }
 

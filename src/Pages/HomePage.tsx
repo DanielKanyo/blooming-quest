@@ -77,7 +77,7 @@ export function HomePage() {
                                         </Text>
                                     </Link>
                                 </Group>
-                                <AppShell.Section h="100%" grow>
+                                <AppShell.Section h="100%" grow px="lg">
                                     <AllQuests />
                                 </AppShell.Section>
                             </AppShell.Navbar>

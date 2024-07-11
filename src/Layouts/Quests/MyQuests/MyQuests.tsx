@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 
-import { Accordion, Badge, Card, Group, ScrollArea, Tabs, Tooltip } from "@mantine/core";
+import { Accordion, Card, Group, ScrollArea, Tabs, Tooltip } from "@mantine/core";
 import { IconProgress, IconProgressCheck } from "@tabler/icons-react";
 
 import coin from "../../../Assets/Other/coin.png";
+import hashtag from "../../../Assets/Other/hashtag.png";
 import { BadgeWithImage } from "../../../Components/BadgeWithImage/BadgeWithImage";
 import { QuestItem } from "../../../Components/QuestItem";
 import { Challenge } from "../../../Shared/Types/ChallengeType";
@@ -12,143 +13,89 @@ import store from "../../../Store/Store";
 
 export function MyQuests() {
     const challengeStore = useSelector((state: ReturnType<typeof store.getState>) => state.challenge);
+    const challenge = challengeStore.challenge;
 
-    const sumUpCoin = (arr: Quest[]): number => {
-        let result = 0;
+    const sumUpCoin = (quests: Quest[]): number => quests.reduce((total, quest) => total + quest.coin, 0);
 
-        arr.forEach((quest) => {
-            result += quest.coin;
-        });
+    const filterQuests = (challenge: Challenge, completed: boolean): Quest[] =>
+        challenge.quests.filter((quest) => completed === challenge.completedQuests.includes(quest.id));
 
-        return result;
-    };
+    const QuestList = ({
+        quests,
+        coinSum,
+        questCount,
+        emptyMessage,
+    }: {
+        quests: Quest[];
+        coinSum: number;
+        questCount: number;
+        emptyMessage: string;
+    }) =>
+        quests.length ? (
+            <>
+                <Group justify="flex-end" mb={10} gap={10}>
+                    <BadgeWithImage imgSrc={hashtag} text={questCount} color="gray" />
+                    <BadgeWithImage imgSrc={coin} text={coinSum} color="gray" />
+                </Group>
+                <Accordion variant="separated">
+                    {quests.map((quest) => (
+                        <QuestItem key={quest.id} quest={quest} challenge={challenge!} acceptMode={false} />
+                    ))}
+                </Accordion>
+            </>
+        ) : (
+            <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+                {emptyMessage}
+            </Card>
+        );
 
-    const determineInProgressQuests = (challenge: Challenge): Quest[] => {
-        return challenge.quests.filter((q) => !challengeStore.challenge!.completedQuests.includes(q.id));
-    };
+    if (!challenge) {
+        return (
+            <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+                Join the challenge to be able to accept quests...
+            </Card>
+        );
+    }
 
-    const sumUpInProgressQuestCoin = (challenge: Challenge): number => {
-        const inProgressQuests = determineInProgressQuests(challenge);
+    if (!challenge.quests.length) {
+        return (
+            <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+                You haven't accepted a quest yet...
+            </Card>
+        );
+    }
 
-        return sumUpCoin(inProgressQuests);
-    };
-
-    const calcNumOfInProgressQuests = (challenge: Challenge): number => {
-        return determineInProgressQuests(challenge).length;
-    };
-
-    const determineCompletedQuests = (challenge: Challenge): Quest[] => {
-        return challenge.quests.filter((q) => challengeStore.challenge!.completedQuests.includes(q.id));
-    };
-
-    const sumUpCompletedQuestCoin = (challenge: Challenge): number => {
-        const completedQuests = determineCompletedQuests(challenge);
-
-        return sumUpCoin(completedQuests);
-    };
-
-    const calcNumOfCompletedQuests = (challenge: Challenge): number => {
-        return determineCompletedQuests(challenge).length;
-    };
+    const inProgressQuests = filterQuests(challenge, false);
+    const completedQuests = filterQuests(challenge, true);
 
     return (
-        <>
-            {challengeStore.challenge ? (
-                <>
-                    {challengeStore.challenge.quests.length ? (
-                        <Tabs variant="pills" defaultValue="uncompleted" color="teal">
-                            <Tabs.List grow>
-                                <Tooltip label="In Progress" position="top" color="gray">
-                                    <Tabs.Tab value="uncompleted" leftSection={<IconProgress />}></Tabs.Tab>
-                                </Tooltip>
-                                <Tooltip label="Completed" position="top" color="gray">
-                                    <Tabs.Tab value="completed" leftSection={<IconProgressCheck />}></Tabs.Tab>
-                                </Tooltip>
-                            </Tabs.List>
-
-                            <ScrollArea h="calc(100vh - 220px)" type="never" pt="var(--mantine-spacing-xs)">
-                                <Tabs.Panel value="uncompleted">
-                                    {determineInProgressQuests(challengeStore.challenge).length ? (
-                                        <>
-                                            <Group justify="flex-end" mb={10} gap={10}>
-                                                <Badge radius="sm" variant="light" color="gray" h={28}>
-                                                    <Badge mt={1} variant="transparent" color="gray" size="lg" p={0}>
-                                                        {calcNumOfInProgressQuests(challengeStore.challenge)}
-                                                    </Badge>
-                                                </Badge>
-                                                <BadgeWithImage
-                                                    imgSrc={coin}
-                                                    text={sumUpInProgressQuestCoin(challengeStore.challenge)}
-                                                    color="gray"
-                                                />
-                                            </Group>
-                                            <Accordion variant="separated">
-                                                {determineInProgressQuests(challengeStore.challenge).map((quest) => {
-                                                    return (
-                                                        <QuestItem
-                                                            key={quest.id}
-                                                            quest={quest}
-                                                            challenge={challengeStore.challenge!}
-                                                            acceptMode={false}
-                                                        />
-                                                    );
-                                                })}
-                                            </Accordion>
-                                        </>
-                                    ) : (
-                                        <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
-                                            You completed all of your quests...
-                                        </Card>
-                                    )}
-                                </Tabs.Panel>
-
-                                <Tabs.Panel value="completed">
-                                    {determineCompletedQuests(challengeStore.challenge).length ? (
-                                        <>
-                                            <Group justify="flex-end" mb={10} gap={10}>
-                                                <Badge radius="sm" variant="light" color="gray" h={28}>
-                                                    <Badge mt={1} variant="transparent" color="gray" size="lg" p={0}>
-                                                        {calcNumOfCompletedQuests(challengeStore.challenge)}
-                                                    </Badge>
-                                                </Badge>
-                                                <BadgeWithImage
-                                                    imgSrc={coin}
-                                                    text={sumUpCompletedQuestCoin(challengeStore.challenge)}
-                                                    color="gray"
-                                                />
-                                            </Group>
-                                            <Accordion variant="separated">
-                                                {determineCompletedQuests(challengeStore.challenge).map((quest) => {
-                                                    return (
-                                                        <QuestItem
-                                                            key={quest.id}
-                                                            quest={quest}
-                                                            challenge={challengeStore.challenge!}
-                                                            acceptMode={false}
-                                                        />
-                                                    );
-                                                })}
-                                            </Accordion>
-                                        </>
-                                    ) : (
-                                        <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
-                                            You haven't completed any of your quests...
-                                        </Card>
-                                    )}
-                                </Tabs.Panel>
-                            </ScrollArea>
-                        </Tabs>
-                    ) : (
-                        <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
-                            You haven't accepted a quest yet...
-                        </Card>
-                    )}
-                </>
-            ) : (
-                <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
-                    Join the challenge to be able to accept quests...
-                </Card>
-            )}
-        </>
+        <Tabs variant="pills" defaultValue="uncompleted" color="teal">
+            <Tabs.List grow>
+                <Tooltip label="In Progress" position="top" color="gray">
+                    <Tabs.Tab value="uncompleted" leftSection={<IconProgress />}></Tabs.Tab>
+                </Tooltip>
+                <Tooltip label="Completed" position="top" color="gray">
+                    <Tabs.Tab value="completed" leftSection={<IconProgressCheck />}></Tabs.Tab>
+                </Tooltip>
+            </Tabs.List>
+            <ScrollArea h="calc(100vh - 220px)" type="never" pt="var(--mantine-spacing-xs)">
+                <Tabs.Panel value="uncompleted">
+                    <QuestList
+                        quests={inProgressQuests}
+                        coinSum={sumUpCoin(inProgressQuests)}
+                        questCount={inProgressQuests.length}
+                        emptyMessage="You completed all of your quests..."
+                    />
+                </Tabs.Panel>
+                <Tabs.Panel value="completed">
+                    <QuestList
+                        quests={completedQuests}
+                        coinSum={sumUpCoin(completedQuests)}
+                        questCount={completedQuests.length}
+                        emptyMessage="You haven't completed any of your quests..."
+                    />
+                </Tabs.Panel>
+            </ScrollArea>
+        </Tabs>
     );
 }

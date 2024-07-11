@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Accordion, Button, Card, Flex, ScrollArea } from "@mantine/core";
@@ -9,7 +9,7 @@ import { QuestItem } from "../../../Components/QuestItem";
 import { QuestSkeleton } from "../../../Components/QuestSkeleton";
 import { fetchQuests, fetchQuestsAfter } from "../../../Services/GameService";
 import { QuestCategories } from "../../../Shared/Types/QuestType";
-import { AllQuestsStore, updateAllQuests, extendAllQuests } from "../../../Store/Features/AllQuestsSlice";
+import { updateAllQuests, extendAllQuests, AllQuestsStore } from "../../../Store/Features/AllQuestsSlice";
 import { ChallengeStore } from "../../../Store/Features/ChallengeSlice";
 import store from "../../../Store/Store";
 
@@ -34,9 +34,9 @@ export function AllQuests() {
                     console.error(`Something went wrong... ${err.message}`);
                 });
         }
-    }, [dispatch, allQuestsStore, challengeStore, activeCategoryFilter]);
+    }, [dispatch, challengeStore.challenge, allQuestsStore.loading, activeCategoryFilter]);
 
-    const loadMoreQuests = (activeCategoryFilter: QuestCategories | null) => {
+    const loadMoreQuests = useCallback(() => {
         const lastQuestVisible = allQuestsStore.quests[allQuestsStore.quests.length - 1];
 
         fetchQuestsAfter(lastQuestVisible, activeCategoryFilter).then((nextQuests) => {
@@ -46,62 +46,56 @@ export function AllQuests() {
                 setNoMoreQuests(true);
             }
         });
-    };
+    }, [allQuestsStore.quests, activeCategoryFilter, dispatch]);
+
+    if (challengeStore.loading) {
+        return <QuestSkeleton />;
+    }
+
+    if (!challengeStore.challenge) {
+        return (
+            <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+                Join the challenge to be able to accept quests...
+            </Card>
+        );
+    }
 
     return (
         <>
-            {!challengeStore.loading && challengeStore.challenge && (
-                <CategoryFilter active={activeCategoryFilter} setActive={setActiveCategoryFilter} />
-            )}
+            <CategoryFilter active={activeCategoryFilter} setActive={setActiveCategoryFilter} />
             <ScrollArea h="calc(100vh - 104px)" type="never">
-                <Flex direction="column" px="lg" mb="var(--mantine-spacing-lg)">
-                    {challengeStore.loading ? (
+                <Flex direction="column" mb="var(--mantine-spacing-lg)">
+                    {allQuestsStore.loading ? (
                         <QuestSkeleton />
                     ) : (
                         <>
-                            {!challengeStore.challenge ? (
-                                <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
-                                    Join the challenge to be able to accept quests...
-                                </Card>
-                            ) : (
+                            {allQuestsStore.quests.length ? (
                                 <>
-                                    {allQuestsStore.loading ? (
-                                        <QuestSkeleton />
-                                    ) : (
-                                        <>
-                                            {allQuestsStore.quests.length ? (
-                                                <>
-                                                    <Accordion variant="separated">
-                                                        {allQuestsStore.quests.map((quest) => {
-                                                            return (
-                                                                <QuestItem
-                                                                    key={quest.id}
-                                                                    quest={quest}
-                                                                    challenge={challengeStore.challenge!}
-                                                                    acceptMode={true}
-                                                                />
-                                                            );
-                                                        })}
-                                                    </Accordion>
-                                                    <Button
-                                                        mt={10}
-                                                        size="xs"
-                                                        variant="filled"
-                                                        color="teal"
-                                                        onClick={() => loadMoreQuests(activeCategoryFilter)}
-                                                        disabled={noMoreQuests}
-                                                    >
-                                                        <IconDots />
-                                                    </Button>
-                                                </>
-                                            ) : (
-                                                <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
-                                                    No more quests left for this month...
-                                                </Card>
-                                            )}
-                                        </>
-                                    )}
+                                    <Accordion variant="separated">
+                                        {allQuestsStore.quests.map((quest) => (
+                                            <QuestItem
+                                                key={quest.id}
+                                                quest={quest}
+                                                challenge={challengeStore.challenge!}
+                                                acceptMode={true}
+                                            />
+                                        ))}
+                                    </Accordion>
+                                    <Button
+                                        mt={10}
+                                        size="xs"
+                                        variant="filled"
+                                        color="teal"
+                                        onClick={loadMoreQuests}
+                                        disabled={noMoreQuests}
+                                    >
+                                        <IconDots />
+                                    </Button>
                                 </>
+                            ) : (
+                                <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+                                    No more quests left for this month...
+                                </Card>
                             )}
                         </>
                     )}
