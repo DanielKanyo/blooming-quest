@@ -1,8 +1,10 @@
 import bee from "../Assets/Animals/bee.png";
 import bison from "../Assets/Animals/bison.png";
+import camel from "../Assets/Animals/camel.png";
 import cat from "../Assets/Animals/cat.png";
 import chameleon from "../Assets/Animals/chameleon.png";
 import crab from "../Assets/Animals/crab.png";
+import deer from "../Assets/Animals/deer.png";
 import dog from "../Assets/Animals/dog.png";
 import dolphin from "../Assets/Animals/dolphin.png";
 import duck from "../Assets/Animals/duck.png";
@@ -20,11 +22,13 @@ import jellyfish from "../Assets/Animals/jellyfish.png";
 import kangaroo from "../Assets/Animals/kangaroo.png";
 import kiwi from "../Assets/Animals/kiwi.png";
 import koala from "../Assets/Animals/koala.png";
+import lion from "../Assets/Animals/lion.png";
 import llama from "../Assets/Animals/llama.png";
 import lobster from "../Assets/Animals/lobster.png";
 import meerkat from "../Assets/Animals/meerkat.png";
 import monkey from "../Assets/Animals/monkey.png";
 import octopus from "../Assets/Animals/octopus.png";
+import ostrich from "../Assets/Animals/ostrich.png";
 import owl from "../Assets/Animals/owl.png";
 import pandaBear from "../Assets/Animals/panda-bear.png";
 import parrot from "../Assets/Animals/parrot.png";
@@ -32,13 +36,17 @@ import penguin from "../Assets/Animals/penguin.png";
 import pig from "../Assets/Animals/pig.png";
 import rabbit from "../Assets/Animals/rabbit.png";
 import seahorse from "../Assets/Animals/seahorse.png";
+import seal from "../Assets/Animals/seal.png";
 import shark from "../Assets/Animals/shark.png";
 import sheep from "../Assets/Animals/sheep.png";
 import snail from "../Assets/Animals/snail.png";
 import snake from "../Assets/Animals/snake.png";
 import squid from "../Assets/Animals/squid.png";
 import squirrel from "../Assets/Animals/squirrel.png";
+import swan from "../Assets/Animals/swan.png";
 import toucan from "../Assets/Animals/toucan.png";
+import turtle from "../Assets/Animals/turtle.png";
+import walrus from "../Assets/Animals/walrus.png";
 import whale from "../Assets/Animals/whale.png";
 import amaryllis2 from "../Assets/Plants/amaryllis2.png";
 import amaryllis from "../Assets/Plants/amaryllis.png";
@@ -145,9 +153,11 @@ export const REWARDS = new Map<string, string>([
 export const EXTRA_REWARDS = new Map<string, string>([
     ["bee", bee],
     ["bison", bison],
+    ["camel", camel],
     ["cat", cat],
     ["chameleon", chameleon],
     ["crab", crab],
+    ["deer", deer],
     ["dog", dog],
     ["dolphin", dolphin],
     ["duck", duck],
@@ -165,11 +175,13 @@ export const EXTRA_REWARDS = new Map<string, string>([
     ["kangaroo", kangaroo],
     ["kiwi", kiwi],
     ["koala", koala],
+    ["lion", lion],
     ["llama", llama],
     ["lobster", lobster],
     ["meerkat", meerkat],
     ["monkey", monkey],
     ["octopus", octopus],
+    ["ostrich", ostrich],
     ["owl", owl],
     ["pandaBear", pandaBear],
     ["parrot", parrot],
@@ -177,12 +189,16 @@ export const EXTRA_REWARDS = new Map<string, string>([
     ["pig", pig],
     ["rabbit", rabbit],
     ["seahorse", seahorse],
+    ["seal", seal],
     ["shark", shark],
     ["sheep", sheep],
     ["snail", snail],
     ["snake", snake],
     ["squid", squid],
     ["squirrel", squirrel],
+    ["swan", swan],
     ["toucan", toucan],
+    ["turtle", turtle],
+    ["walrus", walrus],
     ["whale", whale],
 ]);
