@@ -1,83 +1,104 @@
 .house-area {
     position: relative;
     overflow: hidden;
-}
-
-.sky {
-    position: absolute;
-    width: 100%;
-    height: 150px;
     background-image: url("../../Assets/Images/sky.jpg");
-    border-radius: var(--mantine-radius-default);
     background-size: cover;
-    background-position: center;
+    background-position: 50% 68%;
 }
 
-.cloud {
-    position: absolute;
-    background-image: url("../../Assets/Other/cloud.png");
-    background-size: cover;
-    height: 120px;
-    width: 120px;
-    right: 210px;
-    top: -10px;
-}
-
-.sun {
-    position: absolute;
-    background-image: url("../../Assets/Other/sun.png");
-    background-size: cover;
-    height: 100px;
-    width: 100px;
-    left: 210px;
-    top: -35px;
+.barn {
+    margin: 44px auto;
+    position: relative;
+    z-index: 1;
 }
 
 .land {
     background-color: var(--mantine-color-teal-8);
     width: 100%;
-    height: 55px;
+    height: 42px;
     position: absolute;
     bottom: 0;
-    border-radius: var(--mantine-radius-default);
 }
 
-.tree1 {
-    position: absolute;
-    background-image: url("../../Assets/Other/tree.png");
+.cloud {
+    background-image: url(/src/Assets/Other/cloud.png);
     background-size: cover;
-    height: 250px;
-    width: 250px;
-    right: -110px;
-    bottom: -20px;
+    width: 85px;
+    height: 85px;
+    position: absolute;
+    top: 5px;
+    animation: linear infinite;
+    animation-name: moveFromLeft;
+    animation-duration: 1800s;
 }
 
-.tree2 {
-    position: absolute;
-    background-image: url("../../Assets/Other/tree2.png");
+.cloud2 {
+    background-image: url(/src/Assets/Other/clouds.png);
     background-size: cover;
-    height: 250px;
-    width: 250px;
-    left: -78px;
-    bottom: -30px;
+    width: 95px;
+    height: 95px;
+    position: absolute;
+    top: 22px;
+    animation: linear infinite;
+    animation-name: moveFromRight;
+    animation-duration: 1200s;
 }
 
-.bush {
-    position: absolute;
-    background-image: url("../../Assets/Other/bush.png");
+.tractor {
+    background-image: url(/src/Assets/Other/tractor.png);
     background-size: cover;
-    height: 120px;
-    width: 120px;
-    left: -16px;
-    bottom: -40px;
+    width: 65px;
+    height: 65px;
+    position: absolute;
+    right: calc(50% - 110px - 55px);
+    bottom: 25px;
 }
 
-.fence {
-    position: absolute;
-    background-image: url("../../Assets/Other/fence.png");
+.hay {
+    background-image: url("../../Assets/Other/hay.png");
     background-size: cover;
-    height: 110px;
-    width: 110px;
-    right: -16px;
-    bottom: -20px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    right: calc(50% + 76px);
+    bottom: 39px;
+}
+
+.tree {
+    background-image: url(/src/Assets/Other/tree.png);
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: calc(50% + 32px);
+    bottom: 47px;
+    transform: scaleX(-1);
+}
+
+@keyframes moveFromLeft {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+@keyframes moveFromRight {
+    0% {
+        right: 0;
+    }
+
+    50% {
+        right: 100%;
+    }
+
+    100% {
+        right: 0;
+    }
 }
