@@ -6,11 +6,11 @@
 .sky {
     position: absolute;
     width: 100%;
-    height: 100px;
+    height: 150px;
     background-image: url("../../Assets/Images/sky.jpg");
     border-radius: var(--mantine-radius-default);
     background-size: cover;
-    background-position: 50% 60%;
+    background-position: center;
 }
 
 .cloud {
@@ -20,7 +20,7 @@
     height: 120px;
     width: 120px;
     right: 210px;
-    top: -20px;
+    top: -10px;
 }
 
 .sun {
@@ -36,7 +36,7 @@
 .land {
     background-color: var(--mantine-color-teal-8);
     width: 100%;
-    height: 60px;
+    height: 55px;
     position: absolute;
     bottom: 0;
     border-radius: var(--mantine-radius-default);
