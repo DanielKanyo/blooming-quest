@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Accordion, Text, Group, Avatar, Blockquote, ActionIcon, Tooltip, Alert, Flex } from "@mantine/core";
+import { Accordion, Text, Group, Avatar, Blockquote, ActionIcon, Tooltip, Alert, Flex, HoverCard, Image, Center } from "@mantine/core";
 import { IconCheck, IconPlus, IconQuestionMark, IconX } from "@tabler/icons-react";
 
 import coin from "../Assets/Other/coin.png";
@@ -150,7 +150,16 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                         <BadgeWithImage imgSrc={coin} text={quest.coin} color="gray" marginRight={8} />
                         <BadgeWithImage imgSrc={REWARDS.get(quest.reward)!} text="1x" color="gray" marginRight={8} />
                         {!acceptMode && quest.extraReward && (
-                            <BadgeWithImage imgSrc={EXTRA_REWARDS.get(quest.extraReward)!} text="1x" color={GOLD_COLOR} shine={true} />
+                            <HoverCard shadow="md">
+                                <HoverCard.Target>
+                                    <Center>
+                                        <BadgeWithImage imgSrc={EXTRA_REWARDS.get(quest.extraReward)!} text="1x" color={GOLD_COLOR} shine={true} />
+                                    </Center>
+                                </HoverCard.Target>
+                                <HoverCard.Dropdown>
+                                    <Image h={46} w={46} src={EXTRA_REWARDS.get(quest.extraReward)!} />
+                                </HoverCard.Dropdown>
+                            </HoverCard>
                         )}
                     </Flex>
                     {acceptMode ? (
