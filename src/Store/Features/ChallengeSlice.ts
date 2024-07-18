@@ -34,8 +34,14 @@ export const challengeSlice = createSlice({
                 state.challenge.completedQuests.push(action.payload.questId);
             }
         },
+        completeChallenge: (state) => {
+            if (state.challenge) {
+                state.challenge.completed = true;
+            }
+        },
     },
 });
 
-export const { updateChallenge, updateChallengeLoading, addQuestToChallenge, completeQuestInChallenge } = challengeSlice.actions;
+export const { updateChallenge, updateChallengeLoading, addQuestToChallenge, completeQuestInChallenge, completeChallenge } =
+    challengeSlice.actions;
 export default challengeSlice.reducer;

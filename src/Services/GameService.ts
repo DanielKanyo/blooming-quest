@@ -184,3 +184,9 @@ export const completeQuest = async (challengeId: string, questId: string, coinCu
         completedQuests: arrayUnion(questId),
     });
 };
+
+export const completeCurrentChallenge = async (challengeId: string): Promise<void> => {
+    const challengeDocRef = doc(db, "challenges", challengeId);
+
+    await setDoc(challengeDocRef, { completed: true }, { merge: true });
+};

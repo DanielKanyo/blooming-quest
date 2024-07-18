@@ -43,39 +43,39 @@ export function Challenge() {
             });
     };
 
+    if (challengeStore.challenge) {
+        return (
+            <>
+                <ChallengeProgress />
+                <ScrollArea
+                    h="100%"
+                    mt="sm"
+                    style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }}
+                    type="never"
+                    p="md"
+                >
+                    <HouseArea />
+                    {[...Array(NUM_OF_GARDENS).keys()].map((_item, key) => {
+                        return <GardenArea key={key} />;
+                    })}
+                </ScrollArea>
+                <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }} p="md">
+                    Game Footer
+                </Flex>
+            </>
+        );
+    }
+
     return (
-        <>
-            {challengeStore.challenge ? (
-                <>
-                    <ChallengeProgress />
-                    <ScrollArea
-                        h="100%"
-                        mt="sm"
-                        style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }}
-                        type="never"
-                        p="md"
-                    >
-                        <HouseArea />
-                        {[...Array(NUM_OF_GARDENS).keys()].map((_item, key) => {
-                            return <GardenArea key={key} />;
-                        })}
-                    </ScrollArea>
-                    <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }} p="md">
-                        Game Footer
-                    </Flex>
-                </>
-            ) : (
-                <Center h="100%">
-                    <Button
-                        variant="gradient"
-                        gradient={{ from: "cyan", to: "teal", deg: 60 }}
-                        leftSection={<IconCalendarPlus size={16} />}
-                        onClick={() => joinMonthlyChallenge()}
-                    >
-                        Join Challenge
-                    </Button>
-                </Center>
-            )}
-        </>
+        <Center h="100%">
+            <Button
+                variant="gradient"
+                gradient={{ from: "cyan", to: "teal", deg: 60 }}
+                leftSection={<IconCalendarPlus size={16} />}
+                onClick={() => joinMonthlyChallenge()}
+            >
+                Join Challenge
+            </Button>
+        </Center>
     );
 }

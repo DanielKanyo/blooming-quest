@@ -8,7 +8,8 @@ import coin from "../Assets/Other/coin.png";
 import flame from "../Assets/Other/flame.png";
 import seaWave from "../Assets/Other/sea-waves.png";
 import wind from "../Assets/Other/wind.png";
-import { acceptQuest, completeQuest, deleteQuest } from "../Services/GameService";
+import { acceptQuest, completeCurrentChallenge, completeQuest, deleteQuest } from "../Services/GameService";
+import { updateTotalCoin } from "../Services/UserService";
 import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
 import { Challenge } from "../Shared/Types/ChallengeType";
 import {
@@ -22,7 +23,8 @@ import {
 } from "../Shared/Types/QuestType";
 import { UserRoles } from "../Shared/Types/UserType";
 import { removeQuest } from "../Store/Features/AllQuestsSlice";
-import { addQuestToChallenge, completeQuestInChallenge } from "../Store/Features/ChallengeSlice";
+import { addQuestToChallenge, completeQuestInChallenge, completeChallenge } from "../Store/Features/ChallengeSlice";
+import { updateTotalCoinInUser } from "../Store/Features/UserSlice";
 import store from "../Store/Store";
 import { BadgeWithImage } from "./BadgeWithImage/BadgeWithImage";
 
@@ -32,6 +34,7 @@ type QuestItemProps = {
     quest: Quest;
     challenge: Challenge;
     acceptMode: boolean;
+    open: () => void;
 };
 
 interface AccordionLabelProps {
@@ -148,7 +151,8 @@ const QuestActions = ({ quest, challenge, acceptMode, handleAccept, handleComple
     );
 };
 
-export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
+export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps) {
+    const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const [loading, setLoading] = useState(false);
     const [acceptError, setAcceptError] = useState("");
     const [completeError, setCompleteError] = useState("");
@@ -181,12 +185,23 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                 dispatch(completeQuestInChallenge({ questId: quest.id, coinCurrent: coinCurrentNew }));
                 setLoading(false);
                 setCompleteError("");
+
+                if (coinCurrentNew >= challenge.coinToComplete && !challenge.completed) {
+                    completeCurrentChallenge(challenge.id).then(() => {
+                        dispatch(completeChallenge());
+                        open();
+                    });
+                } else if (challenge.completed) {
+                    updateTotalCoin(user.id, coinCurrentNew).then(() => {
+                        dispatch(updateTotalCoinInUser(coinCurrentNew));
+                    });
+                }
             })
             .catch((err) => {
                 setCompleteError(err.message);
                 setLoading(false);
             });
-    }, [challenge.coinCurrent, challenge.id, quest.coin, quest.id, dispatch]);
+    }, [challenge.coinCurrent, challenge.id, challenge.coinToComplete, challenge.completed, quest.coin, quest.id, dispatch, open, user.id]);
 
     const handleRemove = useCallback(() => {
         setLoading(true);
