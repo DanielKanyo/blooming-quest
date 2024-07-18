@@ -39,7 +39,7 @@ interface AccordionLabelProps {
     category: QuestCategories;
 }
 
-interface QuestActions {
+interface QuestActionsProps {
     quest: Quest;
     challenge: Challenge;
     acceptMode: boolean;
@@ -97,7 +97,7 @@ const ExtraRewardHoverCard = ({ extraReward }: { extraReward: string }) => {
     );
 };
 
-const QuestActions = ({ quest, challenge, acceptMode, handleAccept, handleComplete, handleRemove, loading }: QuestActions) => {
+const QuestActions = ({ quest, challenge, acceptMode, handleAccept, handleComplete, handleRemove, loading }: QuestActionsProps) => {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
 
     return acceptMode ? (
@@ -151,6 +151,7 @@ const QuestActions = ({ quest, challenge, acceptMode, handleAccept, handleComple
 export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
     const [loading, setLoading] = useState(false);
     const [acceptError, setAcceptError] = useState("");
+    const [completeError, setCompleteError] = useState("");
     const dispatch = useDispatch();
 
     const handleAccept = useCallback(() => {
@@ -172,15 +173,17 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
 
     const handleComplete = useCallback(() => {
         const coinCurrentNew = challenge.coinCurrent + quest.coin;
+        setCompleteError("");
         setLoading(true);
 
         completeQuest(challenge.id, quest.id, coinCurrentNew)
             .then(() => {
                 dispatch(completeQuestInChallenge({ questId: quest.id, coinCurrent: coinCurrentNew }));
                 setLoading(false);
+                setCompleteError("");
             })
             .catch((err) => {
-                console.log(err);
+                setCompleteError(err.message);
                 setLoading(false);
             });
     }, [challenge.coinCurrent, challenge.id, quest.coin, quest.id, dispatch]);
@@ -204,6 +207,11 @@ export function QuestItem({ quest, challenge, acceptMode }: QuestItemProps) {
                     {quest.description}
                 </Blockquote>
                 {acceptError && (
+                    <Alert mb={15} variant="light" color="red" title="Something went wrong!">
+                        Please try again later...
+                    </Alert>
+                )}
+                {completeError && (
                     <Alert mb={15} variant="light" color="red" title="Something went wrong!">
                         Please try again later...
                     </Alert>
