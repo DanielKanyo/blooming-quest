@@ -9,6 +9,7 @@ import { QuestItem } from "../../../Components/QuestItem";
 import { QuestSkeletons } from "../../../Components/QuestSkeletons";
 import { fetchQuests, fetchQuestsAfter } from "../../../Services/GameService";
 import { QuestCategories } from "../../../Shared/Types/QuestType";
+import { JOIN_CHALLENGE_TEXT } from "../../../Shared/Utils";
 import { updateAllQuests, extendAllQuests, AllQuestsStore } from "../../../Store/Features/AllQuestsSlice";
 import { ChallengeStore } from "../../../Store/Features/ChallengeSlice";
 import store from "../../../Store/Store";
@@ -55,7 +56,7 @@ export function AllQuests() {
     if (!challengeStore.challenge) {
         return (
             <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
-                Join the challenge to be able to accept quests...
+                {JOIN_CHALLENGE_TEXT}
             </Card>
         );
     }

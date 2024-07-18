@@ -6,6 +6,7 @@ import { IconCalendarPlus } from "@tabler/icons-react";
 import { ChallengeProgress } from "../Components/ChallengeProgress";
 import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
 import { User } from "../Shared/Types/UserType";
+import { MONTHS } from "../Shared/Utils";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";
 import store from "../Store/Store";
 import { GardenArea } from "./GardenArea/GardenArea";
@@ -74,7 +75,7 @@ export function Challenge() {
                 leftSection={<IconCalendarPlus size={16} />}
                 onClick={() => joinMonthlyChallenge()}
             >
-                Join Challenge
+                Join the {MONTHS.get(new Date().getMonth())} Challenge
             </Button>
         </Center>
     );

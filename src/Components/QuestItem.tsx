@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, ReactNode } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Accordion, Text, Group, Avatar, Blockquote, ActionIcon, Tooltip, Alert, Flex, HoverCard, Image, Center } from "@mantine/core";
@@ -85,16 +85,14 @@ const getDifficultyIcon = (difficulty: QuestDifficulties): string => {
     }
 };
 
-const ExtraRewardHoverCard = ({ extraReward }: { extraReward: string }) => {
+const RewardHoverCard = ({ targetElement, imgSrc }: { targetElement: ReactNode; imgSrc: string }) => {
     return (
-        <HoverCard shadow="md">
+        <HoverCard shadow="md" openDelay={0} closeDelay={0}>
             <HoverCard.Target>
-                <Center>
-                    <BadgeWithImage imgSrc={EXTRA_REWARDS.get(extraReward)!} text="1x" color={GOLD_COLOR} shine={true} />
-                </Center>
+                <Center>{targetElement}</Center>
             </HoverCard.Target>
             <HoverCard.Dropdown>
-                <Image h={46} w={46} src={EXTRA_REWARDS.get(extraReward)!} />
+                <Image h={46} w={46} src={imgSrc} />
             </HoverCard.Dropdown>
         </HoverCard>
     );
@@ -241,8 +239,23 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
                             marginRight={8}
                         />
                         <BadgeWithImage imgSrc={coin} text={quest.coin} color="gray" marginRight={8} />
-                        <BadgeWithImage imgSrc={REWARDS.get(quest.reward)!} text="1x" color="gray" marginRight={8} />
-                        {!acceptMode && quest.extraReward && <ExtraRewardHoverCard extraReward={quest.extraReward} />}
+                        <RewardHoverCard
+                            targetElement={<BadgeWithImage imgSrc={REWARDS.get(quest.reward)!} text="1x" color="gray" marginRight={8} />}
+                            imgSrc={REWARDS.get(quest.reward)!}
+                        />
+                        {!acceptMode && quest.extraReward && (
+                            <RewardHoverCard
+                                targetElement={
+                                    <BadgeWithImage
+                                        imgSrc={EXTRA_REWARDS.get(quest.extraReward)!}
+                                        text="1x"
+                                        color={GOLD_COLOR}
+                                        shine={true}
+                                    />
+                                }
+                                imgSrc={EXTRA_REWARDS.get(quest.extraReward)!}
+                            />
+                        )}
                     </Flex>
                     <QuestActions
                         quest={quest}

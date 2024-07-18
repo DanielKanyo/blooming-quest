@@ -30,3 +30,5 @@ export const MONTHS = new Map<number, string>([
     [10, "November"],
     [11, "December"],
 ]);
+
+export const JOIN_CHALLENGE_TEXT = `Join the ${MONTHS.get(new Date().getMonth())} challenge to be able to accept quests...`;

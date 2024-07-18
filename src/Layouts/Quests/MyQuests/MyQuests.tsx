@@ -13,7 +13,7 @@ import { QuestItem } from "../../../Components/QuestItem";
 import { updateTotalCoin } from "../../../Services/UserService";
 import { Challenge } from "../../../Shared/Types/ChallengeType";
 import { Quest } from "../../../Shared/Types/QuestType";
-import { MONTHS } from "../../../Shared/Utils";
+import { JOIN_CHALLENGE_TEXT, MONTHS } from "../../../Shared/Utils";
 import { updateTotalCoinInUser } from "../../../Store/Features/UserSlice";
 import store from "../../../Store/Store";
 
@@ -71,7 +71,7 @@ export function MyQuests() {
     if (!challenge) {
         return (
             <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
-                Join the challenge to be able to accept quests...
+                {JOIN_CHALLENGE_TEXT}
             </Card>
         );
     }
