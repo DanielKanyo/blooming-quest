@@ -78,6 +78,7 @@ export function AllQuests() {
                                                 quest={quest}
                                                 challenge={challengeStore.challenge!}
                                                 acceptMode={true}
+                                                open={() => {}}
                                             />
                                         ))}
                                     </Accordion>

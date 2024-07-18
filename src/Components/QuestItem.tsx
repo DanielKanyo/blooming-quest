@@ -189,6 +189,7 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
                 if (coinCurrentNew >= challenge.coinToComplete && !challenge.completed) {
                     completeCurrentChallenge(challenge.id).then(() => {
                         dispatch(completeChallenge());
+
                         open();
                     });
                 } else if (challenge.completed) {
