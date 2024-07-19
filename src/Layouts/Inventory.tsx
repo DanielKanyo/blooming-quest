@@ -37,7 +37,7 @@ const InventoryBody = ({ items }: InventoryBodyProps) => {
 
     return (
         <ScrollArea
-            h={280}
+            h={390}
             mt="sm"
             style={{ background: "var(--mantine-color-dark-8)", borderRadius: "var(--mantine-radius-md)" }}
             type="never"

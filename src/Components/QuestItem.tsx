@@ -179,26 +179,25 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
     }, [dispatch, challenge.id, quest.id]);
 
     const handleComplete = useCallback(async () => {
-        const coinCurrentNew = challenge.coinCurrent + quest.coin;
         setCompleteError("");
         setLoading(true);
 
-        const timestamp = new Date().getTime();
-        const quantity = 1;
-
         try {
+            const coinCurrentNew = challenge.coinCurrent + quest.coin;
+            const timestamp = new Date().getTime();
+
             // Complete quest in db and in store
             await completeQuest(challenge.id, quest.id, coinCurrentNew);
             dispatch(completeQuestInChallenge({ questId: quest.id, coinCurrent: coinCurrentNew }));
 
             // Add reward/item to db and to store
-            await addItem(user.id, quest.reward, timestamp, quantity);
-            dispatch(addItemToInventory({ itemId: quest.reward, timestamp, quantity }));
+            await addItem(user.id, quest.reward, timestamp, 1, false);
+            dispatch(addItemToInventory({ itemId: quest.reward, timestamp, quantity: 1, extraReward: false }));
 
             // Add extra reward/item to db and store if there is one
             if (quest.extraReward) {
-                await addItem(user.id, quest.extraReward, timestamp, quantity);
-                dispatch(addItemToInventory({ itemId: quest.extraReward, timestamp, quantity }));
+                await addItem(user.id, quest.extraReward, timestamp, 1, true);
+                dispatch(addItemToInventory({ itemId: quest.extraReward, timestamp, quantity: 1, extraReward: true }));
             }
 
             if (coinCurrentNew >= challenge.coinToComplete && !challenge.completed) {
@@ -208,8 +207,8 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
                 open();
             } else if (challenge.completed) {
                 // If challenge already completed update the amount of total coins in db and in store
-                await updateTotalCoin(user.id, coinCurrentNew);
-                dispatch(updateTotalCoinInUser(coinCurrentNew));
+                await updateTotalCoin(user.id, quest.coin);
+                dispatch(updateTotalCoinInUser(quest.coin));
             }
         } catch (error) {
             console.error("Error completing quest or challenge: ", error);

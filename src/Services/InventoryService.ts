@@ -27,7 +27,7 @@ export const fetchInventory = async (userId: string) => {
     return inventory;
 };
 
-export const addItem = async (userId: string, itemId: string, timestamp: number, quantity: number) => {
+export const addItem = async (userId: string, itemId: string, timestamp: number, quantity: number, extraReward: boolean) => {
     const userInventoryRef = doc(db, "inventories", userId);
     const userInventorySnap = await getDoc(userInventoryRef);
     const userInventory = userInventorySnap.data() as Inventory;
@@ -35,10 +35,13 @@ export const addItem = async (userId: string, itemId: string, timestamp: number,
     if (userInventory.items[itemId]) {
         userInventory.items[itemId].quantity += quantity;
     } else {
-        userInventory.items[itemId] = {
+        const newItem: Item = {
             quantity,
             timestamp,
-        } as Item;
+            extraReward,
+        };
+
+        userInventory.items[itemId] = newItem;
     }
 
     await updateDoc(userInventoryRef, { items: userInventory.items });

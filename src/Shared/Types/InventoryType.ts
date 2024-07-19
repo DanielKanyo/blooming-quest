@@ -8,4 +8,5 @@ export type Inventory = {
 export type Item = {
     quantity: number;
     timestamp: number;
+    extraReward: boolean;
 };

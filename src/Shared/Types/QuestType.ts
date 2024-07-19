@@ -18,6 +18,7 @@ export type Quest = {
     coin: number;
     reward: string;
     extraReward?: string;
+    timestamp?: number;
 };
 
 export enum QuestCategories {

@@ -19,17 +19,23 @@ export const inventorySlice = createSlice({
         updateInventory: (_state, action: PayloadAction<InventoryStore>) => {
             return action.payload;
         },
-        addItemToInventory: (state, action: PayloadAction<{ itemId: string; timestamp: number; quantity: number }>) => {
-            const { itemId, timestamp, quantity } = action.payload;
+        addItemToInventory: (
+            state,
+            action: PayloadAction<{ itemId: string; timestamp: number; quantity: number; extraReward: boolean }>
+        ) => {
+            const { itemId, timestamp, quantity, extraReward } = action.payload;
 
             if (state.inventory) {
                 if (state.inventory.items[itemId]) {
                     state.inventory.items[itemId].quantity += quantity;
                 } else {
-                    state.inventory.items[itemId] = {
+                    const newItem: Item = {
                         quantity,
                         timestamp,
-                    } as Item;
+                        extraReward,
+                    };
+
+                    state.inventory.items[itemId] = newItem;
                 }
             }
         },

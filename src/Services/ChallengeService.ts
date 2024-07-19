@@ -132,13 +132,13 @@ export const acceptQuest = async (challengeId: string, questId: string): Promise
         throw new Error("Quest does not exists...");
     }
 
-    if (randomNumberBetween(1, 3) === NUMBER_TO_GET_EXRA_REWARD) {
+    if (randomNumberBetween(1, 5) === NUMBER_TO_GET_EXRA_REWARD) {
         quest.extraReward = randomExtraReward();
     }
 
-    const questToAdd = {
+    const questToAdd: Quest = {
         ...quest,
-        completed: false,
+        timestamp: new Date().getTime(),
     };
 
     await setDoc(challengeDocRef, { quests: [questToAdd, ...challenge.quests] }, { merge: true });

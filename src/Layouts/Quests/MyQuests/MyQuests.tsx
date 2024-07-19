@@ -27,7 +27,9 @@ export function MyQuests() {
     const sumUpCoin = (quests: Quest[]): number => quests.reduce((total, quest) => total + quest.coin, 0);
 
     const filterQuests = (challenge: Challenge, completed: boolean): Quest[] =>
-        challenge.quests.filter((quest) => completed === challenge.completedQuests.includes(quest.id));
+        challenge.quests
+            .filter((quest) => completed === challenge.completedQuests.includes(quest.id))
+            .sort((a, b) => a.timestamp! - b.timestamp!);
 
     const handleClaimCoins = useCallback(() => {
         if (challenge) {
