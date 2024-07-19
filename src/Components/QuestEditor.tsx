@@ -77,6 +77,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
             title="Quest Editor"
             fullScreen={isMobile}
             transitionProps={{ transition: "fade-up" }}
+            radius="md"
         >
             <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
                 <NativeSelect mb={10} label="Category" data={Categories} key={form.key("category")} {...form.getInputProps("category")} />

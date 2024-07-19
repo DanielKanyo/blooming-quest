@@ -35,15 +35,9 @@ export function Inventory() {
 
     return (
         <>
-            <Modal.Root opened={opened} onClose={close} size="auto" centered>
-                <Modal.Overlay />
-                <Modal.Content>
-                    <Modal.Header>
-                        <Modal.CloseButton />
-                    </Modal.Header>
-                    <Modal.Body>{inventoryStore.inventory.items.length ? <InventoryBody /> : <EmptyInventoryBody />}</Modal.Body>
-                </Modal.Content>
-            </Modal.Root>
+            <Modal opened={opened} onClose={close} size="auto" centered radius="md">
+                {inventoryStore.inventory.items.length ? <InventoryBody /> : <EmptyInventoryBody />}
+            </Modal>
             <Tooltip label="Inventory" color="gray" radius="md">
                 <ActionIcon radius="md" variant="light" color="gray" size="lg" aria-label="inventory" mr={12} onClick={open}>
                     <IconBackpack />

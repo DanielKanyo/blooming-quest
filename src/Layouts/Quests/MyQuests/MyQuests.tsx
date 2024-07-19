@@ -89,7 +89,7 @@ export function MyQuests() {
 
     return (
         <>
-            <Tabs variant="pills" defaultValue="uncompleted" color="teal">
+            <Tabs variant="pills" defaultValue="uncompleted" color="teal" radius="md">
                 <Tabs.List grow>
                     <Tooltip label="In Progress" position="top" color="gray" radius="md">
                         <Tabs.Tab value="uncompleted" leftSection={<IconProgress />}></Tabs.Tab>
@@ -124,6 +124,7 @@ export function MyQuests() {
                 transitionProps={{ transition: "fade-up" }}
                 withCloseButton={false}
                 size="auto"
+                radius="md"
             >
                 <FocusTrap.InitialFocus />
                 <Flex direction="column" justify="center" align="center" p={10}>

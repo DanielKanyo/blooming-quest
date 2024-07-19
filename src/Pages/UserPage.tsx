@@ -184,6 +184,7 @@ export function UserPage() {
                         centered
                         fullScreen={isMobile}
                         transitionProps={{ transition: "fade-up" }}
+                        radius="md"
                     >
                         <Container px={15}>
                             <Blockquote color="red" icon={<IconInfoCircle />} my="sm" radius="md">

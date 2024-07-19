@@ -51,7 +51,7 @@ export function Challenge() {
                 <ScrollArea
                     h="100%"
                     mt="sm"
-                    style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }}
+                    style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-md)" }}
                     type="never"
                     p="md"
                 >
@@ -60,7 +60,7 @@ export function Challenge() {
                         return <GardenArea key={key} />;
                     })}
                 </ScrollArea>
-                <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-sm)" }} p="md">
+                <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-md)" }} p="md">
                     Game Footer
                 </Flex>
             </>
