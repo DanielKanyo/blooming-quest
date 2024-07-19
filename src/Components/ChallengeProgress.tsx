@@ -28,8 +28,8 @@ export function ChallengeProgress() {
         };
 
         const calcProgressColor = (percent: number): string => {
-            if (percent < 30) return "red";
-            if (percent < 65) return "yellow";
+            if (percent < 50) return "red";
+            if (percent < 100) return "yellow";
 
             return "teal";
         };

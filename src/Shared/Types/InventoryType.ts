@@ -1,5 +1,11 @@
 export type Inventory = {
-    id: string;
     userId: string;
-    items: [];
+    items: {
+        [itemId: string]: Item;
+    };
+};
+
+export type Item = {
+    quantity: number;
+    timestamp: number;
 };

@@ -25,14 +25,14 @@ export const allQuestsSlice = createSlice({
         extendAllQuests: (state, action: PayloadAction<Quest[]>) => {
             state.quests = [...state.quests, ...action.payload];
         },
-        addQuest: (state, action: PayloadAction<Quest>) => {
+        addQuestToAll: (state, action: PayloadAction<Quest>) => {
             state.quests = [action.payload, ...state.quests];
         },
-        removeQuest: (state, action: PayloadAction<string>) => {
+        removeQuestFromAll: (state, action: PayloadAction<string>) => {
             state.quests = state.quests.filter((q) => q.id !== action.payload);
         },
     },
 });
 
-export const { updateAllQuests, addQuest, removeQuest, extendAllQuests, updateAllQuestsLoading } = allQuestsSlice.actions;
+export const { updateAllQuests, addQuestToAll, removeQuestFromAll, extendAllQuests, updateAllQuestsLoading } = allQuestsSlice.actions;
 export default allQuestsSlice.reducer;

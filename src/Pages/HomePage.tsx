@@ -87,10 +87,12 @@ export function HomePage() {
                                 <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
                             </div>
                             <Flex align="center">
-                                <Store />
-                                <Inventory />
-                                <Notifications />
-                                <UserMenu />
+                                <Group gap="sm">
+                                    <Store />
+                                    <Inventory />
+                                    <Notifications />
+                                    <UserMenu />
+                                </Group>
                             </Flex>
                         </Group>
                     </AppShell.Header>

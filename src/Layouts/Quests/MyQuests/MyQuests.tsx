@@ -29,7 +29,7 @@ export function MyQuests() {
     const filterQuests = (challenge: Challenge, completed: boolean): Quest[] =>
         challenge.quests.filter((quest) => completed === challenge.completedQuests.includes(quest.id));
 
-    const handleClaimReward = useCallback(() => {
+    const handleClaimCoins = useCallback(() => {
         if (challenge) {
             updateTotalCoin(user.id, challenge.coinCurrent).then(() => {
                 dispatch(updateTotalCoinInUser(challenge.coinCurrent));
@@ -141,7 +141,7 @@ export function MyQuests() {
                         variant="gradient"
                         radius="md"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
-                        onClick={() => handleClaimReward()}
+                        onClick={() => handleClaimCoins()}
                         fullWidth
                     >
                         Claim Reward

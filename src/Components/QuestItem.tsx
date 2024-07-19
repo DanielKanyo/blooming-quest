@@ -9,6 +9,7 @@ import flame from "../Assets/Other/flame.png";
 import leaf from "../Assets/Other/leaf.png";
 import seaWave from "../Assets/Other/sea-waves.png";
 import { acceptQuest, completeCurrentChallenge, completeQuest, deleteQuest } from "../Services/ChallengeService";
+import { addItem } from "../Services/InventoryService";
 import { updateTotalCoin } from "../Services/UserService";
 import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
 import { Challenge } from "../Shared/Types/ChallengeType";
@@ -22,8 +23,9 @@ import {
     QuestDifficulties,
 } from "../Shared/Types/QuestType";
 import { UserRoles } from "../Shared/Types/UserType";
-import { removeQuest } from "../Store/Features/AllQuestsSlice";
+import { removeQuestFromAll } from "../Store/Features/AllQuestsSlice";
 import { addQuestToChallenge, completeQuestInChallenge, completeChallenge } from "../Store/Features/ChallengeSlice";
+import { addItemToInventory } from "../Store/Features/InventorySlice";
 import { updateTotalCoinInUser } from "../Store/Features/UserSlice";
 import store from "../Store/Store";
 import { BadgeWithImage } from "./BadgeWithImage/BadgeWithImage";
@@ -159,57 +161,81 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
     const [completeError, setCompleteError] = useState("");
     const dispatch = useDispatch();
 
-    const handleAccept = useCallback(() => {
+    const handleAccept = useCallback(async () => {
         setLoading(true);
         setAcceptError("");
 
-        acceptQuest(challenge.id, quest.id)
-            .then((newQuest) => {
-                dispatch(addQuestToChallenge(newQuest));
-                dispatch(removeQuest(newQuest.id));
-                setLoading(false);
-                setAcceptError("");
-            })
-            .catch((err) => {
-                setAcceptError(err.message);
-                setLoading(false);
-            });
+        try {
+            const newQuest = await acceptQuest(challenge.id, quest.id);
+
+            dispatch(addQuestToChallenge(newQuest));
+            dispatch(removeQuestFromAll(newQuest.id));
+        } catch (error) {
+            console.error("Error completing quest or challenge: ", error);
+            setAcceptError("Something went wrong...");
+        } finally {
+            setLoading(false);
+        }
     }, [dispatch, challenge.id, quest.id]);
 
-    const handleComplete = useCallback(() => {
+    const handleComplete = useCallback(async () => {
         const coinCurrentNew = challenge.coinCurrent + quest.coin;
         setCompleteError("");
         setLoading(true);
 
-        completeQuest(challenge.id, quest.id, coinCurrentNew)
-            .then(() => {
-                dispatch(completeQuestInChallenge({ questId: quest.id, coinCurrent: coinCurrentNew }));
-                setLoading(false);
-                setCompleteError("");
+        const timestamp = new Date().getTime();
+        const quantity = 1;
 
-                if (coinCurrentNew >= challenge.coinToComplete && !challenge.completed) {
-                    completeCurrentChallenge(challenge.id).then(() => {
-                        dispatch(completeChallenge());
+        try {
+            // Complete quest in db and in store
+            await completeQuest(challenge.id, quest.id, coinCurrentNew);
+            dispatch(completeQuestInChallenge({ questId: quest.id, coinCurrent: coinCurrentNew }));
 
-                        open();
-                    });
-                } else if (challenge.completed) {
-                    updateTotalCoin(user.id, coinCurrentNew).then(() => {
-                        dispatch(updateTotalCoinInUser(coinCurrentNew));
-                    });
-                }
-            })
-            .catch((err) => {
-                setCompleteError(err.message);
-                setLoading(false);
-            });
-    }, [challenge.coinCurrent, challenge.id, challenge.coinToComplete, challenge.completed, quest.coin, quest.id, dispatch, open, user.id]);
+            // Add reward/item to db and to store
+            await addItem(user.id, quest.reward, timestamp, quantity);
+            dispatch(addItemToInventory({ itemId: quest.reward, timestamp, quantity }));
+
+            // Add extra reward/item to db and store if there is one
+            if (quest.extraReward) {
+                await addItem(user.id, quest.extraReward, timestamp, quantity);
+                dispatch(addItemToInventory({ itemId: quest.extraReward, timestamp, quantity }));
+            }
+
+            if (coinCurrentNew >= challenge.coinToComplete && !challenge.completed) {
+                // Complete challenge in db and in store and open claim coins modal
+                await completeCurrentChallenge(challenge.id);
+                dispatch(completeChallenge());
+                open();
+            } else if (challenge.completed) {
+                // If challenge already completed update the amount of total coins in db and in store
+                await updateTotalCoin(user.id, coinCurrentNew);
+                dispatch(updateTotalCoinInUser(coinCurrentNew));
+            }
+        } catch (error) {
+            console.error("Error completing quest or challenge: ", error);
+            setCompleteError("Something went wrong...");
+        } finally {
+            setLoading(false);
+        }
+    }, [
+        challenge.coinCurrent,
+        challenge.id,
+        challenge.coinToComplete,
+        challenge.completed,
+        quest.coin,
+        quest.id,
+        quest.reward,
+        quest.extraReward,
+        dispatch,
+        user.id,
+        open,
+    ]);
 
     const handleRemove = useCallback(() => {
         setLoading(true);
 
         deleteQuest(quest.id).then(() => {
-            dispatch(removeQuest(quest.id));
+            dispatch(removeQuestFromAll(quest.id));
             setLoading(false);
         });
     }, [dispatch, quest.id]);

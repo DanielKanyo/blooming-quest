@@ -1,18 +1,15 @@
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 import { db } from "../Configs/Firebase/FirebaseConfig";
-import { Inventory } from "../Shared/Types/InventoryType";
+import { Inventory, Item } from "../Shared/Types/InventoryType";
 
 export const createInventory = async (userId: string) => {
-    const inventoriesRef = doc(collection(db, "inventories"));
-
     const inventory: Inventory = {
         userId,
-        id: inventoriesRef.id,
-        items: [],
+        items: {},
     };
 
-    await setDoc(inventoriesRef, inventory);
+    await setDoc(doc(db, "inventories", userId), inventory);
 };
 
 export const fetchInventory = async (userId: string) => {
@@ -28,4 +25,21 @@ export const fetchInventory = async (userId: string) => {
     });
 
     return inventory;
+};
+
+export const addItem = async (userId: string, itemId: string, timestamp: number, quantity: number) => {
+    const userInventoryRef = doc(db, "inventories", userId);
+    const userInventorySnap = await getDoc(userInventoryRef);
+    const userInventory = userInventorySnap.data() as Inventory;
+
+    if (userInventory.items[itemId]) {
+        userInventory.items[itemId].quantity += quantity;
+    } else {
+        userInventory.items[itemId] = {
+            quantity,
+            timestamp,
+        } as Item;
+    }
+
+    await updateDoc(userInventoryRef, { items: userInventory.items });
 };

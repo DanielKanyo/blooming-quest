@@ -11,8 +11,8 @@ export function Store() {
                 Modal content
             </Modal>
             <Tooltip label="Store" color="gray" radius="md">
-                <ActionIcon radius="md" variant="light" color="gray" size="lg" aria-label="store" mr={12} onClick={open}>
-                    <IconBuildingStore />
+                <ActionIcon radius="md" variant="light" color="gray" size="lg" aria-label="store" onClick={open}>
+                    <IconBuildingStore size={22} />
                 </ActionIcon>
             </Tooltip>
         </>

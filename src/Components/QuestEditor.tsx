@@ -17,7 +17,7 @@ import {
     TextCategoryMapping,
     TextDifficultyMapping,
 } from "../Shared/Types/QuestType";
-import { addQuest } from "../Store/Features/AllQuestsSlice";
+import { addQuestToAll } from "../Store/Features/AllQuestsSlice";
 
 type QuestEditorProps = {
     opened: boolean;
@@ -40,29 +40,29 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
         },
     });
 
-    const handleSubmit = (values: typeof form.values) => {
+    const handleSubmit = async (values: typeof form.values) => {
         setCreateLoading(true);
 
-        const category = TextCategoryMapping.get(values.category)!;
-        const description = values.description;
-        const difficulty = TextDifficultyMapping.get(values.difficulty)!;
-        const coin = values.coin;
-        const reward = selectedReward!;
+        try {
+            const category = TextCategoryMapping.get(values.category)!;
+            const description = values.description;
+            const difficulty = TextDifficultyMapping.get(values.difficulty)!;
+            const coin = values.coin;
+            const reward = selectedReward!;
 
-        createQuest(category, description, difficulty, coin, reward)
-            .then((quest) => {
-                dispatch(addQuest(quest));
+            const quest = await createQuest(category, description, difficulty, coin, reward);
 
-                form.reset();
-                setSelectedReward(null);
-                setCreateLoading(false);
+            dispatch(addQuestToAll(quest));
 
-                close();
-            })
-            .catch((err) => {
-                setCreateLoading(false);
-                console.error(`Something went wrong... ${err.message}`);
-            });
+            form.reset();
+            setSelectedReward(null);
+
+            close();
+        } catch (err) {
+            console.error("Something went wrong...", err);
+        } finally {
+            setCreateLoading(false);
+        }
     };
 
     const toggleSelectedReward = (reward: string) => {
