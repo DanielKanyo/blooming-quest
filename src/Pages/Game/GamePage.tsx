@@ -5,7 +5,7 @@ import { Card, Center, Loader, Skeleton } from "@mantine/core";
 
 import { Challenge } from "../../Layouts/Challenge";
 import { MyQuests } from "../../Layouts/Quests/MyQuests/MyQuests";
-import { fetchCurrentChallenge } from "../../Services/GameService";
+import { fetchCurrentChallenge } from "../../Services/ChallengeService";
 import { ChallengeStore, updateChallenge } from "../../Store/Features/ChallengeSlice";
 import store from "../../Store/Store";
 import "./Game.css";

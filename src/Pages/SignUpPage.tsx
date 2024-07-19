@@ -9,6 +9,7 @@ import { IconAt, IconKey, IconLetterCase } from "@tabler/icons-react";
 
 import logo from "../Assets/Images/logo.png";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
+import { createInventory } from "../Services/InventoryService";
 import { createUser } from "../Services/UserService";
 import { UserRoles } from "../Shared/Types/UserType";
 
@@ -51,6 +52,8 @@ export function SignUpPage() {
                         totalCoin: 0,
                         gem: 10,
                     });
+
+                    await createInventory(userCredential.user.uid);
 
                     seSignUpLoading(false);
                     seSignUpSuccess(true);

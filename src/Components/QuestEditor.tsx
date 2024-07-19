@@ -5,7 +5,7 @@ import { Button, Modal, NativeSelect, NumberInput, TextInput, Text, rem, Image, 
 import { useForm } from "@mantine/form";
 import { useMediaQuery } from "@mantine/hooks";
 
-import { createQuest } from "../Services/GameService";
+import { createQuest } from "../Services/ChallengeService";
 import { REWARDS } from "../Shared/Rewards";
 import {
     Categories,

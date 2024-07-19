@@ -7,7 +7,7 @@ import { IconDots } from "@tabler/icons-react";
 import { CategoryFilter } from "../../../Components/CategoryFilter";
 import { QuestItem } from "../../../Components/QuestItem";
 import { QuestSkeletons } from "../../../Components/QuestSkeletons";
-import { fetchQuests, fetchQuestsAfter } from "../../../Services/GameService";
+import { fetchQuests, fetchQuestsAfter } from "../../../Services/ChallengeService";
 import { QuestCategories } from "../../../Shared/Types/QuestType";
 import { JOIN_CHALLENGE_TEXT } from "../../../Shared/Utils";
 import { updateAllQuests, extendAllQuests, AllQuestsStore } from "../../../Store/Features/AllQuestsSlice";

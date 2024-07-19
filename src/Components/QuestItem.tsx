@@ -8,7 +8,7 @@ import coin from "../Assets/Other/coin.png";
 import flame from "../Assets/Other/flame.png";
 import seaWave from "../Assets/Other/sea-waves.png";
 import wind from "../Assets/Other/wind.png";
-import { acceptQuest, completeCurrentChallenge, completeQuest, deleteQuest } from "../Services/GameService";
+import { acceptQuest, completeCurrentChallenge, completeQuest, deleteQuest } from "../Services/ChallengeService";
 import { updateTotalCoin } from "../Services/UserService";
 import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
 import { Challenge } from "../Shared/Types/ChallengeType";

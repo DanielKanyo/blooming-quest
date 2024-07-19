@@ -4,7 +4,7 @@ import { Button, Center, Flex, ScrollArea } from "@mantine/core";
 import { IconCalendarPlus } from "@tabler/icons-react";
 
 import { ChallengeProgress } from "../Components/ChallengeProgress";
-import { fetchCurrentChallenge, joinChallenge } from "../Services/GameService";
+import { fetchCurrentChallenge, joinChallenge } from "../Services/ChallengeService";
 import { User } from "../Shared/Types/UserType";
 import { MONTHS } from "../Shared/Utils";
 import { ChallengeStore, updateChallenge, updateChallengeLoading } from "../Store/Features/ChallengeSlice";

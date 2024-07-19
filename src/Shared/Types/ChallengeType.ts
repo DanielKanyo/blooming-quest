@@ -1,4 +1,4 @@
-import { Months } from "../../Services/GameService";
+import { Months } from "../../Services/ChallengeService";
 import { Quest } from "./QuestType";
 
 export type Challenge = {
