@@ -71,6 +71,7 @@ export function Challenge() {
         <Center h="100%">
             <Button
                 variant="gradient"
+                radius="md"
                 gradient={{ from: "cyan", to: "teal", deg: 60 }}
                 leftSection={<IconCalendarPlus size={16} />}
                 onClick={() => joinMonthlyChallenge()}

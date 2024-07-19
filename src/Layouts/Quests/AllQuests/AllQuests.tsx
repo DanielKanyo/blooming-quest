@@ -55,7 +55,7 @@ export function AllQuests() {
 
     if (!challengeStore.challenge) {
         return (
-            <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+            <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
                 {JOIN_CHALLENGE_TEXT}
             </Card>
         );
@@ -85,6 +85,7 @@ export function AllQuests() {
                                     </Accordion>
                                     <Button
                                         mt={10}
+                                        radius="md"
                                         size="xs"
                                         variant="filled"
                                         color="teal"
@@ -95,7 +96,7 @@ export function AllQuests() {
                                     </Button>
                                 </>
                             ) : (
-                                <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+                                <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
                                     No more quests left for this month...
                                 </Card>
                             )}

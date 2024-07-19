@@ -95,7 +95,7 @@ export function UserPage() {
                     <TextInput
                         size="md"
                         label="Email"
-                        radius="sm"
+                        radius="md"
                         value={user.email}
                         disabled
                         style={{ marginBottom: rem(10) }}
@@ -104,7 +104,7 @@ export function UserPage() {
                     <TextInput
                         size="md"
                         label="Name"
-                        radius="sm"
+                        radius="md"
                         value={`${user.firstName} ${user.lastName}`}
                         disabled
                         style={{ marginBottom: rem(10) }}
@@ -125,7 +125,7 @@ export function UserPage() {
                     <form onSubmit={form.onSubmit(({ newPassword }) => handleSubmit(newPassword))}>
                         <PasswordInput
                             size="md"
-                            radius="sm"
+                            radius="md"
                             style={{ marginBottom: rem(10) }}
                             placeholder="Enter your new password..."
                             key={form.key("newPassword")}
@@ -134,7 +134,7 @@ export function UserPage() {
                         />
                         <PasswordInput
                             size="md"
-                            radius="sm"
+                            radius="md"
                             style={{ marginBottom: rem(20) }}
                             placeholder="Enter your new password again..."
                             key={form.key("confirmPassword")}
@@ -143,16 +143,19 @@ export function UserPage() {
                         />
 
                         {passwordResetError && (
-                            <Alert variant="light" color="red" title="Something went wrong! Please try again later...">
+                            <Alert variant="light" color="red" title="Something went wrong! Please try again later..." radius="md">
                                 {passwordResetError}
                             </Alert>
                         )}
 
-                        {passwordResetSuccess && <Alert variant="light" color="teal" title="Password reset was successful!"></Alert>}
+                        {passwordResetSuccess && (
+                            <Alert variant="light" color="teal" title="Password reset was successful!" radius="md"></Alert>
+                        )}
 
                         <Button
                             fullWidth
                             type="submit"
+                            radius="md"
                             style={{ marginTop: rem(20) }}
                             variant="gradient"
                             gradient={{ from: "cyan", to: "teal", deg: 60 }}
@@ -183,11 +186,11 @@ export function UserPage() {
                         transitionProps={{ transition: "fade-up" }}
                     >
                         <Container px={15}>
-                            <Blockquote color="red" icon={<IconInfoCircle />} my="sm">
+                            <Blockquote color="red" icon={<IconInfoCircle />} my="sm" radius="md">
                                 Your account will be removed along with all your data... Are you sure you want to delete your account?
                             </Blockquote>
                             {accountRemovalError && (
-                                <Alert variant="light" color="red" title="Something went wrong! Please try again later...">
+                                <Alert variant="light" color="red" title="Something went wrong! Please try again later..." radius="md">
                                     {accountRemovalError}
                                 </Alert>
                             )}
@@ -196,6 +199,7 @@ export function UserPage() {
                             <Button
                                 miw={90}
                                 variant="gradient"
+                                radius="md"
                                 loading={accountRemovalLoading}
                                 loaderProps={{ type: "dots" }}
                                 gradient={{ from: "red", to: "pink", deg: 60 }}
@@ -206,7 +210,7 @@ export function UserPage() {
                         </Flex>
                     </Modal>
 
-                    <Button fullWidth variant="gradient" gradient={{ from: "red", to: "pink", deg: 60 }} onClick={open}>
+                    <Button fullWidth variant="gradient" gradient={{ from: "red", to: "pink", deg: 60 }} onClick={open} radius="md">
                         Delete Account
                     </Button>
                 </div>
@@ -215,6 +219,7 @@ export function UserPage() {
             <Affix position={{ bottom: 75, right: 15 }}>
                 <Button
                     component={Link}
+                    radius="md"
                     to="/home"
                     variant="gradient"
                     gradient={{ from: "cyan", to: "teal", deg: 60 }}

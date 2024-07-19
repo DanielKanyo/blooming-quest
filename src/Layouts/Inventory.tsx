@@ -9,12 +9,12 @@ import store from "../Store/Store";
 
 const EmptyInventoryBody = () => {
     return (
-        <Flex direction="column" justify="center" align="center" p={10} pt={0}>
-            <Image h={66} w={66} src={leaft} mb={10} />
+        <Flex direction="column" justify="center" align="center" px={10} pb={10}>
+            <Image h={72} w={72} src={leaft} mb={16} />
             <Text size="xl" mb={10}>
                 Your inventory is empty...
             </Text>
-            <Text size="sm" c="dimmed" mb={16} ta="center">
+            <Text size="sm" c="dimmed" ta="center">
                 Join challenges and complete quests <br /> to acquire rewards...
             </Text>
         </Flex>
@@ -44,8 +44,8 @@ export function Inventory() {
                     <Modal.Body>{inventoryStore.inventory.items.length ? <InventoryBody /> : <EmptyInventoryBody />}</Modal.Body>
                 </Modal.Content>
             </Modal.Root>
-            <Tooltip label="Inventory" color="gray">
-                <ActionIcon variant="transparent" size="xl" color="whiet" aria-label="inventory" mr={12} onClick={open}>
+            <Tooltip label="Inventory" color="gray" radius="md">
+                <ActionIcon radius="md" variant="light" color="gray" size="lg" aria-label="inventory" mr={12} onClick={open}>
                     <IconBackpack />
                 </ActionIcon>
             </Tooltip>

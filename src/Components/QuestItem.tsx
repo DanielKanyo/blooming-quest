@@ -6,8 +6,8 @@ import { IconCheck, IconPlus, IconQuestionMark, IconX } from "@tabler/icons-reac
 
 import coin from "../Assets/Other/coin.png";
 import flame from "../Assets/Other/flame.png";
+import leaf from "../Assets/Other/leaf.png";
 import seaWave from "../Assets/Other/sea-waves.png";
-import wind from "../Assets/Other/wind.png";
 import { acceptQuest, completeCurrentChallenge, completeQuest, deleteQuest } from "../Services/ChallengeService";
 import { updateTotalCoin } from "../Services/UserService";
 import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
@@ -57,7 +57,7 @@ const AccordionLabel = ({ description, category }: AccordionLabelProps) => {
 
     return (
         <Group wrap="nowrap">
-            <Avatar color={CategoryColorMapping.get(category)} radius="sm" size="45px" variant="filled">
+            <Avatar color={CategoryColorMapping.get(category)} radius="md" size="45px" variant="filled">
                 <Icon />
             </Avatar>
             <div style={{ height: 45 }}>
@@ -79,7 +79,7 @@ const getDifficultyIcon = (difficulty: QuestDifficulties): string => {
         case QuestDifficulties.Medium:
             return seaWave;
         case QuestDifficulties.Easy:
-            return wind;
+            return leaf;
         default:
             throw new Error("Unsupported quest difficulty...");
     }
@@ -87,7 +87,7 @@ const getDifficultyIcon = (difficulty: QuestDifficulties): string => {
 
 const RewardHoverCard = ({ targetElement, imgSrc }: { targetElement: ReactNode; imgSrc: string }) => {
     return (
-        <HoverCard shadow="md">
+        <HoverCard shadow="md" radius="md">
             <HoverCard.Target>
                 <Center>{targetElement}</Center>
             </HoverCard.Target>
@@ -104,11 +104,12 @@ const QuestActions = ({ quest, challenge, acceptMode, handleAccept, handleComple
     return acceptMode ? (
         <Flex>
             {user.roles.includes(UserRoles.ADMINISTRATOR) && (
-                <Tooltip label="Delete Quest" position="bottom" color="gray">
+                <Tooltip label="Delete Quest" position="bottom" color="gray" radius="md">
                     <ActionIcon
                         mr={8}
                         w="100%"
                         variant="light"
+                        radius="md"
                         color="red"
                         aria-label="delete-quest"
                         onClick={handleRemove}
@@ -118,9 +119,10 @@ const QuestActions = ({ quest, challenge, acceptMode, handleAccept, handleComple
                     </ActionIcon>
                 </Tooltip>
             )}
-            <Tooltip label="Accept Quest" position="bottom" color="gray">
+            <Tooltip label="Accept Quest" position="bottom" color="gray" radius="md">
                 <ActionIcon
                     variant="light"
+                    radius="md"
                     w="100%"
                     color={CategoryColorMapping.get(quest.category)}
                     disabled={loading}
@@ -133,9 +135,10 @@ const QuestActions = ({ quest, challenge, acceptMode, handleAccept, handleComple
         </Flex>
     ) : (
         !challenge.completedQuests.includes(quest.id) && (
-            <Tooltip label="Complete Quest" position="bottom" color="gray">
+            <Tooltip label="Complete Quest" position="bottom" color="gray" radius="md">
                 <ActionIcon
                     variant="light"
+                    radius="md"
                     w="100%"
                     color={CategoryColorMapping.get(quest.category)}
                     aria-label="complete-quest"
@@ -217,16 +220,16 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
                 <AccordionLabel description={quest.description} category={quest.category} />
             </Accordion.Control>
             <Accordion.Panel>
-                <Blockquote color={CategoryColorMapping.get(quest.category)} mb={18} p={22}>
+                <Blockquote color={CategoryColorMapping.get(quest.category)} mb={18} p={22} radius="md">
                     {quest.description}
                 </Blockquote>
                 {acceptError && (
-                    <Alert mb={15} variant="light" color="red" title="Something went wrong!">
+                    <Alert mb={15} variant="light" color="red" title="Something went wrong!" radius="md">
                         Please try again later...
                     </Alert>
                 )}
                 {completeError && (
-                    <Alert mb={15} variant="light" color="red" title="Something went wrong!">
+                    <Alert mb={15} variant="light" color="red" title="Something went wrong!" radius="md">
                         Please try again later...
                     </Alert>
                 )}

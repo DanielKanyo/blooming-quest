@@ -39,14 +39,15 @@ export function CategoryFilter({ active, setActive }: CategoryFilterProps) {
     );
 
     return (
-        <Group gap={12} grow mb={12}>
+        <Group gap={10} grow mb={12}>
             {CATEGORIES.map((c) => (
-                <Tooltip key={c} label={CategoryTextMapping.get(c)} color="gray">
+                <Tooltip key={c} label={CategoryTextMapping.get(c)} color="gray" radius="md">
                     <Button
                         variant={getVariant(c, active)}
                         color={CategoryColorMapping.get(c)}
                         size="xs"
                         h={12}
+                        radius="md"
                         onClick={() => setActiveCategory(c)}
                     />
                 </Tooltip>

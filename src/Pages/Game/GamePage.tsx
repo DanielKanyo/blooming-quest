@@ -28,7 +28,7 @@ export function GamePage() {
     return (
         <div className="main">
             <div className="challenges-container">
-                <Card h="100%" shadow="sm" padding="lg" radius="sm">
+                <Card h="100%" shadow="sm" padding="lg" radius="md">
                     {challengeStore.loading ? (
                         <Center h="100%">
                             <Loader size={40} color="var(--mantine-color-dark-0)" type="dots" />

@@ -5,7 +5,7 @@ import "./HouseArea.css";
 
 export function HouseArea() {
     return (
-        <Card className="house-area" shadow="sm" padding="0" radius="sm" h={190} mb={10}>
+        <Card className="house-area" shadow="sm" padding="0" radius="md" h={190} mb={10}>
             <div style={{ overflow: "hidden", height: "100%", position: "relative" }}>
                 <div className="land"></div>
                 <div className="cloud"></div>

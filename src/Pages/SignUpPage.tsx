@@ -77,7 +77,7 @@ export function SignUpPage() {
             <Text ml={10} className="sign-title" mb={20}>
                 BloomingQuest
             </Text>
-            <Card shadow="sm" padding="xl" radius="sm" style={{ width: rem(500) }}>
+            <Card shadow="sm" padding="xl" radius="md" style={{ width: rem(500) }}>
                 <form
                     onSubmit={form.onSubmit(({ firstName, lastName, email, password }) =>
                         handleSubmit(firstName, lastName, email, password)
@@ -90,7 +90,7 @@ export function SignUpPage() {
 
                     <TextInput
                         size="md"
-                        radius="sm"
+                        radius="md"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your first name..."
                         key={form.key("firstName")}
@@ -99,7 +99,7 @@ export function SignUpPage() {
                     />
                     <TextInput
                         size="md"
-                        radius="sm"
+                        radius="md"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your last name..."
                         key={form.key("lastName")}
@@ -108,7 +108,7 @@ export function SignUpPage() {
                     />
                     <TextInput
                         size="md"
-                        radius="sm"
+                        radius="md"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your email address..."
                         key={form.key("email")}
@@ -117,7 +117,7 @@ export function SignUpPage() {
                     />
                     <PasswordInput
                         size="md"
-                        radius="sm"
+                        radius="md"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your password..."
                         key={form.key("password")}
@@ -126,7 +126,7 @@ export function SignUpPage() {
                     />
                     <PasswordInput
                         size="md"
-                        radius="sm"
+                        radius="md"
                         style={{ marginBottom: rem(20) }}
                         placeholder="Enter your password again..."
                         key={form.key("confirmPassword")}
@@ -135,13 +135,13 @@ export function SignUpPage() {
                     />
 
                     {signUpError && (
-                        <Alert variant="light" color="red" title="Something went wrong!">
+                        <Alert variant="light" color="red" title="Something went wrong!" radius="md">
                             {signUpError}
                         </Alert>
                     )}
 
                     {signUpSuccess && (
-                        <Alert variant="light" color="teal" title="Sign up was successful!">
+                        <Alert variant="light" color="teal" title="Sign up was successful!" radius="md">
                             Please sign in...
                         </Alert>
                     )}
@@ -150,6 +150,7 @@ export function SignUpPage() {
                         fullWidth
                         type="submit"
                         loading={signUpLoading}
+                        radius="md"
                         loaderProps={{ type: "dots" }}
                         style={{ marginTop: rem(20) }}
                         variant="gradient"

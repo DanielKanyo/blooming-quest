@@ -55,6 +55,7 @@ export function UserMenu() {
                 position="bottom-end"
                 shadow="md"
                 width={350}
+                radius="md"
                 transitionProps={{ transition: "fade-up", duration: 150 }}
             >
                 <Menu.Target>

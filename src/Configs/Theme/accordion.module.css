@@ -1,6 +1,7 @@
 .root[data-variant="separated"] .item {
     margin-top: var(--mantine-spacing-xs);
     box-shadow: var(--mantine-shadow-sm);
+    border-radius: var(--mantine-radius-md);
 
     &:first-of-type {
         margin-top: 0;

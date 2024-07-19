@@ -17,8 +17,8 @@ export function Store() {
                     <Modal.Body>Modal content</Modal.Body>
                 </Modal.Content>
             </Modal.Root>
-            <Tooltip label="Store" color="gray">
-                <ActionIcon variant="transparent" size="xl" color="whiet" aria-label="store" mr={12} onClick={open}>
+            <Tooltip label="Store" color="gray" radius="md">
+                <ActionIcon radius="md" variant="light" color="gray" size="lg" aria-label="store" mr={12} onClick={open}>
                     <IconBuildingStore />
                 </ActionIcon>
             </Tooltip>

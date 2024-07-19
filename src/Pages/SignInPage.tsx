@@ -47,7 +47,7 @@ export function SignInPage() {
             <Text ml={10} className="sign-title" mb={20}>
                 BloomingQuest
             </Text>
-            <Card shadow="sm" py="lg" px="xl" radius="sm" style={{ width: rem(500) }}>
+            <Card shadow="sm" py="lg" px="xl" radius="md" style={{ width: rem(500) }}>
                 <form onSubmit={form.onSubmit(({ email, password }) => handleSubmit(email, password))}>
                     <Text size="xl">Login</Text>
                     <Text size="sm" style={{ opacity: "0.4" }} mb={25}>
@@ -56,7 +56,7 @@ export function SignInPage() {
 
                     <TextInput
                         size="md"
-                        radius="sm"
+                        radius="md"
                         style={{ marginBottom: rem(10) }}
                         placeholder="Enter your email address..."
                         key={form.key("email")}
@@ -65,7 +65,7 @@ export function SignInPage() {
                     />
                     <PasswordInput
                         size="md"
-                        radius="sm"
+                        radius="md"
                         style={{ marginBottom: rem(20) }}
                         placeholder="Enter your password..."
                         key={form.key("password")}
@@ -74,7 +74,7 @@ export function SignInPage() {
                     />
 
                     {signInError && (
-                        <Alert variant="light" color="red" title="Something went wrong!">
+                        <Alert variant="light" color="red" title="Something went wrong!" radius="md">
                             {signInError}
                         </Alert>
                     )}
@@ -83,6 +83,7 @@ export function SignInPage() {
                         fullWidth
                         type="submit"
                         style={{ marginTop: rem(20) }}
+                        radius="md"
                         loading={signInLoading}
                         loaderProps={{ type: "dots" }}
                         variant="gradient"

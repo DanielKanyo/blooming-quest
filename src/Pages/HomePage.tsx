@@ -15,7 +15,7 @@ import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { Footer } from "../Layouts/Footer";
 import { Inventory } from "../Layouts/Inventory";
 import { AllQuests } from "../Layouts/Quests/AllQuests/AllQuests";
-import { Store } from "../Layouts/Store/Store";
+import { Store } from "../Layouts/Store";
 import { fetchInventory } from "../Services/InventoryService";
 import { fetchUser } from "../Services/UserService";
 import { updateInventory } from "../Store/Features/InventorySlice";

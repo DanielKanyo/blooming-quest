@@ -80,10 +80,11 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
         >
             <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
                 <NativeSelect mb={10} label="Category" data={Categories} key={form.key("category")} {...form.getInputProps("category")} />
-                <TextInput mb={10} label="Description" key={form.key("description")} {...form.getInputProps("description")} />
+                <TextInput mb={10} label="Description" key={form.key("description")} {...form.getInputProps("description")} radius="md" />
                 <NativeSelect
                     mb={10}
                     label="Difficulty"
+                    radius="md"
                     data={Difficulties}
                     key={form.key("difficulty")}
                     {...form.getInputProps("difficulty")}
@@ -91,6 +92,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                 <NumberInput
                     label="Coins"
                     allowDecimal={false}
+                    radius="md"
                     mb={10}
                     step={5}
                     min={5}
@@ -107,6 +109,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                             variant={reward === selectedReward ? "filled" : "light"}
                             color={reward === selectedReward ? "teal" : "gray"}
                             disabled={Boolean(selectedReward) && selectedReward !== reward}
+                            radius="md"
                             onClick={() => toggleSelectedReward(reward)}
                             style={{ opacity: Boolean(selectedReward) && selectedReward !== reward ? 0.3 : 1 }}
                         >
@@ -118,6 +121,7 @@ export function QuestEditor({ opened, close }: QuestEditorProps) {
                     fullWidth
                     type="submit"
                     style={{ marginTop: rem(20) }}
+                    radius="md"
                     variant="gradient"
                     gradient={{ from: "cyan", to: "teal", deg: 60 }}
                     disabled={createLoading || !selectedReward}

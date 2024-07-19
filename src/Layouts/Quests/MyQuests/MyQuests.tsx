@@ -63,14 +63,14 @@ export function MyQuests() {
                 </Accordion>
             </>
         ) : (
-            <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+            <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
                 {emptyMessage}
             </Card>
         );
 
     if (!challenge) {
         return (
-            <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+            <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
                 {JOIN_CHALLENGE_TEXT}
             </Card>
         );
@@ -78,7 +78,7 @@ export function MyQuests() {
 
     if (!challenge.quests.length) {
         return (
-            <Card shadow="sm" padding="xl" radius="sm" style={{ width: "100%" }}>
+            <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
                 You haven't accepted a quest yet...
             </Card>
         );
@@ -91,10 +91,10 @@ export function MyQuests() {
         <>
             <Tabs variant="pills" defaultValue="uncompleted" color="teal">
                 <Tabs.List grow>
-                    <Tooltip label="In Progress" position="top" color="gray">
+                    <Tooltip label="In Progress" position="top" color="gray" radius="md">
                         <Tabs.Tab value="uncompleted" leftSection={<IconProgress />}></Tabs.Tab>
                     </Tooltip>
-                    <Tooltip label="Completed" position="top" color="gray">
+                    <Tooltip label="Completed" position="top" color="gray" radius="md">
                         <Tabs.Tab value="completed" leftSection={<IconProgressCheck />}></Tabs.Tab>
                     </Tooltip>
                 </Tabs.List>
@@ -127,7 +127,7 @@ export function MyQuests() {
             >
                 <FocusTrap.InitialFocus />
                 <Flex direction="column" justify="center" align="center" p={10}>
-                    <Image h={66} w={66} src={partyPopper} mb={10} />
+                    <Image h={72} w={72} src={partyPopper} mb={16} />
                     <Text size="xl" mb={10}>
                         Congratulations!
                     </Text>
@@ -136,8 +136,9 @@ export function MyQuests() {
                     </Text>
                     <BadgeWithImage imgSrc={coin} text={challenge.coinCurrent} color="gray" />
                     <Button
-                        mt={16}
+                        mt={20}
                         variant="gradient"
+                        radius="md"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
                         onClick={() => handleClaimReward()}
                         fullWidth

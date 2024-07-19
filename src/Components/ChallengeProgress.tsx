@@ -75,7 +75,7 @@ export function ChallengeProgress() {
             {challenge && (
                 <>
                     <div>
-                        <Tooltip label={tooltipLabel} color="gray" position="top">
+                        <Tooltip label={tooltipLabel} color="gray" position="top" radius="md">
                             <Progress color={monthProgressColor} size="sm" value={monthProgressInPercent} mb={10} />
                         </Tooltip>
                         <Progress color={challengeProgressColor} size="sm" value={challengeProgressValue} mb={10} />
