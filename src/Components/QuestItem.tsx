@@ -87,7 +87,7 @@ const getDifficultyIcon = (difficulty: QuestDifficulties): string => {
 
 const RewardHoverCard = ({ targetElement, imgSrc }: { targetElement: ReactNode; imgSrc: string }) => {
     return (
-        <HoverCard shadow="md" openDelay={0} closeDelay={0}>
+        <HoverCard shadow="md">
             <HoverCard.Target>
                 <Center>{targetElement}</Center>
             </HoverCard.Target>
