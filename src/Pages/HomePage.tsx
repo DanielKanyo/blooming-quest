@@ -3,15 +3,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate, Link } from "react-router-dom";
 
-import { AppShell, Burger, Center, Group, Loader, Text, Image, Flex, Tooltip, ActionIcon } from "@mantine/core";
+import { AppShell, Burger, Center, Group, Loader, Text, Image, Flex } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconBackpack } from "@tabler/icons-react";
 
 import logo from "../Assets/Images/logo.png";
 import { Notifications } from "../Components/Notifications";
 import { UserMenu } from "../Components/UserMenu";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { Footer } from "../Layouts/Footer";
+import { Inventory } from "../Layouts/Inventory";
 import { AllQuests } from "../Layouts/Quests/AllQuests/AllQuests";
 import { Store } from "../Layouts/Store/Store";
 import { fetchUser } from "../Services/UserService";
@@ -69,11 +69,7 @@ export function HomePage() {
                                     </div>
                                     <Flex align="center">
                                         <Store />
-                                        <Tooltip label="Inventory" color="gray">
-                                            <ActionIcon variant="transparent" size="xl" color="whiet" aria-label="store" mr={12}>
-                                                <IconBackpack style={{ width: "65%", height: "65%" }} />
-                                            </ActionIcon>
-                                        </Tooltip>
+                                        <Inventory />
                                         <Notifications />
                                         <UserMenu />
                                     </Flex>
