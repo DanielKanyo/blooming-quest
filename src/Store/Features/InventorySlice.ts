@@ -30,6 +30,7 @@ export const inventorySlice = createSlice({
                     state.inventory.items[itemId].quantity += quantity;
                 } else {
                     const newItem: Item = {
+                        id: itemId,
                         quantity,
                         timestamp,
                         extraReward,

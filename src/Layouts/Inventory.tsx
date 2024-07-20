@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 
-import { ActionIcon, Tooltip, Modal, Text, Image, Flex, SimpleGrid, Card, ScrollArea, Badge } from "@mantine/core";
+import { ActionIcon, Tooltip, Modal, Text, Image, Flex, SimpleGrid, Card, ScrollArea, Badge, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconBackpack } from "@tabler/icons-react";
+import { IconBackpack, IconFlower, IconSparkles } from "@tabler/icons-react";
 
 import leaft from "../Assets/Other/leaf.png";
 import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
@@ -30,30 +30,62 @@ const EmptyInventoryBody = () => {
     );
 };
 
-const InventoryBody = ({ items }: InventoryBodyProps) => {
+const ItemsArea = ({ items, simpleRewards }: { items: Item[]; simpleRewards: boolean }) => {
     const getRewardSrc = useCallback((reward: string) => {
         return REWARDS.get(reward) || EXTRA_REWARDS.get(reward);
     }, []);
 
     return (
-        <ScrollArea
-            h={390}
-            mt="sm"
-            style={{ background: "var(--mantine-color-dark-8)", borderRadius: "var(--mantine-radius-md)" }}
-            type="never"
-            p="md"
-        >
-            <SimpleGrid cols={8} spacing="sm" verticalSpacing="sm">
-                {Object.entries(items).map(([key, value]) => (
-                    <Card key={key} shadow="md" padding="lg" radius="md" bg="var(--mantine-color-dark-5)" style={{ position: "relative" }}>
-                        <Image radius="md" h={64} w={64} src={getRewardSrc(key)} />
-                        <Badge variant="light" color="gray" style={{ position: "absolute", bottom: 5, right: 5 }} radius="md">
-                            {value.quantity}
-                        </Badge>
-                    </Card>
-                ))}
-            </SimpleGrid>
-        </ScrollArea>
+        <div>
+            <Tooltip label={simpleRewards ? "Rewards" : "Bonus Rewards"} color="gray">
+                <Card c="white" bg={simpleRewards ? "teal" : "yellow"} style={{ display: "flex", alignItems: "center" }} p={12} radius="md">
+                    {simpleRewards ? <IconFlower /> : <IconSparkles />}
+                </Card>
+            </Tooltip>
+            <ScrollArea
+                h={390}
+                mt="md"
+                style={{ background: "var(--mantine-color-dark-8)", borderRadius: "var(--mantine-radius-md)" }}
+                type="never"
+                p="md"
+            >
+                <SimpleGrid cols={4} spacing="sm" verticalSpacing="sm">
+                    {items.map((item) => (
+                        <Card
+                            key={item.id}
+                            shadow="md"
+                            padding="lg"
+                            radius="md"
+                            bg={simpleRewards ? "var(--mantine-color-dark-5)" : "rgba(255, 215, 0, 0.1)"}
+                            style={{ position: "relative" }}
+                        >
+                            <Image radius="md" h={64} w={64} src={getRewardSrc(item.id)} />
+                            <Badge variant="light" color="gray" style={{ position: "absolute", bottom: 5, right: 5 }} radius="md">
+                                {item.quantity}
+                            </Badge>
+                        </Card>
+                    ))}
+                </SimpleGrid>
+            </ScrollArea>
+        </div>
+    );
+};
+
+const InventoryBody = ({ items }: InventoryBodyProps) => {
+    const filterSimpleRewards = (items: { [itemId: string]: Item }, extraReward: boolean) => {
+        return Object.values(items)
+            .filter((value) => value.extraReward === extraReward)
+            .sort((a, b) => a.quantity - b.quantity);
+    };
+
+    const simpleRewards = filterSimpleRewards(items, false);
+    const extraRewards = filterSimpleRewards(items, true);
+
+    return (
+        <Group>
+            <ItemsArea items={simpleRewards} simpleRewards={true} />
+            <ItemsArea items={extraRewards} simpleRewards={false} />
+        </Group>
     );
 };
 

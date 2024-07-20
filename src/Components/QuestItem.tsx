@@ -23,14 +23,13 @@ import {
     QuestDifficulties,
 } from "../Shared/Types/QuestType";
 import { UserRoles } from "../Shared/Types/UserType";
+import { GOLD_COLOR } from "../Shared/Utils";
 import { removeQuestFromAll } from "../Store/Features/AllQuestsSlice";
 import { addQuestToChallenge, completeQuestInChallenge, completeChallenge } from "../Store/Features/ChallengeSlice";
 import { addItemToInventory } from "../Store/Features/InventorySlice";
 import { updateTotalCoinInUser } from "../Store/Features/UserSlice";
 import store from "../Store/Store";
 import { BadgeWithImage } from "./BadgeWithImage/BadgeWithImage";
-
-const GOLD_COLOR = "#FFD700";
 
 type QuestItemProps = {
     quest: Quest;
@@ -89,11 +88,11 @@ const getDifficultyIcon = (difficulty: QuestDifficulties): string => {
 
 const RewardHoverCard = ({ targetElement, imgSrc }: { targetElement: ReactNode; imgSrc: string }) => {
     return (
-        <HoverCard shadow="md" radius="md">
+        <HoverCard shadow="md" radius="md" withArrow>
             <HoverCard.Target>
                 <Center>{targetElement}</Center>
             </HoverCard.Target>
-            <HoverCard.Dropdown>
+            <HoverCard.Dropdown style={{ pointerEvents: "none" }}>
                 <Image h={46} w={46} src={imgSrc} />
             </HoverCard.Dropdown>
         </HoverCard>

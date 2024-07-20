@@ -36,6 +36,7 @@ export const addItem = async (userId: string, itemId: string, timestamp: number,
         userInventory.items[itemId].quantity += quantity;
     } else {
         const newItem: Item = {
+            id: itemId,
             quantity,
             timestamp,
             extraReward,

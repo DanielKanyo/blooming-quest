@@ -32,3 +32,5 @@ export const MONTHS = new Map<number, string>([
 ]);
 
 export const JOIN_CHALLENGE_TEXT = `Join the ${MONTHS.get(new Date().getMonth())} challenge to be able to accept quests...`;
+
+export const GOLD_COLOR = "#FFD700";
