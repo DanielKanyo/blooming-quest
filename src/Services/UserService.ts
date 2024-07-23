@@ -31,11 +31,11 @@ export const deleteAccountData = async (): Promise<void> => {
     await deleteDoc(doc(db, "users", auth.currentUser!.uid));
 };
 
-export const updateTotalCoin = async (userId: string, newCoin: number) => {
+export const updateTotalCoinAndGem = async (userId: string, newCoin: number, newGem: number) => {
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
 
-    const { totalCoin } = docSnap.data() as User;
+    const { totalCoin, gem } = docSnap.data() as User;
 
-    await setDoc(docRef, { totalCoin: totalCoin + newCoin }, { merge: true });
+    await setDoc(docRef, { totalCoin: totalCoin + newCoin, gem: gem + newGem }, { merge: true });
 };

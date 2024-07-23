@@ -11,11 +11,12 @@ export const userSlice = createSlice({
         updateUser: (_state, action: PayloadAction<User>) => {
             return action.payload;
         },
-        updateTotalCoinInUser: (state, action: PayloadAction<number>) => {
-            state.totalCoin += action.payload;
+        updateTotalCoinAndGemInUser: (state, action: PayloadAction<{ totalCoin: number; gem: number }>) => {
+            state.totalCoin += action.payload.totalCoin;
+            state.gem += action.payload.gem;
         },
     },
 });
 
-export const { updateUser, updateTotalCoinInUser } = userSlice.actions;
+export const { updateUser, updateTotalCoinAndGemInUser } = userSlice.actions;
 export default userSlice.reducer;

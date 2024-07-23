@@ -10,7 +10,7 @@ import leaf from "../Assets/Other/leaf.png";
 import seaWave from "../Assets/Other/sea-waves.png";
 import { acceptQuest, completeCurrentChallenge, completeQuest, deleteQuest } from "../Services/ChallengeService";
 import { addItem } from "../Services/InventoryService";
-import { updateTotalCoin } from "../Services/UserService";
+import { updateTotalCoinAndGem } from "../Services/UserService";
 import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
 import { Challenge } from "../Shared/Types/ChallengeType";
 import {
@@ -27,7 +27,7 @@ import { GOLD_COLOR } from "../Shared/Utils";
 import { removeQuestFromAll } from "../Store/Features/AllQuestsSlice";
 import { addQuestToChallenge, completeQuestInChallenge, completeChallenge } from "../Store/Features/ChallengeSlice";
 import { addItemToInventory } from "../Store/Features/InventorySlice";
-import { updateTotalCoinInUser } from "../Store/Features/UserSlice";
+import { updateTotalCoinAndGemInUser } from "../Store/Features/UserSlice";
 import store from "../Store/Store";
 import { BadgeWithImage } from "./BadgeWithImage/BadgeWithImage";
 
@@ -206,8 +206,8 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
                 open();
             } else if (challenge.completed) {
                 // If challenge already completed update the amount of total coins in db and in store
-                await updateTotalCoin(user.id, quest.coin);
-                dispatch(updateTotalCoinInUser(quest.coin));
+                await updateTotalCoinAndGem(user.id, quest.coin, 0);
+                dispatch(updateTotalCoinAndGemInUser({ totalCoin: quest.coin, gem: 0 }));
             }
         } catch (error) {
             console.error("Error completing quest or challenge: ", error);

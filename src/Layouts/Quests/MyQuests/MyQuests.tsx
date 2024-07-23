@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Accordion, Button, Card, Flex, Group, Modal, ScrollArea, Tabs, Tooltip, Text, Image, FocusTrap } from "@mantine/core";
@@ -6,15 +6,16 @@ import { useDisclosure } from "@mantine/hooks";
 import { IconProgress, IconProgressCheck } from "@tabler/icons-react";
 
 import coin from "../../../Assets/Other/coin.png";
+import gem from "../../../Assets/Other/diamond.png";
 import hashtag from "../../../Assets/Other/hashtag.png";
 import partyPopper from "../../../Assets/Other/party-popper.png";
 import { BadgeWithImage } from "../../../Components/BadgeWithImage/BadgeWithImage";
 import { QuestItem } from "../../../Components/QuestItem";
-import { updateTotalCoin } from "../../../Services/UserService";
+import { updateTotalCoinAndGem } from "../../../Services/UserService";
 import { Challenge } from "../../../Shared/Types/ChallengeType";
 import { Quest } from "../../../Shared/Types/QuestType";
 import { JOIN_CHALLENGE_TEXT, MONTHS } from "../../../Shared/Utils";
-import { updateTotalCoinInUser } from "../../../Store/Features/UserSlice";
+import { updateTotalCoinAndGemInUser } from "../../../Store/Features/UserSlice";
 import store from "../../../Store/Store";
 
 export function MyQuests() {
@@ -22,6 +23,7 @@ export function MyQuests() {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const challenge = challengeStore.challenge;
     const [opened, { open, close }] = useDisclosure(false);
+    const [claimLoading, setClaimLoading] = useState(false);
     const dispatch = useDispatch();
 
     const sumUpCoin = (quests: Quest[]): number => quests.reduce((total, quest) => total + quest.coin, 0);
@@ -33,10 +35,13 @@ export function MyQuests() {
 
     const handleClaimCoins = useCallback(() => {
         if (challenge) {
-            updateTotalCoin(user.id, challenge.coinCurrent).then(() => {
-                dispatch(updateTotalCoinInUser(challenge.coinCurrent));
+            setClaimLoading(true);
+
+            updateTotalCoinAndGem(user.id, challenge.coinCurrent, 1).then(() => {
+                dispatch(updateTotalCoinAndGemInUser({ totalCoin: challenge.coinCurrent, gem: 1 }));
 
                 close();
+                setClaimLoading(false);
             });
         }
     }, [challenge, close, dispatch, user.id]);
@@ -137,13 +142,18 @@ export function MyQuests() {
                     <Text size="sm" c="dimmed" mb={16} ta="center">
                         You have successfully completed the <br /> {MONTHS.get(challenge.month)} challenge!
                     </Text>
-                    <BadgeWithImage imgSrc={coin} text={challenge.coinCurrent} color="gray" />
+                    <Group gap="xs">
+                        <BadgeWithImage imgSrc={coin} text={challenge.coinCurrent} color="gray" />
+                        <BadgeWithImage imgSrc={gem} text="1" color="gray" />
+                    </Group>
                     <Button
                         mt={20}
                         variant="gradient"
                         radius="md"
                         gradient={{ from: "cyan", to: "teal", deg: 60 }}
-                        onClick={() => handleClaimCoins()}
+                        onClick={handleClaimCoins}
+                        loading={claimLoading}
+                        loaderProps={{ type: "dots" }}
                         fullWidth
                     >
                         Claim Reward
