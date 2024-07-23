@@ -84,7 +84,6 @@ export function AllQuests() {
                                         ))}
                                     </Accordion>
                                     <Button
-                                        mt={10}
                                         radius="md"
                                         size="xs"
                                         variant="filled"

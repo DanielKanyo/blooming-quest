@@ -100,7 +100,7 @@ export function MyQuests() {
                         <Tabs.Tab value="completed" leftSection={<IconProgressCheck />}></Tabs.Tab>
                     </Tooltip>
                 </Tabs.List>
-                <ScrollArea h="calc(100vh - 220px)" type="never" pt="var(--mantine-spacing-xs)">
+                <ScrollArea h="calc(100vh - 200px)" type="never" pt="var(--mantine-spacing-xs)">
                     <Tabs.Panel value="uncompleted">
                         <QuestList
                             quests={inProgressQuests}
