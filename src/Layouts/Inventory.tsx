@@ -75,7 +75,7 @@ const InventoryBody = ({ items }: InventoryBodyProps) => {
     const filterSimpleRewards = (items: { [itemId: string]: Item }, extraReward: boolean) => {
         return Object.values(items)
             .filter((value) => value.extraReward === extraReward)
-            .sort((a, b) => a.quantity - b.quantity);
+            .sort((a, b) => b.timestamp - a.timestamp);
     };
 
     const simpleRewards = filterSimpleRewards(items, false);
