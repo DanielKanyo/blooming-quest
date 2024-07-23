@@ -5,6 +5,7 @@ import { Group, Progress, Tooltip } from "@mantine/core";
 
 import calendar from "../Assets/Other/calendar.png";
 import coin from "../Assets/Other/coin.png";
+import partyPopper from "../Assets/Other/party-popper.png";
 import percentage from "../Assets/Other/percentage.png";
 import { Challenge } from "../Shared/Types/ChallengeType";
 import { daysInThisMonth, MONTHS } from "../Shared/Utils";
@@ -84,11 +85,14 @@ export function ChallengeProgress() {
                         <Group gap={10}>
                             <BadgeWithImage imgSrc={calendar} text={`${month} ${date}`} color="gray" />
                             <BadgeWithImage imgSrc={coin} text={challenge.coinCurrent} color="gray" />
-                            <BadgeWithImage imgSrc={percentage} text={challengeProgressValue.toFixed(2)} color="gray" />
+                            {!challenge.completed && (
+                                <BadgeWithImage imgSrc={percentage} text={challengeProgressValue.toFixed(2)} color="gray" />
+                            )}
                         </Group>
                         <Group gap={10}>
-                            <BadgeWithImage imgSrc={coin} text={challenge.coinToComplete} color="gray" />
+                            {!challenge.completed && <BadgeWithImage imgSrc={coin} text={challenge.coinToComplete} color="gray" />}
                             <BadgeWithImage text={`${month} ${numOfDaysInMonth}`} color="gray" imgSrc={calendar} />
+                            {challenge.completed && <BadgeWithImage imgSrc={partyPopper} text="Completed" color="teal" />}
                         </Group>
                     </Group>
                 </>
