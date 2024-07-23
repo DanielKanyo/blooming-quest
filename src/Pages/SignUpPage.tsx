@@ -51,6 +51,9 @@ export function SignUpPage() {
                         roles: [UserRoles.USER],
                         totalCoin: 0,
                         gem: 10,
+                        houseArea: {
+                            p1: null,
+                        },
                     });
 
                     await createInventory(userCredential.user.uid);

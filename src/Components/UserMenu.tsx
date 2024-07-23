@@ -57,6 +57,8 @@ export function UserMenu() {
                 width={350}
                 radius="md"
                 transitionProps={{ transition: "fade-up", duration: 150 }}
+                withArrow
+                arrowPosition="center"
             >
                 <Menu.Target>
                     <div ref={ref}>

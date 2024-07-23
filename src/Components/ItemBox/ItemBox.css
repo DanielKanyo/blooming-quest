@@ -1,0 +1,22 @@
+.item-box {
+    position: relative;
+    background: rgb(59, 59, 59, 0.6);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.item-box:hover {
+    background: rgb(59, 59, 59, 0.7);
+    transition: 0.3s;
+}
+
+.item-box-btn {
+    &:first-of-type {
+        margin-top: 10px;
+    }
+
+    &:last-of-type {
+        margin-bottom: 10px;
+    }
+}

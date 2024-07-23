@@ -6,6 +6,11 @@ export type User = {
     roles: UserRoles[];
     totalCoin: number;
     gem: number;
+    houseArea: HouseArea;
+};
+
+export type HouseArea = {
+    [key: string]: string | null;
 };
 
 export enum UserRoles {

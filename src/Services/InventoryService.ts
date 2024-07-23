@@ -1,7 +1,8 @@
 import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 import { db } from "../Configs/Firebase/FirebaseConfig";
-import { Inventory, Item } from "../Shared/Types/InventoryType";
+import { Inventory } from "../Shared/Types/InventoryType";
+import { Item } from "../Shared/Types/ItemType";
 
 export const createInventory = async (userId: string) => {
     const inventory: Inventory = {

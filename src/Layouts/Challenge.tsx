@@ -53,7 +53,10 @@ export function Challenge() {
                     mt="sm"
                     style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-md)" }}
                     type="never"
-                    p="md"
+                    pt="md"
+                    pl="md"
+                    pr="md"
+                    pb={0}
                 >
                     <HouseArea />
                     {[...Array(NUM_OF_GARDENS).keys()].map((_item, key) => {

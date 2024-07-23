@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Inventory, Item } from "../../Shared/Types/InventoryType";
+import { Inventory } from "../../Shared/Types/InventoryType";
+import { Item } from "../../Shared/Types/ItemType";
 
 export type InventoryStore = {
     inventory: Inventory | null;
