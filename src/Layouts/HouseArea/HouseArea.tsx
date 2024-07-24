@@ -12,13 +12,13 @@ import { HOUSE_AREA_SLOT_IDS } from "./HouseAreaUtils";
 export function HouseArea() {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
 
-    const findItemInSlot = useCallback(
+    const findItemInSlotBySlotId = useCallback(
         (slotId: string) => {
-            const itemIdInPlace = Object.entries(user.houseArea).find(([key]) => key === slotId)?.[1];
+            const itemIdInPlace = Object.entries(user.houseAreaSlots).find(([key]) => key === slotId)?.[1];
 
             return itemIdInPlace || null;
         },
-        [user.houseArea]
+        [user.houseAreaSlots]
     );
 
     return (
@@ -32,7 +32,12 @@ export function HouseArea() {
                 <div className="tractor"></div>
                 <div className="hay"></div>
                 <div className="tree-front" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Slot slotId={HOUSE_AREA_SLOT_IDS.S1} itemId={findItemInSlot(HOUSE_AREA_SLOT_IDS.S1)} size={54} />
+                    <Slot
+                        slotId={HOUSE_AREA_SLOT_IDS.S1}
+                        itemId={findItemInSlotBySlotId(HOUSE_AREA_SLOT_IDS.S1)}
+                        size={54}
+                        extraRewardSlot={true}
+                    />
                 </div>
                 <div className="bush"></div>
             </div>

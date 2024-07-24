@@ -41,8 +41,21 @@ export const inventorySlice = createSlice({
                 }
             }
         },
+        subtractItemFromInventory: (state, action: PayloadAction<{ itemId: string; quantity: number }>) => {
+            const { itemId, quantity } = action.payload;
+
+            if (state.inventory) {
+                const item = state.inventory.items[itemId];
+
+                if (item.quantity > 1) {
+                    state.inventory.items[itemId].quantity -= quantity;
+                } else {
+                    delete state.inventory.items[itemId];
+                }
+            }
+        },
     },
 });
 
-export const { updateInventory, addItemToInventory } = inventorySlice.actions;
+export const { updateInventory, addItemToInventory, subtractItemFromInventory } = inventorySlice.actions;
 export default inventorySlice.reducer;

@@ -6,10 +6,10 @@ export type User = {
     roles: UserRoles[];
     totalCoin: number;
     gem: number;
-    houseArea: HouseArea;
+    houseAreaSlots: HouseAreaSlots;
 };
 
-export type HouseArea = {
+export type HouseAreaSlots = {
     [key: string]: string | null;
 };
 
