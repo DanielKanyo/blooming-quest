@@ -36,7 +36,7 @@ export const JOIN_CHALLENGE_TEXT = `Join the ${MONTHS.get(new Date().getMonth())
 
 export const GOLD_COLOR = "#FFD700";
 
-export const filterRewards = (items: { [itemId: string]: Item }, extraReward: boolean) => {
+export const filterAndSortRewards = (items: { [itemId: string]: Item }, extraReward: boolean) => {
     return Object.values(items)
         .filter((value) => value.extraReward === extraReward)
         .sort((a, b) => b.timestamp - a.timestamp);

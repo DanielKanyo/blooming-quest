@@ -1,17 +1,18 @@
-import { useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Card, Image, Menu, ScrollArea, Flex, ActionIcon } from "@mantine/core";
+import { Card, Image, Menu, ScrollArea, Flex, ActionIcon, Badge } from "@mantine/core";
 import { IconPencil } from "@tabler/icons-react";
 
-import { placeItem } from "../../Services/ItemServie";
+import { addItemToSlot } from "../../Services/ItemServie";
 import { EXTRA_REWARDS, REWARDS } from "../../Shared/Rewards";
 import { Item } from "../../Shared/Types/ItemType";
+import { filterAndSortRewards } from "../../Shared/Utils";
 import store from "../../Store/Store";
-import "./ItemBox.css";
+import "./Slot.css";
 
-type ItemProps = {
-    placeId: string;
+type SlotProps = {
+    slotId: string;
     size: number;
     itemId: string | null;
 };
@@ -20,7 +21,7 @@ type ItemPickerProps = {
     items: {
         [itemId: string]: Item;
     };
-    placeId: string;
+    slotId: string;
     getRewardSrc: (reward: string) => string | undefined;
 };
 
@@ -28,24 +29,25 @@ const EmptyInventory = () => {
     return <div>Empty Inventory</div>;
 };
 
-const ItemPicker = ({ items, placeId, getRewardSrc }: ItemPickerProps) => {
+const ItemPicker = ({ items, slotId, getRewardSrc }: ItemPickerProps) => {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
+    const [loading, setLoading] = useState(false);
 
-    const handlePlaceItem = useCallback(async (userId: string, placeId: string, itemId: string) => {
+    const handleItemClick = useCallback(async (userId: string, slotId: string, itemId: string) => {
+        setLoading(true);
+
         try {
-            await placeItem(userId, placeId, itemId);
+            await addItemToSlot(userId, slotId, itemId);
             // TODO: Remove item from inventory, update store
             console.log("Done");
-        } catch {
-            console.log("Something went wrong...");
+        } catch (err) {
+            console.error("Something went wrong...", err);
+        } finally {
+            setLoading(false);
         }
     }, []);
 
-    const sortItems = useCallback((items: { [itemId: string]: Item }) => {
-        return Object.values(items).sort((a, b) => b.timestamp - a.timestamp);
-    }, []);
-
-    const sortedItems = sortItems(items);
+    const sortedItems = useMemo(() => filterAndSortRewards(items, true), [items]);
 
     return (
         <Flex gap="xs" direction="column">
@@ -53,21 +55,27 @@ const ItemPicker = ({ items, placeId, getRewardSrc }: ItemPickerProps) => {
                 <ActionIcon
                     variant="light"
                     key={item.id}
-                    className="item-box-btn"
-                    size="xl"
-                    p="xl"
+                    className="item-btn"
+                    h={100}
+                    w={70}
                     radius="md"
                     color="gray"
-                    onClick={() => handlePlaceItem(user.id, placeId, item.id)}
+                    onClick={() => handleItemClick(user.id, slotId, item.id)}
+                    disabled={loading}
                 >
-                    <Image radius="md" h={44} w={44} src={getRewardSrc(item.id)} />
+                    <Flex gap="xs" direction="column" align="center" justify="center">
+                        <Image className="item-img" radius="md" h={44} w={44} src={getRewardSrc(item.id)} alt={`Item ${item.id}`} />
+                        <Badge variant="light" color="gray" radius="md">
+                            {item.quantity}
+                        </Badge>
+                    </Flex>
                 </ActionIcon>
             ))}
         </Flex>
     );
 };
 
-export function ItemBox({ itemId, placeId, size }: ItemProps) {
+export function Slot({ itemId, slotId, size }: SlotProps) {
     const inventoryStore = useSelector((state: ReturnType<typeof store.getState>) => state.inventory);
 
     const getRewardSrc = useCallback((reward: string) => {
@@ -85,7 +93,7 @@ export function ItemBox({ itemId, placeId, size }: ItemProps) {
             radius="md"
         >
             <Menu.Target>
-                <Card className="item-box" shadow="md" padding="xs" radius="md">
+                <Card className="slot" shadow="md" padding="xs" radius="md">
                     {itemId ? (
                         <Image radius="md" h={size} w={size} src={getRewardSrc(itemId)} />
                     ) : (
@@ -97,9 +105,9 @@ export function ItemBox({ itemId, placeId, size }: ItemProps) {
             </Menu.Target>
             {inventoryStore.inventory && (
                 <Menu.Dropdown px="sm" py={0}>
-                    <ScrollArea h={180} type="never">
+                    <ScrollArea h={200} type="never">
                         {Object.keys(inventoryStore.inventory.items).length ? (
-                            <ItemPicker items={inventoryStore.inventory.items} getRewardSrc={getRewardSrc} placeId={placeId} />
+                            <ItemPicker items={inventoryStore.inventory.items} getRewardSrc={getRewardSrc} slotId={slotId} />
                         ) : (
                             <EmptyInventory />
                         )}

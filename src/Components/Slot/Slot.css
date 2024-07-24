@@ -1,4 +1,4 @@
-.item-box {
+.slot {
     position: relative;
     background: rgb(59, 59, 59, 0.6);
     backdrop-filter: blur(8px);
@@ -6,17 +6,21 @@
     transition: 0.3s;
 }
 
-.item-box:hover {
+.slot:hover {
     background: rgb(59, 59, 59, 0.7);
     transition: 0.3s;
 }
 
-.item-box-btn {
+.item-btn {
     &:first-of-type {
-        margin-top: 10px;
+        margin-top: var(--mantine-spacing-sm);
     }
 
     &:last-of-type {
-        margin-bottom: 10px;
+        margin-bottom: var(--mantine-spacing-sm);
     }
+}
+
+.item-btn:disabled .item-img {
+    opacity: 0.3;
 }

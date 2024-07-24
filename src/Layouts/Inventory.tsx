@@ -8,7 +8,7 @@ import { IconBackpack, IconFlower, IconSparkles } from "@tabler/icons-react";
 import leaft from "../Assets/Other/leaf.png";
 import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
 import { Item } from "../Shared/Types/ItemType";
-import { filterRewards } from "../Shared/Utils";
+import { filterAndSortRewards } from "../Shared/Utils";
 import store from "../Store/Store";
 
 type InventoryBodyProps = {
@@ -73,8 +73,8 @@ const ItemsArea = ({ items, simpleRewards }: { items: Item[]; simpleRewards: boo
 };
 
 const InventoryBody = ({ items }: InventoryBodyProps) => {
-    const simpleRewards = filterRewards(items, false);
-    const extraRewards = filterRewards(items, true);
+    const simpleRewards = filterAndSortRewards(items, false);
+    const extraRewards = filterAndSortRewards(items, true);
 
     return (
         <Group>

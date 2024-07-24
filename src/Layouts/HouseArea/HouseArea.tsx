@@ -4,17 +4,17 @@ import { useSelector } from "react-redux";
 import { Card, Image } from "@mantine/core";
 
 import farm from "../../Assets/Other/farm.png";
-import { ItemBox } from "../../Components/ItemBox/ItemBox";
+import { Slot } from "../../Components/Slot/Slot";
 import store from "../../Store/Store";
 import "./HouseArea.css";
-import { HOUSE_AREA_PLACE_IDS } from "./HouseAreaUtils";
+import { HOUSE_AREA_SLOT_IDS } from "./HouseAreaUtils";
 
 export function HouseArea() {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
 
-    const findItemInBox = useCallback(
-        (placeId: string) => {
-            const itemIdInPlace = Object.entries(user.houseArea).find(([key]) => key === placeId)?.[1];
+    const findItemInSlot = useCallback(
+        (slotId: string) => {
+            const itemIdInPlace = Object.entries(user.houseArea).find(([key]) => key === slotId)?.[1];
 
             return itemIdInPlace || null;
         },
@@ -32,7 +32,7 @@ export function HouseArea() {
                 <div className="tractor"></div>
                 <div className="hay"></div>
                 <div className="tree-front" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <ItemBox placeId={HOUSE_AREA_PLACE_IDS.P1} size={54} itemId={findItemInBox(HOUSE_AREA_PLACE_IDS.P1)} />
+                    <Slot slotId={HOUSE_AREA_SLOT_IDS.S1} itemId={findItemInSlot(HOUSE_AREA_SLOT_IDS.S1)} size={54} />
                 </div>
                 <div className="bush"></div>
             </div>
