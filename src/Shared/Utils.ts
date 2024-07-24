@@ -1,4 +1,5 @@
 import { EXTRA_REWARDS } from "./Rewards";
+import { Item } from "./Types/ItemType";
 
 export const randomNumberBetween = (min: number, max: number): number => {
     return Math.floor(Math.random() * max) + min;
@@ -34,3 +35,9 @@ export const MONTHS = new Map<number, string>([
 export const JOIN_CHALLENGE_TEXT = `Join the ${MONTHS.get(new Date().getMonth())} challenge to be able to accept quests...`;
 
 export const GOLD_COLOR = "#FFD700";
+
+export const filterAndSortRewards = (items: { [itemId: string]: Item }, extraReward: boolean) => {
+    return Object.values(items)
+        .filter((value) => value.extraReward === extraReward)
+        .sort((a, b) => b.timestamp - a.timestamp);
+};

@@ -60,19 +60,38 @@
     width: 60px;
     height: 60px;
     position: absolute;
-    right: calc(50% + 76px);
+    right: calc(50% + 81px);
     bottom: 39px;
 }
 
 .tree {
+    background-image: url(/src/Assets/Other/tree2.png);
+    background-size: cover;
+    width: 120px;
+    height: 115px;
+    position: absolute;
+    right: calc(50% + 28px);
+    bottom: 42px;
+}
+
+.tree-front {
     background-image: url(/src/Assets/Other/tree.png);
     background-size: cover;
-    width: 110px;
-    height: 102px;
+    width: 252px;
+    height: 252px;
     position: absolute;
-    right: calc(50% + 32px);
-    bottom: 55px;
-    transform: scaleX(-1);
+    bottom: -15px;
+    left: -48px;
+}
+
+.bush {
+    background-image: url(/src/Assets/Other/bush.png);
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    bottom: -32px;
+    left: -20px;
 }
 
 @keyframes moveFromLeft {
