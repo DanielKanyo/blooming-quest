@@ -114,6 +114,22 @@
     left: -20px;
 }
 
+.hay-slot {
+    width: 74px;
+    height: 74px;
+    position: absolute;
+    right: calc(50% + 81px + 88px);
+    bottom: 20px;
+}
+
+.tractor-slot {
+    width: 74px;
+    height: 74px;
+    position: absolute;
+    left: calc(50% + 81px + 128px);
+    bottom: 20px;
+}
+
 @keyframes moveFromLeft {
     0% {
         left: 0;

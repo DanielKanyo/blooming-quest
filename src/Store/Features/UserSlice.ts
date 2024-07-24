@@ -15,7 +15,7 @@ export const userSlice = createSlice({
             state.totalCoin += action.payload.totalCoin;
             state.gem += action.payload.gem;
         },
-        updateSlotItemInUser: (state, action: PayloadAction<{ slotId: string; itemId: string | null }>) => {
+        updateItemInHouseSlotInStore: (state, action: PayloadAction<{ slotId: string; itemId: string | null }>) => {
             const { slotId, itemId } = action.payload;
 
             state.houseAreaSlots[slotId] = itemId;
@@ -23,5 +23,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const { updateUser, updateTotalCoinAndGemInUser, updateSlotItemInUser } = userSlice.actions;
+export const { updateUser, updateTotalCoinAndGemInUser, updateItemInHouseSlotInStore } = userSlice.actions;
 export default userSlice.reducer;

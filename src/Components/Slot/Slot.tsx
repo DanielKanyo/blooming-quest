@@ -14,6 +14,7 @@ type SlotProps = {
     size: number;
     itemId: string | null;
     extraRewardSlot: boolean;
+    target: string;
 };
 
 type SlotImageProps = {
@@ -32,13 +33,11 @@ type SlotContentProps = {
     getRewardSrc: (reward: string, extraRewardSlot: boolean) => string;
 };
 
-const EmptyInventory = () => <div>Empty Inventory</div>;
-
-const SlotImage = ({ src, size }: SlotImageProps) => <Image className="slot-img" radius="md" h={size} w={size} src={src} />;
+const SlotImage = ({ src, size }: SlotImageProps) => <Image radius="md" h={size} w={size} src={src} />;
 
 const SlotLoader = ({ size }: SlotLoaderProps) => (
     <Center style={{ height: size, width: size }}>
-        <Loader size={20} color="var(--mantine-color-dark-0)" type="dots" />
+        <Loader size={20} color="var(--mantine-color-gray-3)" type="dots" />
     </Center>
 );
 
@@ -47,11 +46,11 @@ const SlotContent = ({ itemId, size, extraRewardSlot, getRewardSrc }: SlotConten
         <SlotImage src={getRewardSrc(itemId, extraRewardSlot)} size={size} />
     ) : (
         <Flex justify="center" align="center" style={{ height: size, width: size }}>
-            <IconPencil />
+            <IconPencil color="var(--mantine-color-gray-3)" />
         </Flex>
     );
 
-export function Slot({ slotId, itemId, size, extraRewardSlot }: SlotProps) {
+export function Slot({ slotId, itemId, size, extraRewardSlot, target }: SlotProps) {
     const { inventory } = useSelector((state: ReturnType<typeof store.getState>) => state.inventory);
     const [loading, setLoading] = useState(false);
 
@@ -81,19 +80,16 @@ export function Slot({ slotId, itemId, size, extraRewardSlot }: SlotProps) {
             {inventory && (
                 <Menu.Dropdown px="sm" py={0}>
                     <ScrollArea h={210} type="never">
-                        {Object.keys(inventory.items).length ? (
-                            <ItemPicker
-                                items={inventory.items}
-                                slotId={slotId}
-                                activeItemId={itemId}
-                                extraRewardSlot={extraRewardSlot}
-                                loading={loading}
-                                getRewardSrc={getRewardSrc}
-                                setLoading={setLoading}
-                            />
-                        ) : (
-                            <EmptyInventory />
-                        )}
+                        <ItemPicker
+                            items={inventory.items}
+                            slotId={slotId}
+                            activeItemId={itemId}
+                            extraRewardSlot={extraRewardSlot}
+                            target={target}
+                            loading={loading}
+                            getRewardSrc={getRewardSrc}
+                            setLoading={setLoading}
+                        />
                     </ScrollArea>
                 </Menu.Dropdown>
             )}

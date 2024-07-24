@@ -7,7 +7,3 @@
         margin-bottom: var(--mantine-spacing-sm);
     }
 }
-
-.item-btn:disabled .item-img {
-    opacity: 0.5;
-}

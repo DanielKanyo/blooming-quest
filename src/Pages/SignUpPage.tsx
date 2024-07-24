@@ -54,6 +54,8 @@ export function SignUpPage() {
                         houseAreaSlots: {
                             s1: null,
                             s2: null,
+                            s3: null,
+                            s4: null,
                         },
                     });
 

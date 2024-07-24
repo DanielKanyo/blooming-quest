@@ -1,12 +1,13 @@
 .slot {
     position: relative;
     background: rgb(59, 59, 59, 0.6);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(5px);
     cursor: pointer;
     transition: 0.3s;
+    border: 3px solid rgba(233, 233, 233, 0.2);
 }
 
 .slot:hover {
-    background: rgb(59, 59, 59, 0.7);
+    background: rgb(59, 59, 59, 0.8);
     transition: 0.3s;
 }

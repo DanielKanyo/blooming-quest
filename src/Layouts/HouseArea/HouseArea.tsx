@@ -5,6 +5,7 @@ import { Card, Image } from "@mantine/core";
 
 import farm from "../../Assets/Other/farm.png";
 import { Slot } from "../../Components/Slot/Slot";
+import { TARGET_AREAS } from "../../Shared/TargetAreas";
 import store from "../../Store/Store";
 import "./HouseArea.css";
 import { HOUSE_AREA_SLOT_IDS } from "./HouseAreaUtils";
@@ -37,6 +38,7 @@ export function HouseArea() {
                         itemId={findItemInSlotBySlotId(HOUSE_AREA_SLOT_IDS.S1)}
                         size={52}
                         extraRewardSlot={true}
+                        target={TARGET_AREAS.HOUSE}
                     />
                 </div>
                 <div className="bush"></div>
@@ -47,8 +49,27 @@ export function HouseArea() {
                             itemId={findItemInSlotBySlotId(HOUSE_AREA_SLOT_IDS.S2)}
                             size={52}
                             extraRewardSlot={true}
+                            target={TARGET_AREAS.HOUSE}
                         />
                     </div>
+                </div>
+                <div className="hay-slot">
+                    <Slot
+                        slotId={HOUSE_AREA_SLOT_IDS.S3}
+                        itemId={findItemInSlotBySlotId(HOUSE_AREA_SLOT_IDS.S3)}
+                        size={52}
+                        extraRewardSlot={true}
+                        target={TARGET_AREAS.HOUSE}
+                    />
+                </div>
+                <div className="tractor-slot">
+                    <Slot
+                        slotId={HOUSE_AREA_SLOT_IDS.S4}
+                        itemId={findItemInSlotBySlotId(HOUSE_AREA_SLOT_IDS.S4)}
+                        size={52}
+                        extraRewardSlot={true}
+                        target={TARGET_AREAS.HOUSE}
+                    />
                 </div>
             </div>
         </Card>
