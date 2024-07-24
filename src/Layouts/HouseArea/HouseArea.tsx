@@ -35,7 +35,7 @@ export function HouseArea() {
                     <Slot
                         slotId={HOUSE_AREA_SLOT_IDS.S1}
                         itemId={findItemInSlotBySlotId(HOUSE_AREA_SLOT_IDS.S1)}
-                        size={54}
+                        size={52}
                         extraRewardSlot={true}
                     />
                 </div>

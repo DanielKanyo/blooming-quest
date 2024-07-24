@@ -70,7 +70,7 @@ export function Slot({ slotId, itemId, size, extraRewardSlot }: SlotProps) {
             radius="md"
         >
             <Menu.Target>
-                <Card className="slot" shadow="md" padding="xs" radius="md">
+                <Card className="slot" shadow="md" padding={8} radius="md">
                     {loading ? (
                         <SlotLoader size={size} />
                     ) : (
@@ -80,7 +80,7 @@ export function Slot({ slotId, itemId, size, extraRewardSlot }: SlotProps) {
             </Menu.Target>
             {inventory && (
                 <Menu.Dropdown px="sm" py={0}>
-                    <ScrollArea h={200} type="never">
+                    <ScrollArea h={210} type="never">
                         {Object.keys(inventory.items).length ? (
                             <ItemPicker
                                 items={inventory.items}

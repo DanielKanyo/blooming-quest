@@ -1,7 +1,8 @@
-import { useCallback, useMemo } from "react";
+import { Dispatch, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Image, Flex, ActionIcon, Badge } from "@mantine/core";
+import { UnknownAction } from "@reduxjs/toolkit";
 
 import { addItem, subtractItem } from "../../Services/InventoryService";
 import { updateItemInSlot } from "../../Services/ItemServie";
@@ -24,62 +25,57 @@ type ItemPickerProps = {
     setLoading: (loading: boolean) => void;
 };
 
+const handleUpdateSlot = async (
+    userId: string,
+    slotId: string,
+    newItemId: string | null,
+    oldItemId: string | null,
+    extraReward: boolean,
+    setLoading: (loading: boolean) => void,
+    dispatch: Dispatch<UnknownAction>
+) => {
+    setLoading(true);
+
+    try {
+        // Update item in slot
+        await updateItemInSlot(userId, slotId, newItemId);
+
+        if (newItemId) {
+            // Subtract new item from inventory
+            await subtractItem(userId, newItemId);
+            dispatch(subtractItemFromInventory({ itemId: newItemId, quantity: 1 }));
+        }
+
+        if (oldItemId) {
+            const timestamp = new Date().getTime();
+            // Add old item back to inventory
+            await addItem(userId, oldItemId, timestamp, 1, extraReward);
+            dispatch(addItemToInventory({ itemId: oldItemId, timestamp, quantity: 1, extraReward }));
+        }
+
+        // Update store
+        dispatch(updateSlotItemInUser({ slotId, itemId: newItemId }));
+    } catch (err) {
+        console.error("Something went wrong...", err);
+    } finally {
+        setLoading(false);
+    }
+};
+
 export const ItemPicker = ({ items, slotId, activeItemId, extraRewardSlot, loading, getRewardSrc, setLoading }: ItemPickerProps) => {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const dispatch = useDispatch();
 
     const handleItemClick = useCallback(
-        async (userId: string, slotId: string, itemId: string, activeItemId: string | null, extraReward: boolean) => {
-            setLoading(true);
-
-            try {
-                // Update item in slot
-                await updateItemInSlot(userId, slotId, itemId);
-                // Subtract item in inventory
-                await subtractItem(userId, itemId);
-                // If old item id (item in slot) not null, move it back to inventory
-                if (activeItemId) {
-                    const timestamp = new Date().getTime();
-
-                    await addItem(userId, activeItemId, timestamp, 1, extraReward);
-                    // Update store
-                    dispatch(addItemToInventory({ itemId: activeItemId, timestamp, quantity: 1, extraReward }));
-                }
-                // Update store
-                dispatch(updateSlotItemInUser({ slotId, itemId }));
-                dispatch(subtractItemFromInventory({ itemId, quantity: 1 }));
-            } catch (err) {
-                console.error("Something went wrong...", err);
-            } finally {
-                setLoading(false);
-            }
+        (itemId: string) => {
+            handleUpdateSlot(user.id, slotId, itemId, activeItemId, extraRewardSlot, setLoading, dispatch);
         },
-        [dispatch, setLoading]
+        [user.id, slotId, activeItemId, extraRewardSlot, setLoading, dispatch]
     );
 
-    const handleActiveItemClick = useCallback(
-        async (userId: string, slotId: string, itemId: string, extraRewardSlot: boolean) => {
-            setLoading(true);
-
-            try {
-                const timestamp = new Date().getTime();
-
-                // Set slot back to null
-                await updateItemInSlot(userId, slotId, null);
-                // Move back item to inventory
-                await addItem(userId, itemId, timestamp, 1, extraRewardSlot);
-
-                // Do the same steps in store
-                dispatch(updateSlotItemInUser({ slotId, itemId: null }));
-                dispatch(addItemToInventory({ itemId, timestamp, quantity: 1, extraReward: extraRewardSlot }));
-            } catch (err) {
-                console.error("Something went wrong...", err);
-            } finally {
-                setLoading(false);
-            }
-        },
-        [dispatch, setLoading]
-    );
+    const handleActiveItemClick = useCallback(() => {
+        handleUpdateSlot(user.id, slotId, null, activeItemId, extraRewardSlot, setLoading, dispatch);
+    }, [user.id, slotId, activeItemId, extraRewardSlot, setLoading, dispatch]);
 
     const sortedItems = useMemo(() => filterAndSortRewards(items, extraRewardSlot), [extraRewardSlot, items]);
 
@@ -89,11 +85,11 @@ export const ItemPicker = ({ items, slotId, activeItemId, extraRewardSlot, loadi
                 <ActionIcon
                     variant="light"
                     h={100}
-                    w={80}
+                    w={82}
                     radius="md"
                     color="gray"
                     mt="sm"
-                    onClick={() => handleActiveItemClick(user.id, slotId, activeItemId, extraRewardSlot)}
+                    onClick={handleActiveItemClick}
                     disabled={loading}
                 >
                     <Flex gap="xs" direction="column" align="center" justify="center">
@@ -105,7 +101,7 @@ export const ItemPicker = ({ items, slotId, activeItemId, extraRewardSlot, loadi
                             src={getRewardSrc(activeItemId, extraRewardSlot)}
                             alt={`item-${activeItemId}`}
                         />
-                        <Badge variant="light" color="teal" radius="md">
+                        <Badge color="teal" radius="md">
                             Active
                         </Badge>
                     </Flex>
@@ -118,10 +114,10 @@ export const ItemPicker = ({ items, slotId, activeItemId, extraRewardSlot, loadi
                         key={item.id}
                         className="item-btn"
                         h={100}
-                        w={80}
+                        w={82}
                         radius="md"
                         color="gray"
-                        onClick={() => handleItemClick(user.id, slotId, item.id, activeItemId, extraRewardSlot)}
+                        onClick={() => handleItemClick(item.id)}
                         disabled={loading}
                     >
                         <Flex gap="xs" direction="column" align="center" justify="center">
