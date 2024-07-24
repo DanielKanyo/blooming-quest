@@ -53,6 +53,7 @@ export function SignUpPage() {
                         gem: 10,
                         houseAreaSlots: {
                             s1: null,
+                            s2: null,
                         },
                     });
 

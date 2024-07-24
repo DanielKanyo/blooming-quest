@@ -107,7 +107,7 @@ export const ItemPicker = ({ items, slotId, activeItemId, extraRewardSlot, loadi
                     </Flex>
                 </ActionIcon>
             )}
-            <Flex direction="column" gap="xs">
+            <Flex direction="column" gap="sm">
                 {sortedItems.map((item) => (
                     <ActionIcon
                         variant="light"

@@ -31,7 +31,7 @@ export function HouseArea() {
                 <Image className="barn" src={farm} h={140} w={140}></Image>
                 <div className="tractor"></div>
                 <div className="hay"></div>
-                <div className="tree-front" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div className="tree-front-1">
                     <Slot
                         slotId={HOUSE_AREA_SLOT_IDS.S1}
                         itemId={findItemInSlotBySlotId(HOUSE_AREA_SLOT_IDS.S1)}
@@ -40,6 +40,16 @@ export function HouseArea() {
                     />
                 </div>
                 <div className="bush"></div>
+                <div className="tree-front-2">
+                    <div>
+                        <Slot
+                            slotId={HOUSE_AREA_SLOT_IDS.S2}
+                            itemId={findItemInSlotBySlotId(HOUSE_AREA_SLOT_IDS.S2)}
+                            size={52}
+                            extraRewardSlot={true}
+                        />
+                    </div>
+                </div>
             </div>
         </Card>
     );

@@ -74,7 +74,7 @@
     bottom: 42px;
 }
 
-.tree-front {
+.tree-front-1 {
     background-image: url(/src/Assets/Other/tree.png);
     background-size: cover;
     width: 252px;
@@ -82,6 +82,26 @@
     position: absolute;
     bottom: -15px;
     left: -48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tree-front-2 {
+    background-image: url(/src/Assets/Other/tree3.png);
+    background-size: cover;
+    width: 252px;
+    height: 252px;
+    position: absolute;
+    bottom: -15px;
+    right: -94px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.tree-front-2 > div {
+    margin-left: 65px;
 }
 
 .bush {
