@@ -10,17 +10,3 @@
     background: rgb(59, 59, 59, 0.7);
     transition: 0.3s;
 }
-
-.item-btn {
-    &:first-of-type {
-        margin-top: var(--mantine-spacing-sm);
-    }
-
-    &:last-of-type {
-        margin-bottom: var(--mantine-spacing-sm);
-    }
-}
-
-.item-btn:disabled .item-img {
-    opacity: 0.5;
-}
