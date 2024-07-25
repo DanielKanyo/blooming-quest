@@ -60,6 +60,7 @@ export function Slot({ slotId, itemId, size, extraRewardSlot, target, gardenId }
     }, []);
 
     return (
+        // TODO: Maybe move menu from slot to improve performance?
         <Menu
             position="right-start"
             withArrow

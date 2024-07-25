@@ -33,16 +33,20 @@ export function MyQuests() {
             .filter((quest) => completed === challenge.completedQuests.includes(quest.id))
             .sort((a, b) => a.timestamp! - b.timestamp!);
 
-    const handleClaimCoins = useCallback(() => {
+    const handleClaimCoins = useCallback(async () => {
         if (challenge) {
             setClaimLoading(true);
 
-            updateTotalCoinAndGem(user.id, challenge.coinCurrent, 1).then(() => {
+            try {
+                await updateTotalCoinAndGem(user.id, challenge.coinCurrent, 1);
                 dispatch(updateTotalCoinAndGemInUser({ totalCoin: challenge.coinCurrent, gem: 1 }));
 
                 close();
+            } catch (err) {
+                console.error("Something went wrong during reward claiming...", err);
+            } finally {
                 setClaimLoading(false);
-            });
+            }
         }
     }, [challenge, close, dispatch, user.id]);
 
