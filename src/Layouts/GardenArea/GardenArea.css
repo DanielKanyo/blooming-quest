@@ -1,7 +1,9 @@
 .garden-area {
-    margin-bottom: 10px;
+    margin-bottom: var(--mantine-spacing-xs);
+}
 
-    &:last-of-type {
-        margin-bottom: var(--mantine-spacing-md);
-    }
+.garden-field {
+    min-width: 490px;
+    background: #90590f;
+    border-radius: var(--mantine-radius-md);
 }

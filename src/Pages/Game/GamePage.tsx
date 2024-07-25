@@ -5,8 +5,9 @@ import { Card, Center, Loader, Skeleton } from "@mantine/core";
 
 import { Challenge } from "../../Layouts/Challenge";
 import { MyQuests } from "../../Layouts/Quests/MyQuests/MyQuests";
-import { fetchCurrentChallenge } from "../../Services/ChallengeService";
+import { fetchCurrentChallenge, fetchGardens } from "../../Services/ChallengeService";
 import { ChallengeStore, updateChallenge } from "../../Store/Features/ChallengeSlice";
+import { updateGardens } from "../../Store/Features/GardenSlice";
 import store from "../../Store/Store";
 import "./Game.css";
 
@@ -16,13 +17,23 @@ export function GamePage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchCurrentChallenge(user.id, new Date().getFullYear(), new Date().getMonth())
-            .then((challenge) => {
+        const fetchData = async () => {
+            try {
+                const challenge = await fetchCurrentChallenge(user.id, new Date().getFullYear(), new Date().getMonth());
+
+                if (challenge) {
+                    const gardens = await fetchGardens(challenge.id);
+
+                    dispatch(updateGardens({ gardens }));
+                }
+
                 dispatch(updateChallenge({ challenge: challenge || null, loading: false }));
-            })
-            .catch((err) => {
-                console.error(`Something wen wrong during challenge fetch... ${err.message}"`);
-            });
+            } catch (err) {
+                console.error("Something wen wrong during challenge fetch...", err);
+            }
+        };
+
+        fetchData();
     }, [user, dispatch]);
 
     return (
