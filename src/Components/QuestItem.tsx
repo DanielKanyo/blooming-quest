@@ -265,9 +265,9 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
                             color="gray"
                             marginRight={8}
                         />
-                        <BadgeWithImage imgSrc={coin} text={quest.coin} color="gray" marginRight={8} />
+                        <BadgeWithImage imgSrc={coin} text={`+${quest.coin}`} color="gray" marginRight={8} />
                         <RewardHoverCard
-                            targetElement={<BadgeWithImage imgSrc={REWARDS.get(quest.reward)!} text="1x" color="gray" marginRight={8} />}
+                            targetElement={<BadgeWithImage imgSrc={REWARDS.get(quest.reward)!} text="+1" color="gray" marginRight={8} />}
                             imgSrc={REWARDS.get(quest.reward)!}
                         />
                         {!acceptMode && quest.extraReward && (
@@ -275,7 +275,7 @@ export function QuestItem({ quest, challenge, acceptMode, open }: QuestItemProps
                                 targetElement={
                                     <BadgeWithImage
                                         imgSrc={EXTRA_REWARDS.get(quest.extraReward)!}
-                                        text="1x"
+                                        text="+1"
                                         color={GOLD_COLOR}
                                         shine={true}
                                     />

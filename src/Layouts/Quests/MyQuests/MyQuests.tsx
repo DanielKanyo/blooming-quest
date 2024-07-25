@@ -147,8 +147,8 @@ export function MyQuests() {
                         You have successfully completed the <br /> {MONTHS.get(challenge.month)} challenge!
                     </Text>
                     <Group gap="xs">
-                        <BadgeWithImage imgSrc={coin} text={challenge.coinCurrent} color="gray" />
-                        <BadgeWithImage imgSrc={gem} text="1" color="gray" />
+                        <BadgeWithImage imgSrc={coin} text={`+${challenge.coinCurrent}`} color="gray" />
+                        <BadgeWithImage imgSrc={gem} text="+1" color="gray" />
                     </Group>
                     <Button
                         mt={20}
