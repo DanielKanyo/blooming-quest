@@ -3,7 +3,11 @@
 }
 
 .garden-field {
-    min-width: 490px;
-    background: #684310;
+    min-width: 470px;
+}
+
+.garden-slot {
+    background: url("../../Assets/Other/sprout.png");
+    background-size: cover;
     border-radius: var(--mantine-radius-md);
 }

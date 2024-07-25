@@ -60,7 +60,6 @@ export function Slot({ slotId, itemId, size, extraRewardSlot, target, gardenId }
     }, []);
 
     return (
-        // TODO: Maybe move menu from slot to improve performance?
         <Menu
             position="right-start"
             withArrow
@@ -72,7 +71,7 @@ export function Slot({ slotId, itemId, size, extraRewardSlot, target, gardenId }
             openDelay={250}
         >
             <Menu.Target>
-                <Card className="slot" shadow="md" padding={8} radius="md">
+                <Card className="slot" shadow="xs" padding={8} radius="md">
                     {loading ? (
                         <SlotLoader size={size} />
                     ) : (
