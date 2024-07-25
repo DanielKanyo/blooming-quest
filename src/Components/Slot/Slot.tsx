@@ -15,6 +15,7 @@ type SlotProps = {
     itemId: string | null;
     extraRewardSlot: boolean;
     target: string;
+    gardenId?: string;
 };
 
 type SlotImageProps = {
@@ -50,7 +51,7 @@ const SlotContent = ({ itemId, size, extraRewardSlot, getRewardSrc }: SlotConten
         </Flex>
     );
 
-export function Slot({ slotId, itemId, size, extraRewardSlot, target }: SlotProps) {
+export function Slot({ slotId, itemId, size, extraRewardSlot, target, gardenId }: SlotProps) {
     const { inventory } = useSelector((state: ReturnType<typeof store.getState>) => state.inventory);
     const [loading, setLoading] = useState(false);
 
@@ -65,8 +66,9 @@ export function Slot({ slotId, itemId, size, extraRewardSlot, target }: SlotProp
             arrowPosition="center"
             shadow="md"
             transitionProps={{ transition: "fade-up", duration: 150 }}
-            trigger="click-hover"
+            trigger="hover"
             radius="md"
+            openDelay={250}
         >
             <Menu.Target>
                 <Card className="slot" shadow="md" padding={8} radius="md">
@@ -89,6 +91,7 @@ export function Slot({ slotId, itemId, size, extraRewardSlot, target }: SlotProp
                             loading={loading}
                             getRewardSrc={getRewardSrc}
                             setLoading={setLoading}
+                            gardenId={gardenId}
                         />
                     </ScrollArea>
                 </Menu.Dropdown>

@@ -15,7 +15,9 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../Configs/Firebase/FirebaseConfig";
+import { INIT_GARDEN_SLOT_VALUES } from "../Shared/GardenUtils";
 import { Challenge } from "../Shared/Types/ChallengeType";
+import { Garden } from "../Shared/Types/GardenType";
 import { Quest, QuestCategories, QuestDifficulties } from "../Shared/Types/QuestType";
 import { randomExtraReward, randomNumberBetween } from "../Shared/Utils";
 
@@ -189,4 +191,30 @@ export const completeCurrentChallenge = async (challengeId: string): Promise<voi
     const challengeDocRef = doc(db, "challenges", challengeId);
 
     await setDoc(challengeDocRef, { completed: true }, { merge: true });
+};
+
+export const createGarden = async (challengeId: string): Promise<void> => {
+    const docRef = doc(collection(db, "gardens"));
+
+    const garden: Garden = {
+        challengeId,
+        gardenId: docRef.id,
+        timestamp: new Date().getTime(),
+        slots: { ...INIT_GARDEN_SLOT_VALUES },
+    };
+
+    await setDoc(docRef, garden);
+};
+
+export const fetchGardens = async (challengeId: string): Promise<Garden[]> => {
+    const gardensRef = collection(db, "gardens");
+    const q = query(gardensRef, where("challengeId", "==", challengeId));
+    const querySnapshot = await getDocs(q);
+    const result: Garden[] = [];
+
+    querySnapshot.forEach((g) => {
+        result.push(g.data() as Garden);
+    });
+
+    return result;
 };

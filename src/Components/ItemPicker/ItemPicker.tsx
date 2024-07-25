@@ -5,10 +5,11 @@ import { Image, Flex, ActionIcon, Badge, Skeleton } from "@mantine/core";
 import { UnknownAction } from "@reduxjs/toolkit";
 
 import { addItem, subtractItem } from "../../Services/InventoryService";
-import { updateItemInHouseSlot } from "../../Services/ItemServie";
+import { updateItemInGardenSlot, updateItemInHouseSlot } from "../../Services/ItemServie";
 import { TARGET_AREAS } from "../../Shared/TargetAreas";
 import { Item } from "../../Shared/Types/ItemType";
 import { filterAndSortRewards } from "../../Shared/Utils";
+import { updateItemInGardenSlotInStore } from "../../Store/Features/GardenSlice";
 import { addItemToInventory, subtractItemFromInventory } from "../../Store/Features/InventorySlice";
 import { updateItemInHouseSlotInStore } from "../../Store/Features/UserSlice";
 import store from "../../Store/Store";
@@ -27,6 +28,7 @@ type ItemPickerProps = {
     loading: boolean;
     getRewardSrc: (reward: string, extraRewardSlot: boolean) => string | undefined;
     setLoading: (loading: boolean) => void;
+    gardenId?: string;
 };
 
 const handleUpdateSlot = async (
@@ -37,18 +39,22 @@ const handleUpdateSlot = async (
     oldItemId: string | null,
     extraReward: boolean,
     setLoading: (loading: boolean) => void,
-    dispatch: Dispatch<UnknownAction>
+    dispatch: Dispatch<UnknownAction>,
+    gardenId: string | undefined
 ) => {
     setLoading(true);
 
     try {
         if (target === TARGET_AREAS.HOUSE) {
-            // Update item in slot
+            // Update item in house slot
             await updateItemInHouseSlot(userId, slotId, newItemId);
-            // Update store
+            // Update house slot in store
             dispatch(updateItemInHouseSlotInStore({ slotId, itemId: newItemId }));
-        } else if (target === TARGET_AREAS.GARDEN) {
-            // TODO: Garden area update
+        } else if (target === TARGET_AREAS.GARDEN && gardenId) {
+            // Update item in garden slot
+            await updateItemInGardenSlot(gardenId, slotId, newItemId);
+            // Update garden slot in store
+            dispatch(updateItemInGardenSlotInStore({ gardenId, itemId: newItemId, slotId }));
         }
 
         if (newItemId) {
@@ -79,20 +85,21 @@ export const ItemPicker = ({
     loading,
     getRewardSrc,
     setLoading,
+    gardenId,
 }: ItemPickerProps) => {
     const user = useSelector((state: ReturnType<typeof store.getState>) => state.user);
     const dispatch = useDispatch();
 
     const handleItemClick = useCallback(
         (itemId: string) => {
-            handleUpdateSlot(target, user.id, slotId, itemId, activeItemId, extraRewardSlot, setLoading, dispatch);
+            handleUpdateSlot(target, user.id, slotId, itemId, activeItemId, extraRewardSlot, setLoading, dispatch, gardenId);
         },
-        [target, user.id, slotId, activeItemId, extraRewardSlot, setLoading, dispatch]
+        [target, user.id, slotId, activeItemId, extraRewardSlot, setLoading, dispatch, gardenId]
     );
 
     const handleActiveItemClick = useCallback(() => {
-        handleUpdateSlot(target, user.id, slotId, null, activeItemId, extraRewardSlot, setLoading, dispatch);
-    }, [target, user.id, slotId, activeItemId, extraRewardSlot, setLoading, dispatch]);
+        handleUpdateSlot(target, user.id, slotId, null, activeItemId, extraRewardSlot, setLoading, dispatch, gardenId);
+    }, [target, user.id, slotId, activeItemId, extraRewardSlot, setLoading, dispatch, gardenId]);
 
     const sortedItems = useMemo(() => filterAndSortRewards(items, extraRewardSlot), [extraRewardSlot, items]);
 

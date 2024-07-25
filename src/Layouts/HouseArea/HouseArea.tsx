@@ -15,9 +15,9 @@ export function HouseArea() {
 
     const findItemInSlotBySlotId = useCallback(
         (slotId: string) => {
-            const itemIdInPlace = Object.entries(user.houseAreaSlots).find(([key]) => key === slotId)?.[1];
+            const itemIdInSlot = Object.entries(user.houseAreaSlots).find(([key]) => key === slotId)?.[1];
 
-            return itemIdInPlace || null;
+            return itemIdInSlot || null;
         },
         [user.houseAreaSlots]
     );
