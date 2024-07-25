@@ -48,9 +48,9 @@ const ItemsArea = ({ items, simpleRewards }: { items: Item[]; simpleRewards: boo
                 mt="md"
                 style={{ background: "var(--mantine-color-dark-8)", borderRadius: "var(--mantine-radius-md)" }}
                 type="never"
-                p="md"
+                px="md"
             >
-                <SimpleGrid cols={4} spacing="sm" verticalSpacing="sm">
+                <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" my="md">
                     {items.map((item) => (
                         <Card
                             key={item.id}
