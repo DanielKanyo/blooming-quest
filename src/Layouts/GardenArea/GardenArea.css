@@ -50,13 +50,26 @@
 
 .marsh {
     position: absolute;
-    left: -95px;
-    bottom: -45px;
+    left: -178px;
+    bottom: -65px;
     pointer-events: none;
 }
 
-.marsh-slot {
+.marsh-slot1 {
     position: absolute;
-    bottom: 48px;
-    left: 50px;
+    bottom: 55px;
+    left: 4px;
+}
+
+.marsh-slot2 {
+    position: absolute;
+    bottom: -2px;
+    left: 91px;
+}
+
+.reeds {
+    position: absolute;
+    bottom: 128px;
+    left: 75px;
+    pointer-events: none;
 }
