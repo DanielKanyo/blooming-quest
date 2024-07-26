@@ -2,12 +2,48 @@
     margin-bottom: var(--mantine-spacing-xs);
 }
 
-.garden-field {
+.left-section {
+    position: relative;
+    width: 100%;
+}
+
+.center-section {
+    position: relative;
     min-width: 470px;
+}
+
+.scarecrow {
+    position: absolute;
+    top: calc(50% - 55px);
+    left: calc(50% - 55px);
+    pointer-events: none;
+}
+
+.shovel {
+    pointer-events: none;
+    position: absolute;
+    bottom: -20px;
+    right: -35px;
 }
 
 .garden-slot {
     background: url("../../Assets/Other/sprout.png");
     background-size: cover;
     border-radius: var(--mantine-radius-md);
+}
+
+.right-section {
+    position: relative;
+    width: 100%;
+}
+
+.bush2 {
+    position: absolute;
+    height: 90px;
+    width: 90px;
+    background: url("../../Assets/Other/bush2.png");
+    background-position: center;
+    background-size: cover;
+    left: -70px;
+    top: -11px;
 }

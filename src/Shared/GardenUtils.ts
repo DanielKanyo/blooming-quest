@@ -23,6 +23,8 @@ export const DEFAULT_GARDEN_SLOTS = {
     SG22: "sg22",
     SG23: "sg23",
     SG24: "sg24",
+
+    SL1: "sl1",
 };
 
 export const INIT_GARDEN_SLOT_VALUES = {
@@ -50,4 +52,5 @@ export const INIT_GARDEN_SLOT_VALUES = {
     [DEFAULT_GARDEN_SLOTS.SG22]: null,
     [DEFAULT_GARDEN_SLOTS.SG23]: null,
     [DEFAULT_GARDEN_SLOTS.SG24]: null,
+    [DEFAULT_GARDEN_SLOTS.SL1]: null,
 };

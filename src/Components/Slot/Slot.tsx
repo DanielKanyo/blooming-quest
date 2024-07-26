@@ -34,7 +34,9 @@ type SlotContentProps = {
     getRewardSrc: (reward: string, extraRewardSlot: boolean) => string;
 };
 
-const SlotImage = ({ src, size }: SlotImageProps) => <Image radius="md" h={size} w={size} src={src} />;
+const SlotImage = ({ src, size }: SlotImageProps) => (
+    <Image style={{ minWidth: size, minHeight: size }} radius="md" h={size} w={size} src={src} />
+);
 
 const SlotLoader = ({ size }: SlotLoaderProps) => (
     <Center style={{ height: size, width: size }}>
