@@ -72,7 +72,7 @@ const LeftSection = ({ garden, findItemInSlotBySlotId }: SectionProps) => {
                     slotId={DEFAULT_GARDEN_SLOTS.SL5}
                     itemId={findItemInSlotBySlotId(DEFAULT_GARDEN_SLOTS.SL5)}
                     size={48}
-                    extraRewardSlot={true}
+                    extraRewardSlot={false}
                     target={TARGET_AREAS.GARDEN}
                     gardenId={garden.gardenId}
                 />
