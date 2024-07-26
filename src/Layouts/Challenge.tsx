@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Button, Center, Flex, FocusTrap, Modal, ScrollArea, Image, Text, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconCalendarPlus, IconPlus } from "@tabler/icons-react";
+import { IconPlus } from "@tabler/icons-react";
 
 import gem from "../Assets/Other/diamond.png";
-import warning from "../Assets/Other/warning.png";
+import megaphone from "../Assets/Other/megaphone.png";
+import success from "../Assets/Other/success.png";
 import { BadgeWithImage } from "../Components/BadgeWithImage/BadgeWithImage";
 import { ChallengeProgress } from "../Components/ChallengeProgress";
 import { createGarden, fetchCurrentChallenge, fetchGardens, joinChallenge } from "../Services/ChallengeService";
@@ -111,7 +112,7 @@ export function Challenge() {
                 >
                     <FocusTrap.InitialFocus />
                     <Flex direction="column" justify="center" align="center" p={10}>
-                        <Image h={72} w={72} src={warning} mb={16} />
+                        <Image h={72} w={72} src={megaphone} mb={16} />
                         <Text size="xl" mb={10}>
                             Attention!
                         </Text>
@@ -141,12 +142,13 @@ export function Challenge() {
     }
 
     return (
-        <Center h="100%">
+        <Center h="100%" style={{ flexDirection: "column" }}>
+            <Image h={72} w={72} src={success} mb={16}></Image>
             <Button
                 variant="gradient"
+                size="lg"
                 radius="md"
                 gradient={{ from: "cyan", to: "teal", deg: 60 }}
-                leftSection={<IconCalendarPlus size={16} />}
                 onClick={joinMonthlyChallenge}
             >
                 Join the {MONTHS.get(new Date().getMonth())} Challenge

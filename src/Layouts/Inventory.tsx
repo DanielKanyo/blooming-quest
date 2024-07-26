@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 
-import { ActionIcon, Tooltip, Modal, Text, Image, Flex, SimpleGrid, Card, ScrollArea, Badge, Group } from "@mantine/core";
+import { ActionIcon, Tooltip, Modal, Text, Image, Flex, SimpleGrid, Card, ScrollArea, Badge, Group, Center } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconBackpack, IconFlower, IconSparkles } from "@tabler/icons-react";
 
-import leaft from "../Assets/Other/leaf.png";
+import emptyBox from "../Assets/Other/empty-box.png";
 import { EXTRA_REWARDS, REWARDS } from "../Shared/Rewards";
 import { Item } from "../Shared/Types/ItemType";
 import { filterAndSortRewards } from "../Shared/Utils";
@@ -20,7 +20,7 @@ type InventoryBodyProps = {
 const EmptyInventoryBody = () => {
     return (
         <Flex direction="column" justify="center" align="center" px={10} pb={10}>
-            <Image h={72} w={72} src={leaft} mb={16} />
+            <Image h={72} w={72} src={emptyBox} mb={16} />
             <Text size="xl" mb={10}>
                 Your inventory is empty...
             </Text>
@@ -45,28 +45,35 @@ const ItemsArea = ({ items, simpleRewards }: { items: Item[]; simpleRewards: boo
             </Tooltip>
             <ScrollArea
                 h={390}
+                w={368}
                 mt="md"
                 style={{ background: "var(--mantine-color-dark-8)", borderRadius: "var(--mantine-radius-md)" }}
                 type="never"
                 px="md"
             >
-                <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" my="md">
-                    {items.map((item) => (
-                        <Card
-                            key={item.id}
-                            shadow="md"
-                            padding="lg"
-                            radius="md"
-                            bg={simpleRewards ? "var(--mantine-color-dark-5)" : "rgba(255, 215, 0, 0.1)"}
-                            style={{ position: "relative" }}
-                        >
-                            <Image radius="md" h={64} w={64} src={getRewardSrc(item.id)} />
-                            <Badge variant="light" color="gray" style={{ position: "absolute", bottom: 5, right: 5 }} radius="md">
-                                {item.quantity}
-                            </Badge>
-                        </Card>
-                    ))}
-                </SimpleGrid>
+                {items.length ? (
+                    <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" my="md">
+                        {items.map((item) => (
+                            <Card
+                                key={item.id}
+                                shadow="md"
+                                padding="lg"
+                                radius="md"
+                                bg={simpleRewards ? "var(--mantine-color-dark-5)" : "rgba(255, 215, 0, 0.1)"}
+                                style={{ position: "relative" }}
+                            >
+                                <Image radius="md" h={64} w={64} src={getRewardSrc(item.id)} />
+                                <Badge variant="light" color="gray" style={{ position: "absolute", bottom: 5, right: 5 }} radius="md">
+                                    {item.quantity}
+                                </Badge>
+                            </Card>
+                        ))}
+                    </SimpleGrid>
+                ) : (
+                    <Center h={390}>
+                        <Image h={78} w={78} src={emptyBox} />
+                    </Center>
+                )}
             </ScrollArea>
         </div>
     );

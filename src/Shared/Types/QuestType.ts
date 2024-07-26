@@ -1,14 +1,4 @@
-import {
-    Icon,
-    IconChefHat,
-    IconPalette,
-    IconPlant,
-    IconPlant2,
-    IconSchool,
-    IconSocial,
-    IconStretching2,
-    IconTrekking,
-} from "@tabler/icons-react";
+import { Icon, IconChefHat, IconPalette, IconPlant, IconPlant2, IconSchool, IconSocial, IconTrekking, IconYoga } from "@tabler/icons-react";
 
 export type Quest = {
     id: string;
@@ -84,7 +74,7 @@ export const CategoryColorMapping = new Map<QuestCategories, string>([
 ]);
 
 export const CategoryIconMapping = new Map<QuestCategories, Icon>([
-    [QuestCategories.FitnessAndHealth, IconStretching2],
+    [QuestCategories.FitnessAndHealth, IconYoga],
     [QuestCategories.CookingAndFood, IconChefHat],
     [QuestCategories.LearningAndEducation, IconSchool],
     [QuestCategories.SpiritualAndMindfulness, IconPlant2],

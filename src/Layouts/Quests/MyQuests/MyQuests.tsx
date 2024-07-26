@@ -7,7 +7,9 @@ import { IconProgress, IconProgressCheck } from "@tabler/icons-react";
 
 import coin from "../../../Assets/Other/coin.png";
 import gem from "../../../Assets/Other/diamond.png";
+import emptyBox from "../../../Assets/Other/empty-box.png";
 import hashtag from "../../../Assets/Other/hashtag.png";
+import info from "../../../Assets/Other/info.png";
 import partyPopper from "../../../Assets/Other/party-popper.png";
 import { BadgeWithImage } from "../../../Components/BadgeWithImage/BadgeWithImage";
 import { QuestItem } from "../../../Components/QuestItem";
@@ -75,14 +77,20 @@ export function MyQuests() {
             </>
         ) : (
             <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
-                {emptyMessage}
+                <Group gap="xl" wrap="nowrap">
+                    <Image h={66} w={66} src={emptyBox} />
+                    {emptyMessage}
+                </Group>
             </Card>
         );
 
     if (!challenge) {
         return (
             <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
-                {JOIN_CHALLENGE_TEXT}
+                <Group gap="xl" wrap="nowrap">
+                    <Image h={48} w={48} src={info} />
+                    {JOIN_CHALLENGE_TEXT}
+                </Group>
             </Card>
         );
     }
@@ -90,7 +98,10 @@ export function MyQuests() {
     if (!challenge.quests.length) {
         return (
             <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
-                You haven't accepted a quest yet...
+                <Group gap="lg" wrap="nowrap">
+                    <Image h={66} w={66} src={emptyBox} />
+                    You haven't accepted a single mission yet...
+                </Group>
             </Card>
         );
     }

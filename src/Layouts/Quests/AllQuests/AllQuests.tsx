@@ -1,9 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Accordion, Button, Card, Flex, ScrollArea } from "@mantine/core";
+import { Accordion, Button, Card, Flex, Group, ScrollArea, Image } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
 
+import info from "../../../Assets/Other/info.png";
 import { CategoryFilter } from "../../../Components/CategoryFilter";
 import { QuestItem } from "../../../Components/QuestItem";
 import { QuestSkeletons } from "../../../Components/QuestSkeletons";
@@ -56,7 +57,10 @@ export function AllQuests() {
     if (!challengeStore.challenge) {
         return (
             <Card shadow="sm" padding="xl" radius="md" style={{ width: "100%" }}>
-                {JOIN_CHALLENGE_TEXT}
+                <Group gap="lg" wrap="nowrap">
+                    <Image h={48} w={48} src={info} />
+                    {JOIN_CHALLENGE_TEXT}
+                </Group>
             </Card>
         );
     }

@@ -1,9 +1,10 @@
 import { Dispatch, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Image, Flex, ActionIcon, Badge, Skeleton } from "@mantine/core";
+import { Image, Flex, ActionIcon, Badge, Skeleton, Text } from "@mantine/core";
 import { UnknownAction } from "@reduxjs/toolkit";
 
+import emptyBox from "../../Assets/Other/empty-box.png";
 import { addItem, subtractItem } from "../../Services/InventoryService";
 import { updateItemInGardenSlot, updateItemInHouseSlot } from "../../Services/ItemServie";
 import { TARGET_AREAS } from "../../Shared/TargetAreas";
@@ -110,6 +111,17 @@ export const ItemPicker = ({
                     return <Skeleton key={key} radius="md" className="item-btn" height={100} width={82} />;
                 })}
             </Flex>
+        );
+    }
+
+    if (!sortedItems.length) {
+        return (
+            <>
+                <Image h={64} w={64} src={emptyBox} my={12} />
+                <Text size="sm" ta="center">
+                    Nothing to <br /> place...
+                </Text>
+            </>
         );
     }
 
