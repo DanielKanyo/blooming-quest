@@ -73,3 +73,11 @@
     left: 75px;
     pointer-events: none;
 }
+
+.reed2 {
+    position: absolute;
+    bottom: -40px;
+    left: -60px;
+    pointer-events: none;
+    transform: scaleX(-1);
+}

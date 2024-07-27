@@ -57,6 +57,7 @@ const LeftSection = ({ garden, findItemInSlotBySlotId }: SectionProps) => {
             </Group>
             <Image className="reeds" radius="md" h={70} w={70} src={reeds} />
             <Image className="marsh" radius="md" h={400} w={400} src={marsh} />
+            <Image className="reed2" radius="md" h={85} w={85} src={reeds} />
             <div className="marsh-slot1">
                 <Slot
                     slotId={DEFAULT_GARDEN_SLOTS.SL4}
