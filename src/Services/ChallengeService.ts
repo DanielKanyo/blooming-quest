@@ -134,7 +134,7 @@ export const acceptQuest = async (challengeId: string, questId: string): Promise
         throw new Error("Quest does not exists...");
     }
 
-    if (randomNumberBetween(1, 5) === NUMBER_TO_GET_EXRA_REWARD) {
+    if (randomNumberBetween(1, 4) === NUMBER_TO_GET_EXRA_REWARD) {
         quest.extraReward = randomExtraReward();
     }
 
