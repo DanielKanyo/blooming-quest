@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { Card, Flex, SimpleGrid, Image, Group } from "@mantine/core";
 
 import bench from "../../Assets/Other/bench.png";
+import branch from "../../Assets/Other/branch.png";
 import marsh from "../../Assets/Other/marsh.png";
 import reeds from "../../Assets/Other/reeds.png";
 import scarecrow from "../../Assets/Other/scarecrow.png";
@@ -110,8 +111,36 @@ const MiddleSection = ({ garden, findItemInSlotBySlotId }: SectionProps) => {
     );
 };
 
-const RightSection = () => {
-    return <div className="right-section"></div>;
+const RightSection = ({ garden, findItemInSlotBySlotId }: SectionProps) => {
+    return (
+        <div className="right-section">
+            <div style={{ width: 140, display: "flex", justifyContent: "center" }}>
+                <Slot
+                    slotId={DEFAULT_GARDEN_SLOTS.SR2}
+                    itemId={findItemInSlotBySlotId(DEFAULT_GARDEN_SLOTS.SR2)}
+                    size={48}
+                    extraRewardSlot={true}
+                    target={TARGET_AREAS.GARDEN}
+                    gardenId={garden.gardenId}
+                />
+            </div>
+            <div className="branches">
+                <Image className="branch1" h={110} w={110} src={branch} />
+                <Image className="branch2" h={110} w={110} src={branch} />
+
+                <div className="branch-slot">
+                    <Slot
+                        slotId={DEFAULT_GARDEN_SLOTS.SR1}
+                        itemId={findItemInSlotBySlotId(DEFAULT_GARDEN_SLOTS.SR1)}
+                        size={48}
+                        extraRewardSlot={true}
+                        target={TARGET_AREAS.GARDEN}
+                        gardenId={garden.gardenId}
+                    />
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export function GardenArea({ garden }: GardenAreaProps) {
@@ -129,7 +158,7 @@ export function GardenArea({ garden }: GardenAreaProps) {
             <Flex gap="xs" w="100%" h="100%">
                 <LeftSection garden={garden} findItemInSlotBySlotId={findItemInSlotBySlotId} />
                 <MiddleSection garden={garden} findItemInSlotBySlotId={findItemInSlotBySlotId} />
-                <RightSection />
+                <RightSection garden={garden} findItemInSlotBySlotId={findItemInSlotBySlotId} />
             </Flex>
         </Card>
     );

@@ -31,6 +31,9 @@ export const DEFAULT_GARDEN_SLOTS = {
     SL3: "sl3",
     SL4: "sl4",
     SL5: "sl5",
+
+    SR1: "sr1",
+    SR2: "sr2",
 };
 
 export const INIT_GARDEN_SLOT_VALUES = {
@@ -63,4 +66,6 @@ export const INIT_GARDEN_SLOT_VALUES = {
     [DEFAULT_GARDEN_SLOTS.SL3]: null,
     [DEFAULT_GARDEN_SLOTS.SL4]: null,
     [DEFAULT_GARDEN_SLOTS.SL5]: null,
+    [DEFAULT_GARDEN_SLOTS.SR1]: null,
+    [DEFAULT_GARDEN_SLOTS.SR2]: null,
 };

@@ -81,3 +81,31 @@
     pointer-events: none;
     transform: scaleX(-1);
 }
+
+.branches {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    right: -14px;
+    top: -15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.branch1 {
+    position: absolute;
+    transform: rotate(45deg);
+}
+
+.branch2 {
+    position: absolute;
+    transform: rotate(45deg);
+    top: -61px;
+    right: -77px;
+}
+
+.branch-slot {
+    width: fit-content;
+    margin-bottom: 10px;
+}
