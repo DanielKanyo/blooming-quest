@@ -4,6 +4,8 @@ import { Card, Flex, SimpleGrid, Image, Group } from "@mantine/core";
 
 import bench from "../../Assets/Other/bench.png";
 import branch from "../../Assets/Other/branch.png";
+import bush from "../../Assets/Other/bush3.png";
+import fountain from "../../Assets/Other/fountain.png";
 import marsh from "../../Assets/Other/marsh.png";
 import reeds from "../../Assets/Other/reeds.png";
 import scarecrow from "../../Assets/Other/scarecrow.png";
@@ -138,6 +140,32 @@ const RightSection = ({ garden, findItemInSlotBySlotId }: SectionProps) => {
                         gardenId={garden.gardenId}
                     />
                 </div>
+            </div>
+            <Image className="bush3" h={80} w={80} src={bush} />
+            <Image className="fountain" h={120} w={120} src={fountain} />
+            <div className="bottom-area">
+                <Group justify="flex-end" gap="xl">
+                    <div>
+                        <Slot
+                            slotId={DEFAULT_GARDEN_SLOTS.SR3}
+                            itemId={findItemInSlotBySlotId(DEFAULT_GARDEN_SLOTS.SR3)}
+                            size={48}
+                            extraRewardSlot={true}
+                            target={TARGET_AREAS.GARDEN}
+                            gardenId={garden.gardenId}
+                        />
+                    </div>
+                    <div className="bird-house">
+                        <Slot
+                            slotId={DEFAULT_GARDEN_SLOTS.SR4}
+                            itemId={findItemInSlotBySlotId(DEFAULT_GARDEN_SLOTS.SR4)}
+                            size={48}
+                            extraRewardSlot={true}
+                            target={TARGET_AREAS.GARDEN}
+                            gardenId={garden.gardenId}
+                        />
+                    </div>
+                </Group>
             </div>
         </div>
     );

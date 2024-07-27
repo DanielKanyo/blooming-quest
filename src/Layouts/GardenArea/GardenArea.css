@@ -109,3 +109,23 @@
     width: fit-content;
     margin-bottom: 10px;
 }
+
+.bottom-area {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    height: 70px;
+    padding-right: 6px;
+}
+
+.bush3 {
+    position: absolute;
+    right: -34px;
+    top: 128px;
+}
+
+.fountain {
+    position: absolute;
+    left: calc(50% - 60px);
+    top: calc(50% - 75px);
+}
