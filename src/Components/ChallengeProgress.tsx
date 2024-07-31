@@ -56,6 +56,10 @@ export function ChallengeProgress() {
         const getProgressTooltipLabel = (numOfDaysInMonth: number, date: number) => {
             const daysLeft = numOfDaysInMonth - date;
 
+            if (daysLeft === 0) {
+                return "Only a few hours left...";
+            }
+
             if (daysLeft === 1) {
                 return "Only 1 day left...";
             }
