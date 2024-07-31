@@ -9,13 +9,12 @@ import { AppShell, Burger, Center, Group, Loader, Text, Image, Flex } from "@man
 import { useDisclosure } from "@mantine/hooks";
 
 import logo from "../Assets/Images/logo.png";
-import { Notifications } from "../Components/Notifications";
 import { UserMenu } from "../Components/UserMenu";
 import { auth } from "../Configs/Firebase/FirebaseConfig";
 import { Footer } from "../Layouts/Footer";
 import { Inventory } from "../Layouts/Inventory";
 import { AllQuests } from "../Layouts/Quests/AllQuests/AllQuests";
-import { Store } from "../Layouts/Store";
+import { Marketplace } from "../Layouts/Marketplace";
 import { fetchInventory } from "../Services/InventoryService";
 import { fetchUser } from "../Services/UserService";
 import { updateInventory } from "../Store/Features/InventorySlice";
@@ -88,9 +87,8 @@ export function HomePage() {
                             </div>
                             <Flex align="center">
                                 <Group gap="sm">
-                                    <Store />
+                                    <Marketplace />
                                     <Inventory />
-                                    <Notifications />
                                     <UserMenu />
                                 </Group>
                             </Flex>

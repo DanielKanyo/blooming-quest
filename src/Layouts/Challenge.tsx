@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button, Center, Flex, FocusTrap, Modal, ScrollArea, Image, Text, Group } from "@mantine/core";
+import { Button, Center, Flex, FocusTrap, Modal, ScrollArea, Image, Text, Group, Tooltip } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconPlus } from "@tabler/icons-react";
 
@@ -94,13 +94,12 @@ export function Challenge() {
                         .map((garden, index) => (
                             <GardenArea key={index} garden={garden} />
                         ))}
-                    <Button variant="light" color="gray" size="md" radius="md" fullWidth mb="var(--mantine-spacing-md)" onClick={open}>
-                        <IconPlus />
-                    </Button>
+                    <Tooltip label="Extend garden area" color="gray" radius="md">
+                        <Button variant="light" color="teal" size="md" radius="md" fullWidth mb="var(--mantine-spacing-md)" onClick={open}>
+                            <IconPlus />
+                        </Button>
+                    </Tooltip>
                 </ScrollArea>
-                <Flex mt="sm" style={{ background: "var(--mantine-color-dark-7)", borderRadius: "var(--mantine-radius-md)" }} p="md">
-                    Game Footer
-                </Flex>
                 <Modal
                     opened={opened}
                     onClose={close}
